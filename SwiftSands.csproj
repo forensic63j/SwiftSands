@@ -35,6 +35,8 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Managers\LoadManager.cs" />
+    <Compile Include="Managers\SaveManager.cs" />
     <Compile Include="Sprites\Character.cs" />
     <Compile Include="Sprites\Enemy.cs" />
     <Compile Include="Game1.cs" />
@@ -57,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
-    <Folder Include="Managers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
