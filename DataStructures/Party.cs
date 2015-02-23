@@ -17,7 +17,7 @@ namespace SwiftSands
 		/// </summary>
 		public List<Player> PartyList
 		{
-			get { return partyList}
+            get { return partyList; }
 		}
 
 		/// <summary>
@@ -45,6 +45,16 @@ namespace SwiftSands
 		{
 			partyList = new List<Player>();
 		}
+
+        public void Add(Player partymember)
+        {
+            partyList.Add(partymember);
+        }
+
+        public bool Remove(Player partymember)
+        {
+            return partyList.Remove(partymember);
+        }
 		#endregion
 	}
 }
