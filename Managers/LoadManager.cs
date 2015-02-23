@@ -13,6 +13,9 @@ namespace SwiftSands.Managers
         #endregion
 
         #region method
+		/// <summary>
+		/// Creates a load manager.
+		/// </summary>
         public LoadManager()
         {
             saveInfo = Directory.CreateDirectory("Data//SaveFiles"); 
@@ -34,11 +37,17 @@ namespace SwiftSands.Managers
         {
             try
             {
-                using (BinaryReader input = new BinaryReader(filename))
-                {
+				using(Stream inStream = File.OpenRead(filename))
+				{
+					using(BinaryReader input = new BinaryReader(inStream))
+					{
 
-                }
-            }
+					}
+				}
+			} catch(Exception e)
+			{
+
+			}
         }
         #endregion
     }

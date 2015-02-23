@@ -38,6 +38,14 @@ namespace SwiftSands
 				}
 			}
 		}
+
+		/// <summary>
+		/// Gets count
+		/// </summary>
+		public int Count
+		{
+			get { return partyList.Count; }  //Would be more effective using a list dirrectly.
+		}
 		#endregion
 
 		#region methods
@@ -57,4 +65,6 @@ namespace SwiftSands
         }
 		#endregion
 	}
+
+	//Note: you cannot use foreach with this class.
 }
