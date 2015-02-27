@@ -37,6 +37,7 @@ namespace SwiftSands.Managers
         {
 			try
 			{
+				#region characters
 				using(StreamReader input = new StreamReader("Data//GameEntities//Characters"))
 				{
 					String characterData = input.ReadToEnd();
@@ -75,9 +76,35 @@ namespace SwiftSands.Managers
 						}
 					}
 				}
+				#endregion
+
+				#region items
+				using(StreamReader input = new StreamReader("Data//GameEntities//Item"))
+				{
+					String itemData = input.ReadToEnd();
+					String[] items = itemData.Split(';');
+					for(int i = 0; i < items.Length; i++)
+					{
+						String[] itemStats = items[i].Split(',');
+
+						//Name and type
+						String name = itemStats[0];
+						ItemType type = Item.ParseType(itemStats[1]);
+						String description = itemStats[2];
+
+						//Healing and damage
+						int healing = int.Parse(itemStats[3]);
+						int damage = int.Parse(itemStats[4]);
+
+						//Item creation
+						Item tempItem = new Item(type,healing,damage,name,description);
+						itemList.Add(tempItem);
+					}
+				}
+				#endregion
 			} catch(Exception e)
 			{
-
+				
 			}
         }
 

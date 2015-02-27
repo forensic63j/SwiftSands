@@ -83,5 +83,22 @@ namespace SwiftSands
 				description = value;
 			}
 		}
+
+		/// <summary>
+		/// Converts a String into a ItemType. Throws an exception if the String does not match a type.
+		/// </summary>
+		/// <param name="s">The string to be parsed.</param>
+		/// <returns>The type or an exception.</returns>
+		public static ItemType ParseType(String s){
+			switch(s)
+			{
+				case "Melee": return ItemType.Melee;
+				case "AttackSpell": return ItemType.AttackSpell;
+				case "Evidence": return ItemType.Evidence;
+				case "Gun": return ItemType.Gun;
+				case "HealingSpell": return ItemType.HealingSpell;
+				default: throw new ArgumentException();
+			}
+		}
 	}
 }
