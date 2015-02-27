@@ -26,6 +26,30 @@ namespace SwiftSands
 			stats.Add(a);
 		}
 		
+		public int Exp
+		{
+			get
+			{
+				return exp;
+			}
+			set
+			{
+				exp = value;
+			}
+		}
+		
+		public int ExpNeeded
+		{
+			get
+			{
+				return expNeeded;
+			}
+			set
+			{
+				expNeeded = value;
+			}
+		}
+		
 		public void ReturnToDoctor()
 		{
 			if(this.Health <= 0)
