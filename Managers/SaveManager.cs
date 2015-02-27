@@ -21,10 +21,15 @@ namespace SwiftSands.Managers
 				{
 					using(BinaryWriter output = new BinaryWriter(outStream))
 					{
+						//saves players
 						output.Write(players.Count);
 						for(int i = 0; i < players.Count; i++)
 						{
+							Player p = players[i];
 							
+							output.Write(p.Name);
+							output.Write(p.Level);
+							output.Write(p.Health);
 						}
 					}
 				}
