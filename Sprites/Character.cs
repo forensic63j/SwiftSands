@@ -15,6 +15,7 @@ namespace SwiftSands
 		private int accuracy;
 		private int level;
 		private bool canJoin;
+		private bool alive;
 		private String name;
 		
 		public Character(int health, int mana, int speed, int strength, int accuracy, int level, bool a, String name)
@@ -26,6 +27,7 @@ namespace SwiftSands
 			this.accuracy = accuracy;
 			this.level = level;
 			canJoin = a;
+			alive = true;
 			this.name = name;
 		}
 		
@@ -107,11 +109,35 @@ namespace SwiftSands
 		//Methods
 		public void Attack(Item weapon, Character enemy)
 		{
-			
+			Random rand = new Random();
+			if(rand.Next(101) <= this.accuracy)
+			{
+				int damage = weapon.Damage + this.strength;
+				enemy.TakeDamage(damage);
+			}
 		}
 		public void Cast(Item spell, Character target)
 		{
-			
+			if(spell.Type == ItemType.HealingSpell)
+			{
+				target.Heal(spell.Healing)
+			}
+			if(spell.Type == ItemType.AttackSpell)
+			{
+				target.TakeDamage(spell.Damage);
+			}
+		}
+		public void TakeDamage(int damage)
+		{
+			this.Health -= damage;
+			if(this.Health <= 0)
+			{
+				alive = false;
+			}
+		}
+		public void Heal(int addHealth)
+		{
+			this.Health += addHealth;
 		}
 	}
 }
