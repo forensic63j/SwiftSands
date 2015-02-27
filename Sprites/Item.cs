@@ -13,6 +13,7 @@ namespace SwiftSands
 		AttackSpell,
 		Evidence
 	}
+
 	class Item:Sprite
 	{
 		private ItemType type;
@@ -20,6 +21,8 @@ namespace SwiftSands
 		private int damage;
 		private String name;
 		private String description;
+		private ItemType itemType;
+
 		public Item(ItemType i, int h, int d, String n, String de)
 		{
 			itemType = i;

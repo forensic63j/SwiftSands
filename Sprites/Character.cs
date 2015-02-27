@@ -128,7 +128,7 @@ namespace SwiftSands
 		{
 			if(spell.Type == ItemType.HealingSpell)
 			{
-				target.Heal(spell.Healing)
+				target.Heal(spell.Healing);
 			}
 			if(spell.Type == ItemType.AttackSpell)
 			{
