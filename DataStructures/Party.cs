@@ -56,7 +56,10 @@ namespace SwiftSands
 
         public void Add(Player partymember)
         {
-            partyList.Add(partymember);
+			if(Count < 6)
+			{
+				partyList.Add(partymember);
+			}
         }
 
         public bool Remove(Player partymember)

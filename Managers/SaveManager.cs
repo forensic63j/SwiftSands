@@ -30,6 +30,22 @@ namespace SwiftSands.Managers
 							
 							//Name
 							output.Write(player.Name);
+
+							//Health, mana, death data
+							//output.Write(player.MaxHealth);
+							output.Write(player.Health);
+							output.Write(player.Mana);
+							//output.Write(player.NumDeaths);
+
+							//Leveling
+							output.Write(player.Level);
+							output.Write(player.Exp);
+							output.Write(player.ExpNeeded);
+
+							//Stats
+							output.Write(player.Accuracy);
+							output.Write(player.Speed);
+							output.Write(player.Strength);
 						}
 					}
 				}
