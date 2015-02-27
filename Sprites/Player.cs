@@ -35,6 +35,8 @@ namespace SwiftSands
 			set
 			{
 				exp = value;
+				if(exp >= this.ExpNeeded)
+					this.LevelUp();
 			}
 		}
 		
@@ -70,15 +72,12 @@ namespace SwiftSands
 		public void LevelUp()
 		{
 			Random rand = new Random();
-			if(exp >= expNeeded)
+			this.Level++;
+			exp -= expNeeded;
+			for(int i = 0; i < 5; i++)
 			{
-				this.Level++;
-				exp -= expNeeded;
-				for(int i = 0; i < 5; i++)
-				{
-					if(rand.Next(0, 100) >= 75) //75% chance for each stat to boost
-						stats[i]++;
-				}
+				if(rand.Next(0, 100) >= 75) //75% chance for each stat to boost
+					stats[i]++;
 			}
 		}
 	}
