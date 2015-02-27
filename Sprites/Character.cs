@@ -14,9 +14,10 @@ namespace SwiftSands
 		private int strength;
 		private int accuracy;
 		private int level;
+		private bool canJoin;
 		private String name;
 		
-		public Character(int speed, int health, int mana, int strength, int accuracy, int level, String name)
+		public Character(int speed, int health, int mana, int strength, int accuracy, int level,, bool a String name)
 		{
 			this.speed = speed;
 			this.health = health;
@@ -24,6 +25,7 @@ namespace SwiftSands
 			this.strength = strength;
 			this.accuracy = accuracy;
 			this.level = level;
+			canJoin = a;
 			this.name = name;
 		}
 		
