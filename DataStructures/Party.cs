@@ -54,18 +54,40 @@ namespace SwiftSands
 			partyList = new List<Player>();
 		}
 
-        public void Add(Player partymember)
+		/// <summary>
+		/// Adds a player to the party.
+		/// </summary>
+		/// <param name="partymember">The player added.</param>
+		/// <returns>Whether the player was successfuly added.</returns>
+        public bool Add(Player partymember)
         {
 			if(Count < 6)
 			{
 				partyList.Add(partymember);
+				return true;
+			} else
+			{
+				return false;
 			}
         }
 
+		/// <summary>
+		/// Removes a player from the party
+		/// </summary>
+		/// <param name="partymember">The player to be removed.</param>
+		/// <returns>The removed player.</returns>
         public bool Remove(Player partymember)
         {
             return partyList.Remove(partymember);
         }
+
+		/// <summary>
+		/// Clears party.
+		/// </summary>
+		public void Clear()
+		{
+			partyList.Clear();
+		}
 		#endregion
 	}
 

@@ -19,13 +19,14 @@ namespace SwiftSands.Managers
 		{
 			try
 			{
-				using(Stream outStream = File.OpenWrite(filename))
+				using(Stream outStream = File.OpenWrite("Data//" + filename))
 				{
 					using(BinaryWriter output = new BinaryWriter(outStream))
 					{
 						output.Write(players.Count);
 						for(int i = 0; i < players.Count; i++)
 						{
+							#region player
 							Player player = players[i];
 							
 							//Name
@@ -46,12 +47,13 @@ namespace SwiftSands.Managers
 							output.Write(player.Accuracy);
 							output.Write(player.Speed);
 							output.Write(player.Strength);
+							#endregion
 						}
 					}
 				}
 				for(int i = 0; i < players.Count; i++)
 				{
-					using(Stream imgStream = File.OpenWrite("Player\\Sprites\\Player" + i))
+					using(Stream imgStream = File.OpenWrite("PlayerSprites\\Player" + i))
 					{
 						Texture2D texture = players[i].Texture;
 						texture.SaveAsPng(imgStream,texture.Width,texture.Height);
