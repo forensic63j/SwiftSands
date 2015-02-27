@@ -27,7 +27,7 @@ namespace SwiftSands
 		}
 		
 		public void ReturnToDoctor()
-		
+		{
 			if(this.Health <= 0)
 			{
 				//Remove from party roster
