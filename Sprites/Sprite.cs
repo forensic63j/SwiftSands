@@ -11,7 +11,7 @@ namespace SwiftSands
 	{
 		#region fields
 		private Texture2D texture;
-		private Rectangle position;
+		private Vector2 position;
 		#endregion
 
 		#region properties
@@ -26,7 +26,7 @@ namespace SwiftSands
 		/// <summary>
 		/// Gets position.
 		/// </summary>
-		public Rectangle Position
+		public Vector2 Position
 		{
 			get { return position; }
 		}
