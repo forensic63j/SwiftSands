@@ -8,20 +8,20 @@ namespace SwiftSands
 	class Character:Sprite
 	{
 		//stats
-		private int speed;
 		private int health;
 		private int mana;
+		private int speed;
 		private int strength;
 		private int accuracy;
 		private int level;
 		private bool canJoin;
 		private String name;
 		
-		public Character(int speed, int health, int mana, int strength, int accuracy, int level, bool a, String name)
+		public Character(int health, int mana, int speed, int strength, int accuracy, int level, bool a, String name)
 		{
-			this.speed = speed;
 			this.health = health;
 			this.mana = mana;
+			this.speed = speed;
 			this.strength = strength;
 			this.accuracy = accuracy;
 			this.level = level;
