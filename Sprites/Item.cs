@@ -7,7 +7,8 @@ namespace SwiftSands
 {
 	enum ItemType
 	{
-		Weapon,
+		Melee,
+		Gun,
 		HealingSpell,
 		AttackSpell,
 		Evidence
