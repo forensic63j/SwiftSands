@@ -19,7 +19,7 @@ namespace SwiftSands.Managers
 		{
 			try
 			{
-				using(Stream outStream = File.OpenWrite("Data//" + filename))
+				using(Stream outStream = File.OpenWrite("Data//Savefiles//" + filename))
 				{
 					using(BinaryWriter output = new BinaryWriter(outStream))
 					{

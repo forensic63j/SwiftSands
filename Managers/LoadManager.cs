@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SwiftSands.Managers
 {
-	
+
 	class LoadManager
     {
         #region fields
@@ -31,9 +31,54 @@ namespace SwiftSands.Managers
         /// <summary>
         /// Loads content.
         /// </summary>
-        public void LoadContent()
+		/// <param name="characterList">List of characters in the game.</param>
+		/// <param name="itemList">List of the items in the game.</param>
+        public void LoadContent(ref List<Character> characterList, ref List<Item> itemList)
         {
+			try
+			{
+				using(StreamReader input = new StreamReader("Data//GameEntities//Characters"))
+				{
+					String characterData = input.ReadToEnd();
+					String[] characters = characterData.Split(';');
+					for(int i = 0; i < characters.Length; i++)
+					{
+						String[] characterStats = characters[i].Split(',');
+						//name,recruitable
+						String name = characterStats[0];
+						bool recruitable = bool.Parse(characterStats[1]);
 
+						//Health, mana, death data
+						int health = int.Parse(characterStats[2]);
+						int mana = int.Parse(characterStats[3]);
+						int deathsAllowed = int.Parse(characterStats[4]);
+
+						//Leveling
+						int level = int.Parse(characterStats[5]);
+
+						//stats
+						int accuracy = int.Parse(characterStats[6]);
+						int speed = int.Parse(characterStats[7]);
+						int strength = int.Parse(characterStats[8]);
+
+						if(characterStats.Length > 9)
+						{
+							int xpAwarded = int.Parse(characterStats[9]);
+							//create enemy
+							Enemy tempEnemy = new Enemy(health,mana,speed,strength,accuracy,level,recruitable,name,xpAwarded);
+							characterList.Add(tempEnemy);
+						} else
+						{
+							//Builds character
+							Character tempCharacter = new Character(health,mana,speed,strength,accuracy,level,recruitable,name);
+							characterList.Add(tempCharacter);
+						}
+					}
+				}
+			} catch(Exception e)
+			{
+
+			}
         }
 
         /// <summary>
@@ -41,8 +86,9 @@ namespace SwiftSands.Managers
         /// </summary>
         /// <param name="filename">The name of the file to load.</param>
         public void LoadSavefile(String filename, ref Party players)
-        {
-            Texture2D[] sprites = null;
+		{
+			#region texture
+			Texture2D[] sprites = null;
 			try
             {
 				//Load textures
@@ -70,9 +116,9 @@ namespace SwiftSands.Managers
 						}
 					}
 				}
+			#endregion
 
-				//Setting players
-				using(Stream inStream = File.OpenRead(filename))
+				using(Stream inStream = File.OpenRead("Savefiles//" + filename))
 				{
 					using(BinaryReader input = new BinaryReader(inStream))
 					{
