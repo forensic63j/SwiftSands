@@ -112,7 +112,15 @@ namespace SwiftSands
 			Random rand = new Random();
 			if(rand.Next(101) <= this.accuracy)
 			{
-				int damage = weapon.Damage + this.strength;
+				int damage = this.Strength;
+				if(weapon.Type == ItemType.Melee)
+				{
+					damage += weapon.Damage;
+				}
+				if(weapon.Type == ItemType.Gun)
+				{
+					damage = weapon.Damage;
+				}
 				enemy.TakeDamage(damage);
 			}
 		}
