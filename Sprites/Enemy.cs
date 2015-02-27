@@ -7,9 +7,10 @@ namespace SwiftSands
 {
 	class Enemy:Character
 	{
-		public Enemy(int sp, int h, int m, int st, int a, int l, bool c, String n):base(sp, h, m, st, a, l, c, n)
+		private int expAwarded;
+		public Enemy(int h, int m, int sp, int st, int a, int l, bool c, String n, int e):base(sp, h, m, st, a, l, c, n)
 		{
-			
+			expAwarded = e;
 		}
 	}
 }
