@@ -17,7 +17,7 @@ namespace SwiftSands
 		private bool canJoin;
 		private String name;
 		
-		public Character(int speed, int health, int mana, int strength, int accuracy, int level,, bool a String name)
+		public Character(int speed, int health, int mana, int strength, int accuracy, int level, bool a, String name)
 		{
 			this.speed = speed;
 			this.health = health;
