@@ -86,7 +86,19 @@ namespace SwiftSands.Managers
 					for(int i = 0; i < items.Length; i++)
 					{
 						String[] itemStats = items[i].Split(',');
-						ItemType type = Item.ParseType(itemStats[0]);
+
+						//Name and type
+						String name = itemStats[0];
+						ItemType type = Item.ParseType(itemStats[1]);
+						String description = itemStats[2];
+
+						//Healing and damage
+						int healing = int.Parse(itemStats[3]);
+						int damage = int.Parse(itemStats[4]);
+
+						//Item creation
+						Item tempItem = new Item(type,healing,damage,name,description);
+						itemList.Add(tempItem);
 					}
 				}
 				#endregion
