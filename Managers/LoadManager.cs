@@ -37,6 +37,7 @@ namespace SwiftSands.Managers
         {
 			try
 			{
+				#region characters
 				using(StreamReader input = new StreamReader("Data//GameEntities//Characters"))
 				{
 					String characterData = input.ReadToEnd();
@@ -75,9 +76,23 @@ namespace SwiftSands.Managers
 						}
 					}
 				}
+				#endregion
+
+				#region items
+				using(StreamReader input = new StreamReader("Data//GameEntities//Item"))
+				{
+					String itemData = input.ReadToEnd();
+					String[] items = itemData.Split(';');
+					for(int i = 0; i < items.Length; i++)
+					{
+						String[] itemStats = items[i].Split(',');
+						ItemType type = Item.ParseType(itemStats[0]);
+					}
+				}
+				#endregion
 			} catch(Exception e)
 			{
-
+				
 			}
         }
 
