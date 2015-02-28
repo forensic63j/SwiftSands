@@ -10,6 +10,7 @@ namespace SwiftSands
 	class Character:Sprite
 	{
 		//stats
+		private int maxHealth;
 		private int health;
 		private int mana;
 		private int speed;
@@ -20,8 +21,8 @@ namespace SwiftSands
 		private bool alive;
 		private String name;
 		
-		public Character(int health, int mana, int speed, int strength, int accuracy, int level, bool a, String name,
-			Texture2D texture, Rectangle pos, bool active, bool field):base(texture, pos, active, field)
+		public Character(int max, int health, int mana, int speed, int strength, int accuracy, int level, bool a,
+		String name, Texture2D texture, Rectangle pos, bool active, bool field):base(texture, pos, active, field)
 		{
 			this.health = health;
 			this.mana = mana;
@@ -35,6 +36,17 @@ namespace SwiftSands
 		}
 		
 		//Properties
+		public int MaxHealth
+		{
+			get
+			{
+				return maxHealth;
+			}
+			set
+			{
+				maxHealth = value;
+			}
+		}
 		public int Speed
 		{
 			get
@@ -54,7 +66,10 @@ namespace SwiftSands
 			}
 			set
 			{
-				health = value;
+				if(value > maxHealth)
+					health = maxHealth;
+				else
+					health = value;
 			}
 		}
 		public int Mana
