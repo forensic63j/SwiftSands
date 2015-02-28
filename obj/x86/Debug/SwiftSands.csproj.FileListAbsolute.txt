@@ -25,3 +25,6 @@ C:\Users\Brian\Documents\GitHub\SwiftSands\obj\x86\Debug\SwiftSands.exe
 C:\Users\Brian\Documents\GitHub\SwiftSands\obj\x86\Debug\SwiftSands.pdb
 C:\Users\ClaytonNew\Documents\Visual Studio 2013\Projects\SwiftSands\obj\x86\Debug\SwiftSands.exe
 C:\Users\ClaytonNew\Documents\Visual Studio 2013\Projects\SwiftSands\obj\x86\Debug\SwiftSands.pdb
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\obj\x86\Debug\SwiftSands.exe
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\obj\x86\Debug\SwiftSands.pdb
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\obj\x86\Debug\SwiftSands.csprojResolveAssemblyReference.cache

@@ -24,8 +24,9 @@ namespace SwiftSands
 		private String name;
 		private String description;
 		private ItemType itemType;
+        private bool collected; //Whether or not the item has been collected
 
-		public Item(ItemType i, int h, int d, String n, String de, Texture2D texture, Rectangle pos, bool active, 
+		public Item(ItemType i, int h, int d, String n, String de, bool col, Texture2D texture, Rectangle pos, bool active, 
 			bool field):base(texture, pos, active, field)
 		{
 			itemType = i;
@@ -33,9 +34,11 @@ namespace SwiftSands
 			damage = d;
 			name = n;
 			description = de;
+            collected = col;
 		}
-		
-		public ItemType Type
+
+        #region Parameters
+        public ItemType Type
 		{
 			get
 			{
@@ -86,8 +89,20 @@ namespace SwiftSands
 				description = value;
 			}
 		}
+        public bool Collected
+        {
+            get
+            {
+                return collected;
+            }
+            set
+            {
+                collected = value;
+            }
+        }
+        #endregion
 
-		/// <summary>
+        /// <summary>
 		/// Converts a String into a ItemType. Throws an exception if the String does not match a type.
 		/// </summary>
 		/// <param name="s">The string to be parsed.</param>

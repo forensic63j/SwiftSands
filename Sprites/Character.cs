@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 namespace SwiftSands
 {
 	class Character:Sprite
-	{
-		//stats
-		private int maxHealth;
+    {
+        #region Fields
+        private int maxHealth;
 		private int health;
 		private int mana;
 		private int speed;
@@ -20,8 +20,9 @@ namespace SwiftSands
 		private bool canJoin;
 		private bool alive;
 		private String name;
-		
-		public Character(int max, int health, int mana, int speed, int strength, int accuracy, int level, bool a,
+        #endregion
+
+        public Character(int max, int health, int mana, int speed, int strength, int accuracy, int level, bool a,
 		String name, Texture2D texture, Rectangle pos, bool active, bool field):base(texture, pos, active, field)
 		{
 			this.health = health;
@@ -35,7 +36,7 @@ namespace SwiftSands
 			this.name = name;
 		}
 		
-		//Properties
+        #region Properties
 		public int MaxHealth
 		{
 			get
@@ -141,9 +142,10 @@ namespace SwiftSands
 				alive = value;
 			}
 		}
-		
-		//Methods
-		public void Attack(Item weapon, Character enemy)
+        #endregion
+
+        #region Methods
+        public void Attack(Item weapon, Character enemy)
 		{
 			Random rand = new Random();
 			if(rand.Next(101) <= this.accuracy)
@@ -183,5 +185,6 @@ namespace SwiftSands
 		{
 			this.Health += addHealth;
 		}
-	}
+    }
+        #endregion
 }
