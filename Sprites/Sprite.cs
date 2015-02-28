@@ -31,5 +31,11 @@ namespace SwiftSands
 			get { return position; }
 		}
 		#endregion
+
+        public Sprite(Texture2D tex, Rectangle pos)
+        {
+            this.texture = tex;
+            this.position = pos;
+        }
 	}
 }

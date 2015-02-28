@@ -13,17 +13,17 @@ namespace SwiftSands
 {
     static class StateManager
     {
-        Dictionary<string, IState> allStates;
-        static public Stack<IState> stateStack;
+        Dictionary<string, State> allStates;
+        static public Stack<State> stateStack;
         /// <summary>
         /// Switches state, calls exit and enter
         /// </summary>
         /// <param name="newState"></param>
-        static public void SwitchState(IState newState)
+        static public void SwitchState(State newState)
         {
             if (stateStack.Count >= 1)
             {
-                stateStack.Peek().OnExit();
+                stateStack.Peek().OnDestroy();
                 stateStack.Clear();
             }
             stateStack.Push(newState);
@@ -33,7 +33,7 @@ namespace SwiftSands
         /// Opens new state ontop of stack without closing previous state
         /// </summary>
         /// <param name="newState"></param>
-        static public void OpenState(IState newState)
+        static public void OpenState(State newState)
         {
             stateStack.Push(newState);
             stateStack.Peek().OnEnter();
