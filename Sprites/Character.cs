@@ -108,6 +108,24 @@ namespace SwiftSands
 				return name;
 			}
 		}
+		public bool CanJoin
+		{
+			get
+			{
+				return canJoin;
+			}
+		}
+		public bool Alive
+		{
+			get
+			{
+				return alive;
+			}
+			set
+			{
+				alive = value;
+			}
+		}
 		
 		//Methods
 		public void Attack(Item weapon, Character enemy)
