@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace SwiftSands
 {
@@ -23,7 +25,8 @@ namespace SwiftSands
 		private String description;
 		private ItemType itemType;
 
-		public Item(ItemType i, int h, int d, String n, String de)
+		public Item(ItemType i, int h, int d, String n, String de, Texture2D texture, Rectangle pos, bool active, 
+			bool field):base(texture, pos, active, field)
 		{
 			itemType = i;
 			healing = h;
