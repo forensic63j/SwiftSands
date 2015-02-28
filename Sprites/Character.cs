@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace SwiftSands
 {
@@ -18,7 +20,8 @@ namespace SwiftSands
 		private bool alive;
 		private String name;
 		
-		public Character(int health, int mana, int speed, int strength, int accuracy, int level, bool a, String name)
+		public Character(int health, int mana, int speed, int strength, int accuracy, int level, bool a, String name,
+			Texture2D texture, Rectangle pos, bool active, bool field):base(texture, pos, active, field)
 		{
 			this.health = health;
 			this.mana = mana;
