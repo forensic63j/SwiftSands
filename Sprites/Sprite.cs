@@ -12,6 +12,8 @@ namespace SwiftSands
 		#region fields
 		private Texture2D texture;
 		private Rectangle position;
+		private bool isActive;
+		private bool isOnField;
 		#endregion
 
 		#region properties
@@ -30,12 +32,26 @@ namespace SwiftSands
 		{
 			get { return position; }
 		}
+		
+		public bool IsActive
+		{
+			get { return isActive; }
+			set { isActive = value; }
+		}
+		
+		public bool IsOnField
+		{
+			get { return isOnField; }
+			set { isOnField = value; }
+		}
 		#endregion
 
-        public Sprite(Texture2D tex, Rectangle pos)
+        public Sprite(Texture2D tex, Rectangle pos, bool act, bool field)
         {
             this.texture = tex;
             this.position = pos;
+            isActive = act;
+            isOnField = field;
         }
 	}
 }
