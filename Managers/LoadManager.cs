@@ -50,28 +50,47 @@ namespace SwiftSands.Managers
 						bool recruitable = bool.Parse(characterStats[1]);
 
 						//Health, mana, death data
-						int health = int.Parse(characterStats[2]);
-						int mana = int.Parse(characterStats[3]);
-						int deathsAllowed = int.Parse(characterStats[4]);
+						int maxHealth = int.Parse(characterStats[2]);
+						int health = int.Parse(characterStats[3]);
+						int mana = int.Parse(characterStats[4]);
+						int deathsAllowed = int.Parse(characterStats[5]);
 
 						//Leveling
-						int level = int.Parse(characterStats[5]);
+						int level = int.Parse(characterStats[6]);
 
 						//stats
-						int accuracy = int.Parse(characterStats[6]);
-						int speed = int.Parse(characterStats[7]);
-						int strength = int.Parse(characterStats[8]);
+						int accuracy = int.Parse(characterStats[7]);
+						int speed = int.Parse(characterStats[8]);
+						int strength = int.Parse(characterStats[9]);
 
-						if(characterStats.Length > 9)
+						//sprite fields
+						String textureFile = characterStats[10];
+						//Texture
+						Texture2D sprite = null;
+						using(Stream imgStream = File.OpenRead("Content//CharacterSprites//" + textureFile)){
+							sprite = Texture2D.FromStream(game.GraphicsDevice,imgStream);
+						}
+						//rectangle
+						int x = int.Parse(characterStats[11]);
+						int y = int.Parse(characterStats[12]);
+						int width = int.Parse(characterStats[13]);
+						int height = int.Parse(characterStats[14]);
+						Rectangle position = new Rectangle(x,y,width,height);
+
+						//active/on screen
+						bool active = bool.Parse(characterStats[15]);
+						bool onScreen = bool.Parse(characterStats[16]);
+
+						if(characterStats.Length > 17)
 						{
-							int xpAwarded = int.Parse(characterStats[9]);
+							int xpAwarded = int.Parse(characterStats[17]);
 							//create enemy
-							Enemy tempEnemy = new Enemy(health,mana,speed,strength,accuracy,level,recruitable,name,xpAwarded);
+							Enemy tempEnemy = new Enemy(maxHealth,health,mana,speed,strength,accuracy,level,recruitable,name,xpAwarded,sprite,position,active,onScreen);
 							characterList.Add(tempEnemy);
 						} else
 						{
 							//Builds character
-							Character tempCharacter = new Character(health,mana,speed,strength,accuracy,level,recruitable,name);
+							Character tempCharacter = new Character(maxHealth,health,mana,speed,strength,accuracy,level,recruitable,name,sprite,position,active,onScreen);
 							characterList.Add(tempCharacter);
 						}
 					}
@@ -96,8 +115,29 @@ namespace SwiftSands.Managers
 						int healing = int.Parse(itemStats[3]);
 						int damage = int.Parse(itemStats[4]);
 
+						//sprite fields
+						String textureFile = itemStats[5];
+						//Texture
+						Texture2D sprite = null;
+						using(Stream imgStream = File.OpenRead("Content//ItemSprites//" + textureFile))
+						{
+							sprite = Texture2D.FromStream(game.GraphicsDevice,imgStream);
+						}
+						//rectangle
+						int x = int.Parse(itemStats[6]);
+						int y = int.Parse(itemStats[7]);
+						int width = int.Parse(itemStats[8]);
+						int height = int.Parse(itemStats[9]);
+						Rectangle position = new Rectangle(x,y,width,height);
+
+						//active/on screen
+						bool collected = bool.Parse(itemStats[10]);
+						bool active = bool.Parse(itemStats[11]);
+						bool onScreen = bool.Parse(itemStats[12]);
+
+
 						//Item creation
-						Item tempItem = new Item(type,healing,damage,name,description);
+						Item tempItem = new Item(type,healing,damage,name,description,collected,sprite,position,active,onScreen);
 						itemList.Add(tempItem);
 					}
 				}

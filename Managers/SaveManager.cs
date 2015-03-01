@@ -33,7 +33,7 @@ namespace SwiftSands.Managers
 							output.Write(player.Name);
 
 							//Health, mana, death data
-							//output.Write(player.MaxHealth);
+							output.Write(player.MaxHealth);
 							output.Write(player.Health);
 							output.Write(player.Mana);
 							//output.Write(player.NumDeaths);
