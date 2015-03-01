@@ -7,7 +7,7 @@ namespace SwiftSands
 {
 	class Party
 	{
-		#region feilds
+		#region fields
 		private List<Player> partyList;
 		#endregion
 

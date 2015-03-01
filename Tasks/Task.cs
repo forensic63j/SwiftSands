@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SwiftSands.Tasks
+namespace SwiftSands
 {
     enum TaskType
     {
@@ -100,7 +100,10 @@ namespace SwiftSands.Tasks
         }
         public void UpdateConverseTask(Character character, Party party)
         {
-
+            if (character.Name == target)
+            {
+                EndTask(party);
+            }
         }
         #endregion
     }
