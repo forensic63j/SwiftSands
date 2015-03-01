@@ -47,6 +47,17 @@ namespace SwiftSands.Managers
 							output.Write(player.Accuracy);
 							output.Write(player.Speed);
 							output.Write(player.Strength);
+
+							//Rectangle
+							Rectangle pos = player.Position;
+							output.Write(pos.X);
+							output.Write(pos.Y);
+							output.Write(pos.Width);
+							output.Write(pos.Height);
+
+							//Booleans
+							output.Write(player.IsActive);
+							output.Write(player.IsOnField);
 							#endregion
 						}
 					}

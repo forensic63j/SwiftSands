@@ -198,7 +198,7 @@ namespace SwiftSands.Managers
 							String name = input.ReadString();
 
 							//Health, mana, death data
-							//int maxHealth = input.ReadInt32();
+							int maxHealth = input.ReadInt32();
 							int health = input.ReadInt32();
 							int mana = input.ReadInt32();
 							//int numDeaths = input.ReadInt32();
@@ -209,13 +209,24 @@ namespace SwiftSands.Managers
 							int exp = input.ReadInt32();
 							int expNeeded = input.ReadInt32();
 
-							//stats
+							//Stats
 							int accuracy = input.ReadInt32();
 							int speed = input.ReadInt32();
 							int strength = input.ReadInt32();
 
+							//Rectangle
+							int x = input.ReadInt32();
+							int y = input.ReadInt32();
+							int width = input.ReadInt32();
+							int height = input.ReadInt32();
+							Rectangle position = new Rectangle(x,y,width,height);
+
+							//Booleans
+							bool active = input.ReadBoolean();
+							bool onScreen = input.ReadBoolean();
+
 							//instantiate player
-							players.Add(new Player(health,mana,speed,strength,accuracy,level,true,name,deathsAllowed));
+							players.Add(new Player(maxHealth,health,mana,speed,strength,accuracy,level,true,name,deathsAllowed,sprites[i],position,active,onScreen));
 						}
 						#endregion	
 					}
