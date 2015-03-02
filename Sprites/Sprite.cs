@@ -53,5 +53,15 @@ namespace SwiftSands
             isActive = act;
             isOnField = field;
         }
-	}
+
+        #region methods
+        /// <summary>
+        /// Draws the sprite.
+        /// </summary>
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(texture, position, Color.White);
+        }
+        #endregion
+    }
 }
