@@ -1,0 +1,59 @@
+diff a/Managers/StateManager.cs b/Managers/StateManager.cs	(rejected hunks)
+@@ -0,0 +1,57 @@
++﻿using System;
++using System.Collections.Generic;
++using System.Linq;
++using System.Text;
++using Microsoft.Xna.Framework;
++using Microsoft.Xna.Framework.Content;
++using Microsoft.Xna.Framework.Graphics;
++using Microsoft.Xna.Framework.Input;
++using Microsoft.Xna.Framework.Storage;
++using Microsoft.Xna.Framework.GamerServices;
++
++namespace SwiftSands
++{
++    static class StateManager
++    {
++        Dictionary<string, IState> allStates;
++        static public Stack<IState> stateStack;
++        /// <summary>
++        /// Switches state, calls exit and enter
++        /// </summary>
++        /// <param name="newState"></param>
++        static public void SwitchState(IState newState)
++        {
++            if (stateStack.Count >= 1)
++            {
++                stateStack.Peek().OnExit();
++                stateStack.Clear();
++            }
++            stateStack.Push(newState);
++            stateStack.Peek().OnEnter();
++        }
++        /// <summary>
++        /// Opens new state ontop of stack without closing previous state
++        /// </summary>
++        /// <param name="newState"></param>
++        static public void OpenState(IState newState)
++        {
++            stateStack.Push(newState);
++            stateStack.Peek().OnEnter();
++        }
++        /// <summary>
++        /// Closes state ontop of stateStack
++        /// </summary>
++        static public void CloseState()
++        {
++            if (stateStack.Count > 1)
++            {
++                stateStack.Peek().OnExit();
++                stateStack.Pop();                
++            }
++            else
++            {
++                throw new IndexOutOfRangeException();
++            }
++        }
++    }
++}
