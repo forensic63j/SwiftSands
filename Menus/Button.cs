@@ -14,7 +14,7 @@ namespace SwiftSands
 		private String name;
 		private SpriteFont font;
 		public delegate void Clicked();
-		public Clicked onClick;
+		private Clicked onClick;
 		#endregion
 
 		#region properties
@@ -25,6 +25,15 @@ namespace SwiftSands
 		{
 			get { return name; }
 		}
+
+        /// <summary>
+        /// Gets and sets the onClick delegate.
+        /// </summary>
+        public Clicked OnClick
+        {
+            get { return onClick; }
+            set { onClick = value; }
+        }
 		#endregion
 
 		#region methods
