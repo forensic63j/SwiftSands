@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace SwiftSands
 {
@@ -44,6 +45,20 @@ namespace SwiftSands
 			this.font = font;
 			onClick = clickDelegate;
 		}
+
+        /// <summary>
+        /// Updates the button.
+        /// </summary>
+        /// <param name="mState">The state of the mouse currently.</param>
+        public void Update(MouseState mState)
+        {
+            Rectangle pos = this.Position;
+            bool onButton = ((mState.X >= pos.X && mState.X < (pos.X + pos.Width)) && (mState.Y >= pos.Y && mState.Y < (pos.Y + pos.Height)));
+            if(this.IsActive && (mState.LeftButton == ButtonState.Pressed) && onButton)
+            {
+                onClick();
+            }
+        }
 		#endregion
 	}
 }
