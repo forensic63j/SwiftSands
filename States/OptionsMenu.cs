@@ -13,6 +13,8 @@ namespace SwiftSands
 {
     class OptionsMenu : State
     {
+         public OptionsMenu(Game game, Viewport port) : base(game, port) { }
+
         public override void OnEnter()
         {
             base.OnEnter();

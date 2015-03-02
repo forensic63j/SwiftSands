@@ -13,7 +13,7 @@ namespace SwiftSands
 {
     static class StateManager
     {
-        Dictionary<string, State> allStates;
+        static Dictionary<string, State> allStates;
         static public Stack<State> stateStack;
         /// <summary>
         /// Switches state, calls exit and enter

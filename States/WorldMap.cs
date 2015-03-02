@@ -13,6 +13,8 @@ namespace SwiftSands
 {
     class WorldMap : State
     {
+         public WorldMap(Game game, Viewport port) : base(game, port) { }
+
         public override void OnEnter()
         {
             base.OnEnter();

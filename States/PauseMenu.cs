@@ -13,6 +13,8 @@ namespace SwiftSands
 {
     class PauseMenu : State
     {
+        public PauseMenu(Game game, Viewport port) : base(game, port) { }
+
         public override void OnEnter()
         {
             base.OnEnter();
