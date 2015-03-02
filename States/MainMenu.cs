@@ -66,7 +66,11 @@ namespace SwiftSands
         /// <summary>
         /// Instatiates the Main Menu
         /// </summary>
-        public MainMenu(Game game, Viewport port) : base(game, port) { }
+        public MainMenu(SpriteFont font,Texture2D sprite, Game game, Viewport port)
+            : base(game, port)
+        {
+            play = new Button("Play", font, sprite, new Rectangle(70, 20, 10, 30), true, true);
+        }
         
         #region Methods
         /// <summary>

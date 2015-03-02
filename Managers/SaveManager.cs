@@ -8,14 +8,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SwiftSands.Managers
 {
-    class SaveManager
+    static class SaveManager
     {
 		#region method
 		/// <summary>
 		/// Saves files.
 		/// </summary>
 		/// <param name="filename">A file name.</param>
-		public void Save(String filename, Party players)
+		public static void Save(String filename, Party players)
 		{
 			try
 			{
