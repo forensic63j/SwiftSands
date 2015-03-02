@@ -35,7 +35,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Button.cs" />
+    <Compile Include="Menus\Button.cs" />
     <Compile Include="DataStructures\Inventory.cs" />
     <Compile Include="Managers\LoadManager.cs" />
     <Compile Include="Managers\SaveManager.cs" />
@@ -48,6 +48,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sprites\Sprite.cs" />
+    <Compile Include="States\LocalMap.cs" />
+    <Compile Include="States\MainMenu.cs" />
+    <Compile Include="States\OptionsMenu.cs" />
+    <Compile Include="States\PauseMenu.cs" />
+    <Compile Include="States\State.cs" />
+    <Compile Include="States\WorldMap.cs" />
     <Compile Include="Tasks\Task.cs" />
     <Compile Include="Tasks\TaskManager.cs" />
   </ItemGroup>

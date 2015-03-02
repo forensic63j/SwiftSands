@@ -9,9 +9,9 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 
-namespace SwiftSands.States
+namespace SwiftSands
 {
-    class WorldMap : State
+    class OptionsMenu : State
     {
         public override void OnEnter()
         {
