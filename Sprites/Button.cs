@@ -75,7 +75,7 @@ namespace SwiftSands
         {
             base.Draw(spriteBatch);
             Rectangle pos = this.Position;
-            spriteBatch.DrawString(font, name, new Vector2(pos.X + 2, pos.Y + 2), Color.White);
+            spriteBatch.DrawString(font, name, new Vector2(pos.X + 2, pos.Y + 2), Color.Black);
         }
 		#endregion
 	}

@@ -53,5 +53,21 @@ namespace SwiftSands
                 throw new IndexOutOfRangeException();
             }
         }
+
+		/// <summary>
+		/// Updates current state.
+		/// </summary>
+		static public void Update(GameTime time)
+		{
+			stateStack.Peek().Update(time);
+		}
+
+		/// <summary>
+		/// Draws the current state.
+		/// </summary>
+		static public void Draw(GameTime time,SpriteBatch spriteBatch)
+		{
+			stateStack.Peek().Draw(time,spriteBatch);
+		}
     }
 }

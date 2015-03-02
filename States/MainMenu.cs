@@ -14,7 +14,9 @@ namespace SwiftSands
     class MainMenu : State
     {
         #region fields
-        private Button play;
+		private SpriteFont font;
+		
+		private Button play;
         private Button save;
         private Button load;
         private Button options;
@@ -69,7 +71,14 @@ namespace SwiftSands
         public MainMenu(SpriteFont font,Texture2D sprite, Game game, Viewport port)
             : base(game, port)
         {
-            play = new Button("Play", font, sprite, new Rectangle(70, 20, 10, 30), true, true);
+			this.font = font;
+			
+			int centering = (port.Width - 36) / 2;
+			play = new Button("Play", font, sprite, new Rectangle(centering, 20, 15, 36), true, true);
+			save = new Button("Save", font, sprite, new Rectangle(centering, 40, 15, 36), true, true);
+			load = new Button("Load", font, sprite, new Rectangle(centering, 60, 15, 36), true, true);
+			options = new Button("Options", font, sprite, new Rectangle(centering, 80, 15, 36), true, true);
+			quit = new Button("Quit", font, sprite, new Rectangle(centering, 100, 15, 36), true, true);
         }
         
         #region Methods
@@ -103,7 +112,15 @@ namespace SwiftSands
         /// <param name="time">The time elapsed</param>
         public override void Update(GameTime time)
         {
-            base.Update(time);
+            MouseState mState = Mouse.GetState();
+
+			play.Update(mState);
+			save.Update(mState);
+			load.Update(mState);
+			options.Update(mState);
+			quit.Update(mState);
+
+			base.Update(time);
         }   
 
         /// <summary>
@@ -113,7 +130,16 @@ namespace SwiftSands
         /// <param name="spriteBatch"></param>
         public override void Draw(GameTime time, SpriteBatch spriteBatch)
         {
-            base.Draw(time, spriteBatch);
+
+			spriteBatch.DrawString(font,"Main menu:",new Vector2(255,0),Color.Brown);
+
+			play.Draw(spriteBatch);
+			save.Draw(spriteBatch);
+			load.Draw(spriteBatch);
+			options.Draw(spriteBatch);
+			quit.Draw(spriteBatch);
+			
+			base.Draw(time, spriteBatch);
         }
         #endregion
     }
