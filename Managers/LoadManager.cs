@@ -33,7 +33,9 @@ namespace SwiftSands.Managers
         /// </summary>
 		/// <param name="characterList">List of characters in the game.</param>
 		/// <param name="itemList">List of the items in the game.</param>
-        public void LoadContent(ref List<Character> characterList, ref List<Item> itemList)
+		/// <param name="buttonSprite">The sprite used for all buttons.</param>
+		/// <param name="font">The font for the GUI.</param>
+        public void LoadContent(ref List<Character> characterList, ref List<Item> itemList, ref Texture2D buttonSprite, ref SpriteFont font)
         {
 			try
 			{
@@ -142,6 +144,13 @@ namespace SwiftSands.Managers
 					}
 				}
 				#endregion
+
+				using(Stream imgStream = File.OpenRead("Content//GUI//button.png"))//Update once filetype is decided.
+				{
+					buttonSprite = Texture2D.FromStream(game.GraphicsDevice,imgStream);
+				}
+
+				font = game.Content.Load<SpriteFont>("GUI//menuFont");//Update later.
 			} catch(Exception e)
 			{
 				
