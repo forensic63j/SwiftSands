@@ -20,7 +20,8 @@ namespace SwiftSands
             get { return partyList; }
 		}
 
-		/// <summary>
+		/*Unused indexer
+		 * /// <summary>
 		/// Gets partymember at index.
 		/// </summary>
 		/// <param name="index"></param>
@@ -37,7 +38,7 @@ namespace SwiftSands
 					return null;
 				}
 			}
-		}
+		}*/
 
 		/// <summary>
 		/// Gets count

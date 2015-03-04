@@ -11,21 +11,12 @@ namespace SwiftSands
 	class Button:Sprite
 	{
 		#region fields
-		private String name;
 		private SpriteFont font;
 		public delegate void Clicked();
 		private Clicked onClick;
 		#endregion
 
 		#region properties
-		/// <summary>
-		/// Gets the name of the button
-		/// </summary>
-		public String Name
-		{
-			get { return name; }
-		}
-
         /// <summary>
         /// Gets and sets the onClick delegate.
         /// </summary>
@@ -48,9 +39,8 @@ namespace SwiftSands
 		/// <param name="onScreen">Tells whether the button is within the window range.</param>
 		/// <param name="clickDelegate"></param>
 		public Button(String name,SpriteFont font,Texture2D sprite,Rectangle position,bool active,bool onScreen)
-			: base(sprite,position,active,onScreen)
+			: base(sprite,position,active,onScreen,name)
 		{
-			this.name = name;
 			this.font = font;
 		}
 
@@ -75,7 +65,7 @@ namespace SwiftSands
         {
             base.Draw(spriteBatch);
             Rectangle pos = this.Position;
-            spriteBatch.DrawString(font, name, new Vector2(pos.X + 2, pos.Y + 2), Color.Black);
+            spriteBatch.DrawString(font, this.Name, new Vector2(pos.X + 2, pos.Y + 2), Color.Black);
         }
 		#endregion
 	}

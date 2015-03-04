@@ -9,21 +9,21 @@ using Microsoft.Xna.Framework.Graphics;
 namespace SwiftSands.Managers
 {
 
-	class LoadManager
+	static class LoadManager
     {
         #region fields
-        private DirectoryInfo saveInfo;
-		private GraphicsDeviceManager graphics;
-		private Game1 game;
+        static private DirectoryInfo saveInfo;
+		static private GraphicsDeviceManager graphics;
+		static private Game1 game;
         #endregion
 
         #region method
 		/// <summary>
 		/// Creates a load manager.
 		/// </summary>
-        public LoadManager(Game1 game)
+        static public void UpdateGame(Game1 game2)
         {
-			this.game = game;
+			game = game2;
 			graphics = new GraphicsDeviceManager(game);
 			saveInfo = Directory.CreateDirectory("Data//SaveFiles"); 
         }
@@ -35,7 +35,7 @@ namespace SwiftSands.Managers
 		/// <param name="itemList">List of the items in the game.</param>
 		/// <param name="buttonSprite">The sprite used for all buttons.</param>
 		/// <param name="font">The font for the GUI.</param>
-        public void LoadContent(ref List<Character> characterList, ref List<Item> itemList, ref Texture2D buttonSprite, ref SpriteFont font)
+        static public void LoadContent(ref List<Character> characterList, ref List<Item> itemList, ref Texture2D buttonSprite, ref SpriteFont font)
         {
 			try
 			{
@@ -87,12 +87,12 @@ namespace SwiftSands.Managers
 						{
 							int xpAwarded = int.Parse(characterStats[17]);
 							//create enemy
-							Enemy tempEnemy = new Enemy(maxHealth,health,mana,speed,strength,accuracy,level,recruitable,name,xpAwarded,sprite,position,active,onScreen);
+							Enemy tempEnemy = new Enemy(maxHealth,health,mana,speed,strength,accuracy,level,recruitable,xpAwarded,sprite,position,active,onScreen,name);
 							characterList.Add(tempEnemy);
 						} else
 						{
 							//Builds character
-							Character tempCharacter = new Character(maxHealth,health,mana,speed,strength,accuracy,level,recruitable,name,sprite,position,active,onScreen);
+							Character tempCharacter = new Character(maxHealth,health,mana,speed,strength,accuracy,level,recruitable,sprite,position,active,onScreen,name);
 							characterList.Add(tempCharacter);
 						}
 					}
@@ -161,7 +161,7 @@ namespace SwiftSands.Managers
         /// Loads a savefile.
         /// </summary>
         /// <param name="filename">The name of the file to load.</param>
-        public void LoadSavefile(String filename, ref Party players)
+        static public void LoadSavefile(String filename)
 		{
 			#region texture
 			Texture2D[] sprites = null;
@@ -199,7 +199,7 @@ namespace SwiftSands.Managers
 					using(BinaryReader input = new BinaryReader(inStream))
 					{
 						#region player
-						players.Clear();
+						Party.Clear();
 
 						for(int i = 0; i < sprites.Length; i++)
 						{
@@ -235,7 +235,7 @@ namespace SwiftSands.Managers
 							bool onScreen = input.ReadBoolean();
 
 							//instantiate player
-							players.Add(new Player(maxHealth,health,mana,speed,strength,accuracy,level,true,name,deathsAllowed,sprites[i],position,active,onScreen));
+							Party.Add(new Player(maxHealth,health,mana,speed,strength,accuracy,level,true,deathsAllowed,sprites[i],position,active,onScreen,name));
 						}
 						#endregion	
 					}
@@ -246,7 +246,7 @@ namespace SwiftSands.Managers
 			}
         }
 
-        public Map LoadMap(string filename)
+        static public Map LoadMap(string filename)
         {
             Map loadingMap = new Map();
             using (StreamReader input = new StreamReader("Content//Maps//" + filename))

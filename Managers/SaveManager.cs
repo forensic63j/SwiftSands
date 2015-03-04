@@ -15,7 +15,7 @@ namespace SwiftSands.Managers
 		/// Saves files.
 		/// </summary>
 		/// <param name="filename">A file name.</param>
-		public static void Save(String filename, Party players)
+		public static void Save(String filename)
 		{
 			try
 			{
@@ -23,11 +23,11 @@ namespace SwiftSands.Managers
 				{
 					using(BinaryWriter output = new BinaryWriter(outStream))
 					{
-						output.Write(players.Count);
-						for(int i = 0; i < players.Count; i++)
+						output.Write(Party.Count);
+						for(int i = 0; i < Party.Count; i++)
 						{
 							#region player
-							Player player = players[i];
+							Player player = Party.PartyList[i];
 							
 							//Name
 							output.Write(player.Name);
@@ -62,11 +62,11 @@ namespace SwiftSands.Managers
 						}
 					}
 				}
-				for(int i = 0; i < players.Count; i++)
+				for(int i = 0; i < Party.Count; i++)
 				{
 					using(Stream imgStream = File.OpenWrite("PlayerSprites\\Player" + i))
 					{
-						Texture2D texture = players[i].Texture;
+						Texture2D texture = Party.PartyList[i].Texture;
 						texture.SaveAsPng(imgStream,texture.Width,texture.Height);
 					}
 				}
