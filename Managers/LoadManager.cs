@@ -245,6 +245,16 @@ namespace SwiftSands.Managers
 
 			}
         }
+
+        public Map LoadMap(string filename)
+        {
+            Map loadingMap = new Map();
+            using (StreamReader input = new StreamReader("Content//Maps//" + filename))
+            {
+                
+            }
+            return loadingMap;
+        }
         #endregion
     }
 }
