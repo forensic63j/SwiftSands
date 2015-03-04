@@ -6,7 +6,7 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SwiftSands.Managers
+namespace SwiftSands
 {
     static class SaveManager
     {
@@ -36,7 +36,8 @@ namespace SwiftSands.Managers
 							output.Write(player.MaxHealth);
 							output.Write(player.Health);
 							output.Write(player.Mana);
-							//output.Write(player.NumDeaths);
+							output.Write(player.DeathsAllowed);
+							output.Write(player.NumDeaths);
 
 							//Leveling
 							output.Write(player.Level);
@@ -58,6 +59,18 @@ namespace SwiftSands.Managers
 							//Booleans
 							output.Write(player.IsActive);
 							output.Write(player.IsOnField);
+							#endregion
+						}
+
+						output.Write(Inventory.Count);
+						for(int i = 0; i < Inventory.Count; i++)
+						{
+							#region inventory
+							Item item = Inventory.Items[i];
+
+							//Name, item type
+							output.Write(item.Name);
+							output.Write(System.Enum.GetName(ItemType,item.Type));
 							#endregion
 						}
 					}

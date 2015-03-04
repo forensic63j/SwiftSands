@@ -6,7 +6,7 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SwiftSands.Managers
+namespace SwiftSands
 {
 
 	static class LoadManager
@@ -210,8 +210,8 @@ namespace SwiftSands.Managers
 							int maxHealth = input.ReadInt32();
 							int health = input.ReadInt32();
 							int mana = input.ReadInt32();
-							//int numDeaths = input.ReadInt32();
-							int deathsAllowed = 0/*input.ReadInt32()*/;
+							int numDeaths = input.ReadInt32();
+							int deathsAllowed = input.ReadInt32();
 
 							//Leveling
 							int level = input.ReadInt32();
@@ -235,7 +235,9 @@ namespace SwiftSands.Managers
 							bool onScreen = input.ReadBoolean();
 
 							//instantiate player
-							Party.Add(new Player(maxHealth,health,mana,speed,strength,accuracy,level,true,deathsAllowed,sprites[i],position,active,onScreen,name));
+							Player tempPlayer = new Player(maxHealth,health,mana,speed,strength,accuracy,level,true,deathsAllowed,sprites[i],position,active,onScreen,name);
+							tempPlayer.NumDeaths = numDeaths;
+							Party.Add(tempPlayer);
 						}
 						#endregion	
 					}
