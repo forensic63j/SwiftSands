@@ -110,7 +110,7 @@ namespace SwiftSands
 
 						//Name and type
 						String name = itemStats[0];
-						ItemType type = Item.ParseType(itemStats[1]);
+						ItemType type = System.Enum.Parse(ItemType,itemStats[1],true);
 						String description = itemStats[2];
 
 						//Healing and damage
