@@ -17,8 +17,8 @@ namespace SwiftSands
 		List<int> stats;
         #endregion
 
-        public Player(int max, int h, int m, int sp, int st, int acc, int level, bool canJoin, String name, int deaths, Texture2D texture,
-            Rectangle pos, bool active, bool field):base(max, h, m, sp, st, acc, level, canJoin, name, texture, pos, active, field)
+        public Player(int max, int h, int m, int sp, int st, int acc, int level, bool canJoin, int deaths, Texture2D texture,
+            Rectangle pos, bool active, bool field, String name):base(max, h, m, sp, st, acc, level, canJoin, texture, pos, active, field, name)
 		{
 			numDeaths = 0;
 			exp = 0;
@@ -32,7 +32,7 @@ namespace SwiftSands
 			stats.Add(acc);
 		}
 
-        #region Parameters
+        #region Properties
         public int Exp
 		{
 			get
@@ -58,14 +58,34 @@ namespace SwiftSands
 				expNeeded = value;
 			}
 		}
+
+        public int NumDeaths
+        {
+            get
+            {
+                return numDeaths;
+            }
+            set
+            {
+                numDeaths = value;
+            }
+        }
+
+        public int DeathsAllowed
+        {
+            get
+            {
+                return deathsAllowed;
+            }
+        }
         #endregion
 
         #region Methods
-        public void ReturnToDoctor(Party party)
+        public void ReturnToDoctor()
 		{
 			if(this.Health <= 0)
 			{
-                party.Remove(this);
+                Party.Remove(this);
 				numDeaths++;
 			}
 		}
@@ -97,30 +117,19 @@ namespace SwiftSands
         /// <param name="item">The item collected (null if task is not a collection task)</param>
         /// <param name="character">The character talked to (null if task is not a conversation task)</param>
         /// <param name="party">The current party</param>
-        public void CheckTasks(TaskManager manager, Enemy enemy, Item item, Character character, Party party)
+        public void CheckTasks(TaskType type, Sprite sprite)
         {
-            if (manager.Count > 0)
+            if (TaskManager.Count > 0)
             {
-                for (int i = 0; i < manager.Count; i++)
+                for (int i = 0; i < TaskManager.Count; i++)
                 {
-                    if (manager[i].Type == TaskType.Hunt)
-                    {
-                        manager[i].UpdateHuntTask(enemy, party);
-                    }
-                    else if (manager[i].Type == TaskType.CollectItem)
-                    {
-                        manager[i].UpdateCollectionTask(item, party);
-                    }
-                    else if (manager[i].Type == TaskType.Converse)
-                    {
-                        manager[i].UpdateConverseTask(character, party);
-                    }
+                    TaskManager.Tasks[i].UpdateTasks(type, sprite);
                 }
             }
         }
-        public void CollectItem(Item item, Inventory inventory)
+        public void CollectItem(Item item)
         {
-            inventory.AddItem(item);
+            
         }
         #endregion
     }

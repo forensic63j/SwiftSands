@@ -5,17 +5,17 @@ using System.Text;
 
 namespace SwiftSands
 {
-	class Party
+	static class Party
 	{
 		#region fields
-		private List<Player> partyList;
+		static private List<Player> partyList;
 		#endregion
 
 		#region properties
 		/// <summary>
 		/// Gets the party list.
 		/// </summary>
-		public List<Player> PartyList
+		static public List<Player> PartyList
 		{
             get { return partyList; }
 		}
@@ -42,24 +42,19 @@ namespace SwiftSands
 		/// <summary>
 		/// Gets count
 		/// </summary>
-		public int Count
+		static public int Count
 		{
 			get { return partyList.Count; }  //Would be more effective using a list dirrectly.
 		}
 		#endregion
 
 		#region methods
-		public Party()
-		{
-			partyList = new List<Player>();
-		}
-
 		/// <summary>
 		/// Adds a player to the party.
 		/// </summary>
 		/// <param name="partymember">The player added.</param>
 		/// <returns>Whether the player was successfuly added.</returns>
-        public bool Add(Player partymember)
+        static public bool Add(Player partymember)
         {
 			if(Count < 6)
 			{
@@ -76,7 +71,7 @@ namespace SwiftSands
 		/// </summary>
 		/// <param name="partymember">The player to be removed.</param>
 		/// <returns>The removed player.</returns>
-        public bool Remove(Player partymember)
+        static public bool Remove(Player partymember)
         {
             return partyList.Remove(partymember);
         }
@@ -84,7 +79,7 @@ namespace SwiftSands
 		/// <summary>
 		/// Clears party.
 		/// </summary>
-		public void Clear()
+		static public void Clear()
 		{
 			partyList.Clear();
 		}

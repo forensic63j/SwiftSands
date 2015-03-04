@@ -23,7 +23,7 @@ namespace SwiftSands
         #endregion
 
         public Character(int max, int health, int mana, int speed, int strength, int accuracy, int level, bool a,
-		String name, Texture2D texture, Rectangle pos, bool active, bool field):base(texture, pos, active, field)
+            Texture2D texture, Rectangle pos, bool active, bool field, String name):base(texture, pos, active, field, name)
 		{
 			this.health = health;
 			this.mana = mana;
@@ -33,7 +33,6 @@ namespace SwiftSands
 			this.level = level;
 			canJoin = a;
 			alive = true;
-			this.name = name;
 		}
 		
         #region Properties
@@ -115,13 +114,6 @@ namespace SwiftSands
 			set
 			{
 				level = value;
-			}
-		}
-		public String Name
-		{
-			get
-			{
-				return name;
 			}
 		}
 		public bool CanJoin

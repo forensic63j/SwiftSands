@@ -56,7 +56,7 @@
     <Compile Include="States\State.cs" />
     <Compile Include="States\WorldMap.cs" />
     <Compile Include="Tasks\Task.cs" />
-    <Compile Include="Tasks\TaskManager.cs" />
+    <Compile Include="Managers\TaskManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

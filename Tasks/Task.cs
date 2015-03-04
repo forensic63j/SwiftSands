@@ -72,37 +72,38 @@ namespace SwiftSands
         #endregion
 
         #region Methods
-        public void EndTask(Party party)
+        public void EndTask()
         {
-            for (int i = 0; i < party.Count; i++)
+            for (int i = 0; i < Party.PartyList.Count; i++)
             {
-                party[i].Exp += this.ExpReward;
+                Party.PartyList[i].Exp += this.ExpReward;
             }
         }
-        public void UpdateHuntTask(Enemy enemy, Party party)
+        public void UpdateTasks(TaskType type, Sprite sprite)
         {
-            if (enemy.Alive == false)
+            if (type == TaskType.Hunt)
             {
-                String name;
-                enemy.Defeat(party, out name);
-                if (name == target)
+                Enemy e = (Enemy)sprite;
+                if (e.Name == target && !e.Alive)
                 {
-                    EndTask(party);
+                    EndTask();
                 }
             }
-        }
-        public void UpdateCollectionTask(Item item, Party party)
-        {
-            if (item.Collected && item.Name == target)
+            else if (type == TaskType.CollectItem)
             {
-                EndTask(party);
+                Item i = (Item)sprite;
+                if (i.Name == target && i.Collected)
+                {
+                    EndTask();
+                }
             }
-        }
-        public void UpdateConverseTask(Character character, Party party)
-        {
-            if (character.Name == target)
+            else if (type == TaskType.Converse)
             {
-                EndTask(party);
+                Character c = (Character)sprite;
+                if (c.Name == target)
+                {
+                    EndTask();
+                }
             }
         }
         #endregion

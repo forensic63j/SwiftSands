@@ -8,18 +8,18 @@ namespace SwiftSands
     class Inventory
     {
         #region Fields
-        private List<Item> items;
+        static private List<Item> items;
         #endregion
 
         #region Parameters
-        public List<Item> Items
+        static public List<Item> Items
         {
             get
             {
                 return items;
             }
         }
-        public int Count
+        static public int Count
         {
             get
             {

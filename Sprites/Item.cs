@@ -21,23 +21,21 @@ namespace SwiftSands
 		private ItemType type;
 		private int healing;
 		private int damage;
-		private String name;
 		private String description;
 		private ItemType itemType;
         private bool collected; //Whether or not the item has been collected
 
-		public Item(ItemType i, int h, int d, String n, String de, bool col, Texture2D texture, Rectangle pos, bool active, 
-			bool field):base(texture, pos, active, field)
+		public Item(ItemType i, int h, int d, String de, bool col, Texture2D texture, Rectangle pos, bool active, 
+			bool field, String name):base(texture, pos, active, field, name)
 		{
 			itemType = i;
 			healing = h;
 			damage = d;
-			name = n;
 			description = de;
             collected = col;
 		}
 
-        #region Parameters
+        #region Properties
         public ItemType Type
 		{
 			get
@@ -69,13 +67,6 @@ namespace SwiftSands
 			set
 			{
 				damage = value;
-			}
-		}
-		public String Name
-		{
-			get
-			{
-				return name;
 			}
 		}
 		public String Description
