@@ -146,7 +146,7 @@ namespace SwiftSands
 				}
 				#endregion
 
-				using(StreamReader input = new StreamReader("Data//GameEntities//Task"))
+				using(StreamReader input = new StreamReader("Data//Tasks"))
 				{
 					String taskData = input.ReadToEnd();
 					String[] tasks = taskData.Split(';');
@@ -278,7 +278,7 @@ namespace SwiftSands
 							int damage = input.ReadInt32();
 
 							//Sprite
-							Texture2D sprite = GetSprite(name,itemList);
+							Texture2D sprite = GetItemSprite(name,itemList);
 
 							//Rectangle
 							int x = input.ReadInt32();
@@ -320,7 +320,13 @@ namespace SwiftSands
             return loadingMap;
         }
 
-		static public Texture2D GetSprite(String name,List<Item> itemList)
+		/// <summary>
+		/// Searches items for matching names and returns the associated texture.
+		/// </summary>
+		/// <param name="name">The name of the </param>
+		/// <param name="itemList">List of item in the game.</param>
+		/// <returns>The appropriate sprite.</returns>
+		static public Texture2D GetItemSprite(String name,List<Item> itemList)
 		{
 			for(int i = 0; i < itemList.Count; i++)
 			{
