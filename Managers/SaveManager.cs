@@ -68,9 +68,16 @@ namespace SwiftSands
 							#region inventory
 							Item item = Inventory.Items[i];
 
-							//Name, item type
+							//Name, item type,description
 							output.Write(item.Name);
-							output.Write(System.Enum.GetName(ItemType,item.Type));
+							output.Write(System.Enum.GetName(typeof(ItemType),(Object)(item.Type)));
+							output.Write(item.Description);
+
+							//Healing and damage
+							output.Write(item.Healing);
+							output.Write(item.Damage);
+
+
 							#endregion
 						}
 					}

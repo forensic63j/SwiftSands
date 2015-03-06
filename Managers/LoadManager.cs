@@ -110,7 +110,8 @@ namespace SwiftSands
 
 						//Name and type
 						String name = itemStats[0];
-						ItemType type = System.Enum.Parse(ItemType,itemStats[1],true);
+					
+						ItemType type = (ItemType)(System.Enum.Parse(typeof(ItemType),itemStats[1],true));
 						String description = itemStats[2];
 
 						//Healing and damage
@@ -139,7 +140,7 @@ namespace SwiftSands
 
 
 						//Item creation
-						Item tempItem = new Item(type,healing,damage,name,description,collected,sprite,position,active,onScreen);
+						Item tempItem = new Item(type,healing,damage,description,collected,sprite,position,active,onScreen,name);
 						itemList.Add(tempItem);
 					}
 				}
@@ -168,7 +169,7 @@ namespace SwiftSands
 			try
             {
 				//Load textures
-				String[] files = Directory.GetFiles("Content//PlayerSprites");
+				String[] files = Directory.GetFiles("Content\\PlayerSprites\\" + filename);
 				//Counts how many textures are character sprites
 				int textureCount = 0;
 				for(int i = 0; i < files.Length; i++){
