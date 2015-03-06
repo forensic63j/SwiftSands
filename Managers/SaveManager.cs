@@ -77,12 +77,34 @@ namespace SwiftSands
 							output.Write(item.Healing);
 							output.Write(item.Damage);
 
+							//rectangle
+							Rectangle position = item.Position;
+							output.Write(position.X);
+							output.Write(position.Y);
+							output.Write(position.Width);
+							output.Write(position.Height);
 
+							//sprite control bools
+							output.Write(item.Collected);
+							output.Write(item.IsActive);
+							output.Write(item.IsOnField);
 							#endregion
 						}
 					}
 				}
+				
+				//player textures
 				for(int i = 0; i < Party.Count; i++)
+				{
+					using(Stream imgStream = File.OpenWrite("PlayerSprites\\" + filename + "\\Player" + i))
+					{
+						Texture2D texture = Party.PartyList[i].Texture;
+						texture.SaveAsPng(imgStream,texture.Width,texture.Height);
+					}
+				}
+
+				//item textures
+				for(int i = 0; i < ; i++)
 				{
 					using(Stream imgStream = File.OpenWrite("PlayerSprites\\Player" + i))
 					{

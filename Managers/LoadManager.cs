@@ -162,7 +162,7 @@ namespace SwiftSands
         /// Loads a savefile.
         /// </summary>
         /// <param name="filename">The name of the file to load.</param>
-        static public void LoadSavefile(String filename)
+        static public void LoadSavefile(String filename, Inventory inventory, List<Item> itemList)
 		{
 			#region texture
 			Texture2D[] sprites = null;
@@ -241,6 +241,23 @@ namespace SwiftSands
 							Party.Add(tempPlayer);
 						}
 						#endregion	
+
+						#region inventory
+						inventory.Clear();
+
+						int numItems = input.ReadInt32();
+						for(int i = 0; i < numItems; i++)
+						{
+							//Name, item type, description
+							String name = input.ReadString();
+							String typeString = input.ReadString();
+							ItemType type = (ItemType)(System.Enum.Parse(typeof(ItemType),typeString,true));
+							
+							//Healing and damage
+							int healing = input.ReadInt32();
+							int damage = input.ReadInt32();
+						}
+						#endregion
 					}
 				}
 			} catch(Exception e)
