@@ -77,19 +77,35 @@ namespace SwiftSands
 							output.Write(item.Healing);
 							output.Write(item.Damage);
 
-							//rectangle
+							//Rectangle
 							Rectangle position = item.Position;
 							output.Write(position.X);
 							output.Write(position.Y);
 							output.Write(position.Width);
 							output.Write(position.Height);
 
-							//sprite control bools
+							//Sprite control bools
 							output.Write(item.Collected);
 							output.Write(item.IsActive);
 							output.Write(item.IsOnField);
 							#endregion
 						}
+
+						/*output.Write(TaskManager.Count);
+						for(int i = 0; i < TaskManager.Count; i++)
+						{
+							Task task = TaskManager.Tasks[i];
+
+							//Task type
+							output.Write(System.Enum.GetName(typeof(TaskType),(Object)(task.Type)));
+							
+							//Description
+							output.Write(task.Description);
+
+							//Details
+							output.Write(task.Target);
+							output.Write(task.ExpReward);
+						}*/
 					}
 				}
 				

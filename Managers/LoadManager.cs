@@ -146,6 +146,25 @@ namespace SwiftSands
 				}
 				#endregion
 
+				using(StreamReader input = new StreamReader("Data//GameEntities//Task"))
+				{
+					String taskData = input.ReadToEnd();
+					String[] tasks = taskData.Split(';');
+
+					for(int i = 0; i < tasks.Length; i++)
+					{
+						String[] taskStats = tasks[i].Split(',');
+
+						TaskType type = (TaskType)(System.Enum.Parse(typeof(TaskType),taskStats[0],true));
+						String description = taskStats[i];
+						String target = taskStats[2];
+						int reward = int.Parse(taskStats[3]);
+
+						Task tempTask = new Task(type,description,target,reward);
+						TaskManager.AddTask(tempTask);
+					}
+				}
+
 				using(Stream imgStream = File.OpenRead("Content//GUI//button.png"))//Update once filetype is decided.
 				{
 					buttonSprite = Texture2D.FromStream(game.GraphicsDevice,imgStream);
@@ -162,7 +181,7 @@ namespace SwiftSands
         /// Loads a savefile.
         /// </summary>
         /// <param name="filename">The name of the file to load.</param>
-        static public void LoadSavefile(String filename, Inventory inventory, List<Item> itemList)
+        static public void LoadSavefile(String filename, Inventory inventory, List<Item> itemList, List<Task> taskList)
 		{
 			#region texture
 			Texture2D[] sprites = null;
@@ -252,10 +271,30 @@ namespace SwiftSands
 							String name = input.ReadString();
 							String typeString = input.ReadString();
 							ItemType type = (ItemType)(System.Enum.Parse(typeof(ItemType),typeString,true));
-							
+							String description = input.ReadString();
+
 							//Healing and damage
 							int healing = input.ReadInt32();
 							int damage = input.ReadInt32();
+
+							//Sprite
+							Texture2D sprite = GetSprite(name,itemList);
+
+							//Rectangle
+							int x = input.ReadInt32();
+							int y = input.ReadInt32();
+							int width = input.ReadInt32();
+							int height = input.ReadInt32();
+							Rectangle position = new Rectangle(x,y,width,height);
+
+							//Sprite control bools
+							bool collected = input.ReadBoolean();
+							bool active = input.ReadBoolean();
+							bool onScreen = input.ReadBoolean();
+
+							//Add to inventory
+							Item tempItem = new Item(type,healing,damage,description,collected,sprite,position,active,onScreen,name);
+							inventory.AddItem(tempItem);
 						}
 						#endregion
 					}
@@ -266,6 +305,11 @@ namespace SwiftSands
 			}
         }
 
+		/// <summary>
+		/// Loads a map.
+		/// </summary>
+		/// <param name="filename">The file name for the map.</param>
+		/// <returns></returns>
         static public Map LoadMap(string filename)
         {
             Map loadingMap = new Map();
@@ -275,6 +319,18 @@ namespace SwiftSands
             }
             return loadingMap;
         }
+
+		static public Texture2D GetSprite(String name,List<Item> itemList)
+		{
+			for(int i = 0; i < itemList.Count; i++)
+			{
+				if(name == itemList[i].Name)
+				{
+					return itemList[i].Texture;
+				}
+			}
+			return null;
+		}
         #endregion
     }
 }
