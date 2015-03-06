@@ -103,15 +103,6 @@ namespace SwiftSands
 					}
 				}
 
-				//item textures
-				for(int i = 0; i < ; i++)
-				{
-					using(Stream imgStream = File.OpenWrite("PlayerSprites\\Player" + i))
-					{
-						Texture2D texture = Party.PartyList[i].Texture;
-						texture.SaveAsPng(imgStream,texture.Width,texture.Height);
-					}
-				}
 			} catch(Exception e)
 			{
 
