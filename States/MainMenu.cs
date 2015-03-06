@@ -17,7 +17,6 @@ namespace SwiftSands
 		private SpriteFont font;
 		
 		private Button play;
-        private Button save;
         private Button load;
         private Button options;
         private Button quit;
@@ -30,14 +29,6 @@ namespace SwiftSands
         public Button Play
         {
             get { return play; }
-        }
-
-        /// <summary>
-        /// Gets the save button.
-        /// </summary>
-        public Button Save
-        {
-            get { return save; }
         }
 
         /// <summary>
@@ -75,7 +66,6 @@ namespace SwiftSands
 			
 			int centering = (port.Width - 36) / 2;
 			play = new Button("Play", font, sprite, new Rectangle(centering, 20, 15, 36), true, true);
-			save = new Button("Save", font, sprite, new Rectangle(centering, 40, 15, 36), true, true);
 			load = new Button("Load", font, sprite, new Rectangle(centering, 60, 15, 36), true, true);
 			options = new Button("Options", font, sprite, new Rectangle(centering, 80, 15, 36), true, true);
 			quit = new Button("Quit", font, sprite, new Rectangle(centering, 100, 15, 36), true, true);
@@ -115,7 +105,6 @@ namespace SwiftSands
             MouseState mState = Mouse.GetState();
 
 			play.Update(mState);
-			save.Update(mState);
 			load.Update(mState);
 			options.Update(mState);
 			quit.Update(mState);
@@ -134,7 +123,6 @@ namespace SwiftSands
 			spriteBatch.DrawString(font,"Main menu:",new Vector2(255,0),Color.Brown);
 
 			play.Draw(spriteBatch);
-			save.Draw(spriteBatch);
 			load.Draw(spriteBatch);
 			options.Draw(spriteBatch);
 			quit.Draw(spriteBatch);
