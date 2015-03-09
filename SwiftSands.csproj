@@ -35,6 +35,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DataStructures\Map.cs" />
     <Compile Include="Managers\StateManager.cs" />
     <Compile Include="Sprites\Button.cs" />
     <Compile Include="DataStructures\Inventory.cs" />

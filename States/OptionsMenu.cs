@@ -17,6 +17,7 @@ namespace SwiftSands
 		private Button volume;
 		private Button resolution;
 		private Button back;
+        private SpriteFont font;
 		#endregion
 
 		#region properties
