@@ -3,7 +3,12 @@
  <tileset firstgid="1" source="../../../../../../../../Program Files (x86)/Tiled/examples/desert.tsx"/>
  <layer name="Ground" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJztmNkKwjAQRaN9cAPrAq5Yq3Xf6v9/nSM2VIbQJjEZR+nDwQZScrwztoORECLySBcIgZ7nc2y4KfyWDLx+Jb9nViNgDEwY+KioAXUgQN4+zpoCMwPmQAtoAx2CLFbA2oDEo9+hwG8DnIDtF/2K8ks086Tw2zH0uyMv7HcRr/6/EvvhnsPrsrxwX7rwU/0ODig/eV3mh3N1ld8eraWPaX6+64s9McesfrqcHfg1MpoifxcVEWjukyw+9AtFPl/I71pER3Of6j4bv7HI54s+MChhqLlPdZ/P3qMmFuo5h5NnTOhjM5tReN2yT51n5/v7J3F0vi46fk+ne7aX0i9l6If7mpufTX3f5wsqv9TAD2fJLT9VrTn7UeZnM5tR+v0LMQOHXwFnxe2/warGFRWf8QDjOLfP
+   eJzt1r0KgzAUhuFsdbFx07Yg2Nih2t7/7fWAGQ5iIYn5Oco3PJBF8hKDnl4p1Sd0JZo0ifdBH/pK993I3cMjc99Anh5Mob6RTOQltM84nif6tvs+arn/X6F9/6zvpbS+9blK6yv9ft/2/bmaI/RdrIqtY6p39mn2vE4otK+1OrZOoQvsg2MImc1y9rl8O/n/x0TeP0YfnzvQd74+Pl9I7Ns6S/Qdoy9kNsvZBwAA5/IDzuq4hQ==
+  </data>
+ </layer>
+ <layer name="Collider" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt1rENACAIRFE30cpYGfefzhEsAEH8r9dcCMlRCqKa3gESqt4BkEL0PRrC900jxGeWd4AD6U5Yk8yPrgTOmncApKZ1F3WlfyxZ9Gn0jgZeE/0uBwDctwFWPQJQ
   </data>
  </layer>
 </map>

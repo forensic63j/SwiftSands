@@ -312,11 +312,112 @@ namespace SwiftSands
 		/// <returns></returns>
         static public Map LoadMap(string filename)
         {
-            Map loadingMap = new Map();
+            Map loadingMap;
+            int width = 0;
+            int height = 0;
+            int tilewidth = 0;
+            int tileheight = 0;
+            string tilesetname = "";
+            int[,] groundLayer = new int[width, height];
+            int[,] colliderLayer = new int[width, height];
             using (StreamReader input = new StreamReader("Content//Maps//" + filename))
             {
-                
+                string currentLine;
+                int lineIndex = 0;
+                int dataIndex = 0;
+                string layerType = "";
+                bool readingGroundData = false;
+                bool readingColliderData = false;
+                while ((currentLine = input.ReadLine()) != null)
+                {
+
+                    if (currentLine.Contains("width") && !currentLine.Contains("tile"))
+                    {
+                        width = Convert.ToInt32(currentLine.Substring(currentLine.IndexOf("=") + 1));
+                    }
+                    if (currentLine.Contains("height") && !currentLine.Contains("tile"))
+                    {
+                        height = Convert.ToInt32(currentLine.Substring(currentLine.IndexOf("=") + 1));
+                        groundLayer = new int[width, height];
+                        colliderLayer = new int[width, height];
+                    }
+                    if (currentLine.Contains("tilewidth"))
+                    {
+                        tilewidth = Convert.ToInt32(currentLine.Substring(currentLine.IndexOf("=") + 1));
+                    }
+                    if (currentLine.Contains("tileheight"))
+                    {
+                        tileheight = Convert.ToInt32(currentLine.Substring(currentLine.IndexOf("=") + 1));
+                    }
+                    if (currentLine.Contains("tileset") && !currentLine.Contains("["))
+                    {
+                        tilesetname = currentLine.Substring(currentLine.IndexOf("=") + 1, currentLine.IndexOf(","));
+                    }
+                    if (currentLine.Contains("type=Ground"))
+                    {
+                        layerType = "Ground";
+                    }
+                    if (currentLine.Contains("type=Collider"))
+                    {
+                        layerType = "Collider";
+                    }
+                    if (currentLine.Contains("data="))
+                    {
+                        dataIndex = 0;
+                        if (layerType.Equals("Ground"))
+                        {
+                            readingGroundData = true;
+                        }
+                        if (layerType.Equals("Collider"))
+                        {
+                            readingColliderData = true;
+                        }
+                    }
+                    //In ground data block
+                    if (readingGroundData)
+                    {
+                        if (dataIndex < height)
+                        {
+                            if (!currentLine.Contains("="))
+                            {
+                                string[] tempArray = currentLine.Split(',');
+                                for (int i = 0; i < width; i++)
+                                {
+                                    groundLayer[i, dataIndex] = Convert.ToInt32(tempArray[i]);
+                                }
+                                dataIndex++;
+                            }
+                        }
+                        else
+                        {
+                            dataIndex = 0;
+                            readingGroundData = false;
+                        }
+                    }
+                    //In collider data block
+                    if (readingColliderData)
+                    {
+                        if (dataIndex < height)
+                        {
+                            if (!currentLine.Contains("="))
+                            {
+                                string[] tempArray = currentLine.Split(',');
+                                for (int i = 0; i < width; i++)
+                                {
+                                    colliderLayer[i, dataIndex] = Convert.ToInt32(tempArray[i]);
+                                }
+                                dataIndex++;
+                            }
+                        }
+                        else
+                        {
+                            dataIndex = 0;
+                            readingColliderData = false;
+                        }
+                    }
+                }
             }
+            loadingMap = new Map(width, height, tilewidth, tileheight, groundLayer, colliderLayer, tilesetname);
             return loadingMap;
         }
 
