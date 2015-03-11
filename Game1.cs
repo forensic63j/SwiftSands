@@ -15,11 +15,32 @@ namespace SwiftSands
     /// This is the main type for your game
     /// </summary>
     public class Game1 : Game
-    {
-        GraphicsDeviceManager graphics;
+	{
+		#region fields
+		//Base fields
+		GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        public Game1()
+		//Menu states
+		MainMenu mainMenu;
+		OptionsMenu options;
+		PauseMenu pause;
+
+		//Map states
+		LocalMap localMap;
+		WorldMap worldMap;
+
+		//Data lists
+		List<Character> characterList;
+		List<Item> itemsList;
+
+		//GUI
+		Texture2D buttonSprite;
+		SpriteFont font;
+		Viewport viewport;
+		#endregion
+
+		public Game1()
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -35,6 +56,13 @@ namespace SwiftSands
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+			viewport = this.GraphicsDevice.Viewport;
+
+			localMap = new LocalMap(this,viewport);
+			worldMap = new WorldMap(this,viewport);
+
+			characterList = new List<Character>();
+			itemsList = new List<Item>();
 
             base.Initialize();
         }
@@ -47,8 +75,13 @@ namespace SwiftSands
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+			
             // TODO: use this.Content to load your game content here
+			LoadManager.LoadContent(ref characterList, ref itemsList,ref buttonSprite, ref font);
+
+			mainMenu = new MainMenu(font,buttonSprite,this,viewport);
+			options = new OptionsMenu(font,buttonSprite,this,viewport);
+			pause = new PauseMenu(font,buttonSprite,this,viewport);
         }
 
         /// <summary>
