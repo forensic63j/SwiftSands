@@ -30,9 +30,11 @@ namespace SwiftSands
 		LocalMap localMap;
 		WorldMap worldMap;
 
-		//Data lists
+		//Data structures
 		List<Character> characterList;
-		List<Item> itemsList;
+		List<Item> itemList;
+		List<Task> taskList;
+		Inventory inventory;
 
 		//GUI
 		Texture2D buttonSprite;
@@ -47,7 +49,8 @@ namespace SwiftSands
             Content.RootDirectory = "Content";
         }
 
-        /// <summary>
+		#region base methods
+		/// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
         /// related content.  Calling base.Initialize will enumerate through any components
@@ -62,7 +65,9 @@ namespace SwiftSands
 			worldMap = new WorldMap(this,viewport);
 
 			characterList = new List<Character>();
-			itemsList = new List<Item>();
+			itemList = new List<Item>();
+			taskList = new List<Task>();
+			inventory = new Inventory();
 
             base.Initialize();
         }
@@ -77,11 +82,33 @@ namespace SwiftSands
             spriteBatch = new SpriteBatch(GraphicsDevice);
 			
             // TODO: use this.Content to load your game content here
-			LoadManager.LoadContent(ref characterList, ref itemsList,ref buttonSprite, ref font);
+			LoadManager.LoadContent(ref characterList, ref itemList,ref buttonSprite, ref font);
 
+			//Menus
 			mainMenu = new MainMenu(font,buttonSprite,this,viewport);
 			options = new OptionsMenu(font,buttonSprite,this,viewport);
 			pause = new PauseMenu(font,buttonSprite,this,viewport);
+
+			//Buttons:
+			//Main Menu Buttons
+			mainMenu.Play.OnClick = ToMap;
+			mainMenu.Load.OnClick = Load;
+			mainMenu.Options.OnClick = Options;
+			mainMenu.Quit.OnClick = Exit;
+
+			//Options buttons
+			options.Resolution.OnClick = Resolution;
+			options.Volume.OnClick = Volume;
+			options.Back.OnClick = Back;
+			
+			//Pause buttons
+			pause.Main.OnClick = ToMainMenu;
+			pause.Options.OnClick = Options;
+			pause.Save.OnClick = Save;
+			pause.Resume.OnClick = Back;
+			pause.Quit.OnClick = Exit;
+
+			StateManager.OpenState(mainMenu);
         }
 
         /// <summary>
@@ -104,6 +131,7 @@ namespace SwiftSands
                 Exit();
 
             // TODO: Add your update logic here
+			StateManager.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -117,8 +145,79 @@ namespace SwiftSands
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+			spriteBatch.Begin();
+			StateManager.Draw(gameTime,spriteBatch);
+			spriteBatch.End();
 
             base.Draw(gameTime);
-        }
-    }
+		}
+		#endregion
+
+		#region button methods
+		
+		/// <summary>
+		/// Changes state to WorldMap
+		/// </summary>
+		private void ToMap()
+		{
+			StateManager.OpenState(worldMap);
+		}
+
+		/// <summary>
+		/// Calls loading system.
+		/// </summary>
+		private void Load()
+		{
+			LoadManager.LoadSavefile("Save1.data",inventory,itemList,taskList);
+		}
+
+		/// <summary>
+		/// Opens options menu.
+		/// </summary>
+		private void Options()
+		{
+			StateManager.OpenState(options);
+		}
+
+		/// <summary>
+		/// Prompts user on volume chnges.
+		/// </summary>
+		private void Volume()
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>
+		/// Prompts user on resolution changes.
+		/// </summary>
+		private void Resolution()
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <summary>
+		/// Returns program to the last state.
+		/// </summary>
+		private void Back()
+		{
+			StateManager.CloseState();
+		}
+
+		/// <summary>
+		/// Opens the main menu.
+		/// </summary>
+		private void ToMainMenu()
+		{
+			StateManager.OpenState(mainMenu);
+		}
+
+		/// <summary>
+		/// Saves the file.
+		/// </summary>
+		private void Save()
+		{
+			SaveManager.Save("Save1.data");
+		}
+		#endregion
+	}
 }

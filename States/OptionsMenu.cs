@@ -24,7 +24,7 @@ namespace SwiftSands
 		/// <summary>
 		/// Gets the resume button.
 		/// </summary>
-		public Button Nolume
+		public Button Volume
 		{
 			get { return volume; }
 		}
