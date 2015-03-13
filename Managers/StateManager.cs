@@ -15,6 +15,14 @@ namespace SwiftSands
     {
         static Dictionary<string, State> allStates;
         static public Stack<State> stateStack;
+
+
+        static StateManager()
+        {
+            allStates = new Dictionary<string, State>();
+            stateStack = new Stack<State>();
+        }
+        
         /// <summary>
         /// Switches state, calls exit and enter
         /// </summary>
