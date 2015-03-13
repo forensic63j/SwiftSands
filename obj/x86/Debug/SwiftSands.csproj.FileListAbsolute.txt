@@ -53,3 +53,25 @@ D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX
 D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.RawInput.xml
 D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.Direct3D9.xml
 D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\obj\x86\Debug\SwiftSands.csprojResolveAssemblyReference.cache
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SwiftSands.exe
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SwiftSands.pdb
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\MonoGame.Framework.dll
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.MediaFoundation.dll
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.dll
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.XAudio2.dll
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.Direct3D11.dll
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.DXGI.dll
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.Direct2D1.dll
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\Lidgren.Network.dll
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.XInput.dll
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.RawInput.dll
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.Direct3D9.dll
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.MediaFoundation.xml
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.xml
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.XAudio2.xml
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.Direct3D11.xml
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.DXGI.xml
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.Direct2D1.xml
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.XInput.xml
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.RawInput.xml
+C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.Direct3D9.xml

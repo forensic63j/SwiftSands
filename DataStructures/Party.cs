@@ -11,6 +11,11 @@ namespace SwiftSands
 		static private List<Player> partyList;
 		#endregion
 
+        static Party()
+        {
+            partyList = new List<Player>();
+        }
+
 		#region properties
 		/// <summary>
 		/// Gets the party list.

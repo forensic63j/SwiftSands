@@ -11,6 +11,11 @@ namespace SwiftSands
         static private List<Task> tasks;
         #endregion
 
+        static TaskManager()
+        {
+            tasks = new List<Task>();
+        }
+
         #region Parameters
         static public List<Task> Tasks
         {
