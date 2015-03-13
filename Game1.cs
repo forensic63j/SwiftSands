@@ -69,6 +69,9 @@ namespace SwiftSands
 			taskList = new List<Task>();
 			inventory = new Inventory();
 
+			font = null;
+			buttonSprite = null;
+
             base.Initialize();
         }
 
@@ -82,6 +85,8 @@ namespace SwiftSands
             spriteBatch = new SpriteBatch(GraphicsDevice);
 			
             // TODO: use this.Content to load your game content here
+			LoadManager.UpdateGame(this);
+
 			LoadManager.LoadContent(ref characterList, ref itemList,ref buttonSprite, ref font);
 
 			//Menus

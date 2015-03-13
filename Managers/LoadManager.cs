@@ -24,7 +24,7 @@ namespace SwiftSands
         static public void UpdateGame(Game1 game2)
         {
 			game = game2;
-			graphics = new GraphicsDeviceManager(game);
+			//graphics = new GraphicsDeviceManager(game);
 			saveInfo = Directory.CreateDirectory("Data//SaveFiles"); 
         }
 
@@ -39,8 +39,17 @@ namespace SwiftSands
         {
 			try
 			{
+				//GUI
+				font = game.Content.Load<SpriteFont>("GUI\\menuFont");
+
+				using(Stream imgStream = File.OpenRead("Content\\GUI\\button.png"))//Update once filetype is decided.
+				{
+					buttonSprite = Texture2D.FromStream(game.GraphicsDevice,imgStream);
+				}
+
+
 				#region characters
-				using(StreamReader input = new StreamReader("Data//GameEntities//Characters"))
+				using(StreamReader input = new StreamReader("Content\\Data\\GameEntities\\Characters.txt"))
 				{
 					String characterData = input.ReadToEnd();
 					String[] characters = characterData.Split(';');
@@ -69,7 +78,7 @@ namespace SwiftSands
 						String textureFile = characterStats[10];
 						//Texture
 						Texture2D sprite = null;
-						using(Stream imgStream = File.OpenRead("Content//CharacterSprites//" + textureFile)){
+						using(Stream imgStream = File.OpenRead("Content\\CharacterSprites\\" + textureFile)){
 							sprite = Texture2D.FromStream(game.GraphicsDevice,imgStream);
 						}
 						//rectangle
@@ -100,7 +109,7 @@ namespace SwiftSands
 				#endregion
 
 				#region items
-				using(StreamReader input = new StreamReader("Data//GameEntities//Item"))
+				using(StreamReader input = new StreamReader("Content\\Data\\GameEntities\\Item.txt"))
 				{
 					String itemData = input.ReadToEnd();
 					String[] items = itemData.Split(';');
@@ -122,7 +131,7 @@ namespace SwiftSands
 						String textureFile = itemStats[5];
 						//Texture
 						Texture2D sprite = null;
-						using(Stream imgStream = File.OpenRead("Content//ItemSprites//" + textureFile))
+						using(Stream imgStream = File.OpenRead("Content\\ItemSprites\\" + textureFile))
 						{
 							sprite = Texture2D.FromStream(game.GraphicsDevice,imgStream);
 						}
@@ -146,7 +155,7 @@ namespace SwiftSands
 				}
 				#endregion
 
-				using(StreamReader input = new StreamReader("Data//Tasks"))
+				using(StreamReader input = new StreamReader("Content\\Data\\Tasks.txt"))
 				{
 					String taskData = input.ReadToEnd();
 					String[] tasks = taskData.Split(';');
@@ -165,15 +174,9 @@ namespace SwiftSands
 					}
 				}
 
-				using(Stream imgStream = File.OpenRead("Content//GUI//button.png"))//Update once filetype is decided.
-				{
-					buttonSprite = Texture2D.FromStream(game.GraphicsDevice,imgStream);
-				}
-
-				font = game.Content.Load<SpriteFont>("GUI//menuFont");//Update later.
 			} catch(Exception e)
 			{
-				
+				Console.WriteLine("\n\n\t" + e.Message + "\n\n");
 			}
         }
 
@@ -214,7 +217,7 @@ namespace SwiftSands
 				}
 			#endregion
 
-				using(Stream inStream = File.OpenRead("Savefiles//" + filename))
+				using(Stream inStream = File.OpenRead("Savefiles\\" + filename))
 				{
 					using(BinaryReader input = new BinaryReader(inStream))
 					{
@@ -320,7 +323,7 @@ namespace SwiftSands
             string tilesetname = "";
             int[,] groundLayer = new int[width, height];
             int[,] colliderLayer = new int[width, height];
-            using (StreamReader input = new StreamReader("Content//Maps//" + filename))
+            using (StreamReader input = new StreamReader("Content\\Maps\\" + filename))
             {
                 string currentLine;
                 int lineIndex = 0;

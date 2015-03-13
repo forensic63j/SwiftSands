@@ -80,9 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\CharacterSprites\" />
+    <Folder Include="Content\Data\Savefiles\" />
     <Folder Include="Content\ItemSprites\" />
     <Folder Include="Content\PlayerSprites\" />
-    <Folder Include="Content\Savefiles\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\GUI\menuFont.xnb">

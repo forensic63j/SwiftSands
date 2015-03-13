@@ -79,3 +79,7 @@ D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\Content
 D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\Content\Data\GameEntities\Characters.txt
 D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\Content\Data\GameEntities\Item.txt
 D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\Content\Data\Tasks.txt
+C:\Users\Brian\Documents\GitHub\SwiftSands\bin\Windows\Debug\Content\Data\GameEntities\Characters.txt
+C:\Users\Brian\Documents\GitHub\SwiftSands\bin\Windows\Debug\Content\Data\GameEntities\Item.txt
+C:\Users\Brian\Documents\GitHub\SwiftSands\bin\Windows\Debug\Content\Data\Tasks.txt
+C:\Users\Brian\Documents\GitHub\SwiftSands\bin\Windows\Debug\Content\GUI\menuFont.xnb
