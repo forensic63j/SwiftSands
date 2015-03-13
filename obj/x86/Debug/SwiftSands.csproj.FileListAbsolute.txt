@@ -75,3 +75,7 @@ C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug
 C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.XInput.xml
 C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.RawInput.xml
 C:\Users\John\documents\visual studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.Direct3D9.xml
+D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\Content\GUI\menuFont.xnb
+D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\Content\Data\GameEntities\Characters.txt
+D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\Content\Data\GameEntities\Item.txt
+D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\Content\Data\Tasks.txt
