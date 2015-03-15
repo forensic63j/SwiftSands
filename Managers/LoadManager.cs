@@ -45,10 +45,10 @@ namespace SwiftSands
 				//GUI
 				font = game.Content.Load<SpriteFont>("GUI\\menuFont");
 
-				/*using(Stream imgStream = File.OpenRead("Content\\GUI\\button.png"))//Update once filetype is decided.
+				using(Stream imgStream = File.OpenRead("Content\\GUI\\button-sprite.png"))//Update once filetype is decided.
 				{
 					buttonSprite = Texture2D.FromStream(game.GraphicsDevice,imgStream);
-				}*/
+				}
 
 
 				#region characters
