@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Brian Sandon and Clayton Scavone (LoadMap)
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,10 +45,10 @@ namespace SwiftSands
 				//GUI
 				font = game.Content.Load<SpriteFont>("GUI\\menuFont");
 
-				/*using(Stream imgStream = File.OpenRead("Content\\GUI\\button.png"))//Update once filetype is decided.
+				using(Stream imgStream = File.OpenRead("Content\\GUI\\button-sprite.png"))//Update once filetype is decided.
 				{
 					buttonSprite = Texture2D.FromStream(game.GraphicsDevice,imgStream);
-				}*/
+				}
 
 
 				#region characters

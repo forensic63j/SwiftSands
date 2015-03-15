@@ -1,0 +1,1 @@
+Item,Evidence,Some random item.,0,0,item-sprite.png,50,50,23,28,true,true,true;
