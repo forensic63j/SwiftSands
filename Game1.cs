@@ -92,7 +92,7 @@ namespace SwiftSands
 
 			LoadManager.LoadContent(ref characterList, ref itemList,ref buttonSprite, ref font);
             testMap = LoadManager.LoadMap("desert.txt");
-            /*
+            
 			//Menus
             font = this.Content.Load<SpriteFont>("GUI/menuFont");
 			mainMenu = new MainMenu(font,buttonSprite,this,viewport);
@@ -119,7 +119,7 @@ namespace SwiftSands
 			pause.Quit.OnClick = Exit;
 
 			StateManager.OpenState(mainMenu);
-             * */
+            
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace SwiftSands
                 Exit();
 
             // TODO: Add your update logic here
-			//StateManager.Update(gameTime);
+			StateManager.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -157,8 +157,8 @@ namespace SwiftSands
 
             // TODO: Add your drawing code here
 			spriteBatch.Begin();
-			//StateManager.Draw(gameTime,spriteBatch);
-            testMap.Draw(gameTime, spriteBatch);
+			StateManager.Draw(gameTime,spriteBatch);
+            //testMap.Draw(gameTime, spriteBatch);
 			spriteBatch.End();
 
             base.Draw(gameTime);

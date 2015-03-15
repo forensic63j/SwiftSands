@@ -1,2 +1,2 @@
-Sample,false,100,100,100,2,1,5,7,7,null.png,0,0,5,5,false,false;
-Sample,false,100,100,100,2,1,5,7,7,null.png,0,0,5,5,false,false,10;
+Sample,false,100,100,100,2,1,5,7,7,character-sprite.png,0,0,23,28,false,false;
+Sample,false,100,100,100,2,1,5,7,7,character-sprite.png,0,0,23,28,false,false,10;

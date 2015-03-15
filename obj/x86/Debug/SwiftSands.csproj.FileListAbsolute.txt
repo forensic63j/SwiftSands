@@ -89,7 +89,7 @@ C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug
 C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\Content\GUI\menuFont.xnb
 C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\Content\CharacterSprites\character-sprite.png
 C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\Content\ItemSprites\item-sprite.png
-C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\Content\ButtonSprites\button-sprite.png
 C:\Users\Brian\Documents\GitHub\SwiftSands\bin\Windows\Debug\Content\CharacterSprites\character-sprite.png
 C:\Users\Brian\Documents\GitHub\SwiftSands\bin\Windows\Debug\Content\ItemSprites\item-sprite.png
 C:\Users\Brian\Documents\GitHub\SwiftSands\bin\Windows\Debug\Content\GUI\button-sprite.png
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\Content\GUI\button-sprite.png
