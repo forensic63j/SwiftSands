@@ -90,6 +90,7 @@ namespace SwiftSands
 			LoadManager.LoadContent(ref characterList, ref itemList,ref buttonSprite, ref font);
 
 			//Menus
+            font = this.Content.Load<SpriteFont>("GUI/menuFont");
 			mainMenu = new MainMenu(font,buttonSprite,this,viewport);
 			options = new OptionsMenu(font,buttonSprite,this,viewport);
 			pause = new PauseMenu(font,buttonSprite,this,viewport);

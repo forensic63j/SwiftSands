@@ -76,6 +76,7 @@
     <Content Include="Content\Data\Tasks.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Maps\desert.txt" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +84,7 @@
     <Folder Include="Content\Data\Savefiles\" />
     <Folder Include="Content\ItemSprites\" />
     <Folder Include="Content\PlayerSprites\" />
+    <Folder Include="Content\Tilesets\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\GUI\menuFont.xnb">

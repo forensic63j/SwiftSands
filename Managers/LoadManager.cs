@@ -39,6 +39,7 @@ namespace SwiftSands
         {
 			try
 			{
+                Map newMap = LoadMap("desert.txt");
 				//GUI
 				font = game.Content.Load<SpriteFont>("GUI\\menuFont");
 
@@ -354,7 +355,7 @@ namespace SwiftSands
                     }
                     if (currentLine.Contains("tileset") && !currentLine.Contains("["))
                     {
-                        tilesetname = currentLine.Substring(currentLine.IndexOf("=") + 1, currentLine.IndexOf(","));
+                        tilesetname = currentLine.Substring(currentLine.IndexOf("/") + 1, currentLine.IndexOf(","));
                     }
                     if (currentLine.Contains("type=Ground"))
                     {
@@ -421,6 +422,7 @@ namespace SwiftSands
                 }
             }
             loadingMap = new Map(width, height, tilewidth, tileheight, groundLayer, colliderLayer, tilesetname);
+            loadingMap.LoadTileset(game);
             return loadingMap;
         }
 

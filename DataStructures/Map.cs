@@ -20,7 +20,6 @@ namespace SwiftSands
         string tilesetName;
         int[,] groundLayer;
         int[,] colliderLayer;
-
         Texture2D tileset;
 
         public Texture2D Tileset{
@@ -59,6 +58,12 @@ namespace SwiftSands
             tilewidth = pTileWidth;
             tileheight = pTileHeight;
             this.tileset = tileset;
+        }
+
+        public void LoadTileset(Game1 game)
+        {
+            tileset = game.Content.Load<Texture2D>(tilesetName);
+            Console.Out.WriteLine(tileset);
         }
 
         public void Draw(GameTime time, SpriteBatch spriteBatch)
