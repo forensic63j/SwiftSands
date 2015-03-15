@@ -355,7 +355,13 @@ namespace SwiftSands
                     }
                     if (currentLine.Contains("tileset") && !currentLine.Contains("["))
                     {
-                        tilesetname = currentLine.Substring(currentLine.IndexOf("/") + 1, currentLine.IndexOf(","));
+                        int i = 0;
+                        while ((i = currentLine.IndexOf('/', i)) != -1)
+                        {
+                            tilesetname = currentLine.Substring((i+1), currentLine.IndexOf(",")-(i+1));
+                            Console.WriteLine(tilesetname);
+                            i++;
+                        }
                     }
                     if (currentLine.Contains("type=Ground"))
                     {

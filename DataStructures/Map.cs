@@ -62,13 +62,18 @@ namespace SwiftSands
 
         public void LoadTileset(Game1 game)
         {
-            tileset = game.Content.Load<Texture2D>(tilesetName);
-            Console.Out.WriteLine(tileset);
+            tileset = game.Content.Load<Texture2D>("Tilesets/"+tilesetName);
         }
 
         public void Draw(GameTime time, SpriteBatch spriteBatch)
         {
-
+            for (int r = 0; r < width; r++)
+            {
+                for (int c = 0; c < width; c++)
+                {
+                    spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((groundLayer[r, c]-1) % (width / tilewidth) * tilewidth), ((groundLayer[r, c]-1) % (height / tileheight) * tilewidth), tilewidth, tileheight), Color.White);
+                }
+            }
         }
     }
 }
