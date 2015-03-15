@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Clayton Scavone and Brian Sandon
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
