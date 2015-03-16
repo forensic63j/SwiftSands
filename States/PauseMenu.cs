@@ -133,7 +133,7 @@ namespace SwiftSands
 		public override void Draw(GameTime time,SpriteBatch spriteBatch)
 		{
 
-			spriteBatch.DrawString(font,"The game is paused.",new Vector2(255,0),Color.Brown);
+			spriteBatch.DrawString(font,"The game is paused.",new Vector2(320,0),Color.Brown);
 
 			resume.Draw(spriteBatch);
 			save.Draw(spriteBatch);

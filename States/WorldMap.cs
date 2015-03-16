@@ -34,7 +34,11 @@ namespace SwiftSands
 
         public override void Update(GameTime time)
         {
-            base.Update(time);
+			if(Keyboard.GetState().IsKeyDown(Keys.P))
+			{
+				StateManager.OpenState(StateGame.Pause);
+			}
+			base.Update(time);
         }
 
         public override void Draw(GameTime time, SpriteBatch spriteBatch)
