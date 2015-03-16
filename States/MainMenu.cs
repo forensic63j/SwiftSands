@@ -22,6 +22,9 @@ namespace SwiftSands
         private Button load;
         private Button options;
         private Button quit;
+
+		private MouseState mState;
+		private MouseState mPrevious;
         #endregion
 
         #region properties
@@ -65,12 +68,13 @@ namespace SwiftSands
             : base(game, port)
         {
 			this.font = font;
-			
-			int centering = (port.Width - 36) / 2;
-			play = new Button("Play", font, sprite, new Rectangle(centering, 20, 15, 36), true, true);
-			load = new Button("Load", font, sprite, new Rectangle(centering, 60, 15, 36), true, true);
-			options = new Button("Options", font, sprite, new Rectangle(centering, 80, 15, 36), true, true);
-			quit = new Button("Quit", font, sprite, new Rectangle(centering, 100, 15, 36), true, true);
+
+			int buttonWidth = 120;
+			int centering = (port.Width - buttonWidth) / 2;
+			play = new Button("Play",font,sprite,new Rectangle(centering,20,buttonWidth,30),true,true);
+			load = new Button("Load",font,sprite,new Rectangle(centering,60,buttonWidth,30),true,true);
+			options = new Button("Options",font,sprite,new Rectangle(centering,100,buttonWidth,30),true,true);
+			quit = new Button("Quit",font,sprite,new Rectangle(centering,140,buttonWidth,30),true,true);
         }
         
         #region Methods
@@ -104,12 +108,13 @@ namespace SwiftSands
         /// <param name="time">The time elapsed</param>
         public override void Update(GameTime time)
         {
-            MouseState mState = Mouse.GetState();
+			mPrevious = mState;
+			mState = Mouse.GetState();
 
-			play.Update(mState);
-			load.Update(mState);
-			options.Update(mState);
-			quit.Update(mState);
+			play.Update(mState,mPrevious);
+			load.Update(mState,mPrevious);
+			options.Update(mState,mPrevious);
+			quit.Update(mState,mPrevious);
 
 			base.Update(time);
         }   

@@ -23,6 +23,9 @@ namespace SwiftSands
 		private Button options;
 		private Button main;
 		private Button quit;
+
+		private MouseState mState;
+		private MouseState mPrevious;
 		#endregion
 
 		#region properties
@@ -72,12 +75,13 @@ namespace SwiftSands
 		{
 			this.font = font;
 
-			int centering = (port.Width - 40) / 2;
-			resume = new Button("Resume",font,sprite,new Rectangle(centering,20,15,40),true,true);
-			save = new Button("Save",font,sprite,new Rectangle(centering,40,15,40),true,true);
-			options = new Button("Options",font,sprite,new Rectangle(centering,60,15,40),true,true);
-			main = new Button("Main Menu",font,sprite,new Rectangle(centering,80,15,40),true,true);
-			quit = new Button("Quit",font,sprite,new Rectangle(centering,100,15,40),true,true);
+			int buttonWidth = 120;
+			int centering = (port.Width - buttonWidth) / 2;
+			resume = new Button("Resume",font,sprite,new Rectangle(centering,20,buttonWidth,30),true,true);
+			save = new Button("Save",font,sprite,new Rectangle(centering,60,buttonWidth,30),true,true);
+			options = new Button("Options",font,sprite,new Rectangle(centering,100,buttonWidth,30),true,true);
+			main = new Button("Main Menu",font,sprite,new Rectangle(centering,140,buttonWidth,30),true,true);
+			quit = new Button("Quit",font,sprite,new Rectangle(centering,180,buttonWidth,30),true,true);
 		}
 
 		#region Methods
@@ -111,13 +115,14 @@ namespace SwiftSands
 		/// <param name="time">The time elapsed</param>
 		public override void Update(GameTime time)
 		{
-			MouseState mState = Mouse.GetState();
+			mPrevious = mState;
+			mState = Mouse.GetState();
 
-			resume.Update(mState);
-			save.Update(mState);
-			options.Update(mState);
-			main.Update(mState);
-			quit.Update(mState);
+			resume.Update(mState,mPrevious);
+			save.Update(mState,mPrevious);
+			options.Update(mState,mPrevious);
+			main.Update(mState,mPrevious);
+			quit.Update(mState,mPrevious);
 
 			base.Update(time);
 		}

@@ -20,6 +20,9 @@ namespace SwiftSands
 		private Button resolution;
 		private Button back;
         private SpriteFont font;
+
+		private MouseState mState;
+		private MouseState mPrevious;
 		#endregion
 
 		#region properties
@@ -56,10 +59,11 @@ namespace SwiftSands
 		{
 			this.font = font;
 
-			int centering = (port.Width - 36) / 2;
-			volume = new Button("Volume",font,sprite,new Rectangle(centering,20,15,36),true,true);
-			resolution = new Button("Resolution",font,sprite,new Rectangle(centering,60,15,36),true,true);
-			back = new Button("Back",font,sprite,new Rectangle(centering,80,15,36),true,true);
+			int buttonWidth = 120;
+			int centering = (port.Width - buttonWidth) / 2;
+			volume = new Button("Volume",font,sprite,new Rectangle(centering,20,buttonWidth,30),true,true);
+			resolution = new Button("Resolution",font,sprite,new Rectangle(centering,60,buttonWidth,30),true,true);
+			back = new Button("Back",font,sprite,new Rectangle(centering,100,buttonWidth,30),true,true);
 			
 		}
 
@@ -81,11 +85,12 @@ namespace SwiftSands
 
         public override void Update(GameTime time)
         {
-			MouseState mState = Mouse.GetState();
+			mPrevious = mState;
+			mState = Mouse.GetState();
 
-			volume.Update(mState);
-			resolution.Update(mState);
-			back.Update(mState);
+			volume.Update(mState,mPrevious);
+			resolution.Update(mState,mPrevious);
+			back.Update(mState,mPrevious);
 
 			base.Update(time);
         }

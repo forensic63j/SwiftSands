@@ -50,11 +50,11 @@ namespace SwiftSands
         /// Updates the button.
         /// </summary>
         /// <param name="mState">The state of the mouse currently.</param>
-        public void Update(MouseState mState)
+        public void Update(MouseState mState, MouseState mPrevious)
         {
-            Rectangle pos = this.Position;
+			Rectangle pos = this.Position;
             bool onButton = ((mState.X >= pos.X && mState.X < (pos.X + pos.Width)) && (mState.Y >= pos.Y && mState.Y < (pos.Y + pos.Height)));
-            if(this.IsActive && (mState.LeftButton == ButtonState.Pressed) && onButton)
+            if(this.IsActive && (mState.LeftButton == ButtonState.Pressed && mPrevious.LeftButton != ButtonState.Pressed) && onButton)
             {
                 onClick();
             }
@@ -67,7 +67,7 @@ namespace SwiftSands
         {
             base.Draw(spriteBatch);
             Rectangle pos = this.Position;
-            spriteBatch.DrawString(font, this.Name, new Vector2(pos.X + 2, pos.Y + 2), Color.Black);
+            spriteBatch.DrawString(font, this.Name, new Vector2(pos.X + 5, pos.Y + 2), Color.Black);
         }
 		#endregion
 	}

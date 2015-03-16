@@ -43,6 +43,9 @@ namespace SwiftSands
 		Texture2D buttonSprite;
 		SpriteFont font;
 		Viewport viewport;
+
+		//State variables
+		MouseState mState;
 		#endregion
 
 		public Game1()
@@ -141,6 +144,8 @@ namespace SwiftSands
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+			mState = Mouse.GetState();
+
             // TODO: Add your update logic here
 			StateManager.Update(gameTime);
 
@@ -159,6 +164,7 @@ namespace SwiftSands
 			spriteBatch.Begin();
 			StateManager.Draw(gameTime,spriteBatch);
             //testMap.Draw(gameTime, spriteBatch);
+			spriteBatch.Draw(buttonSprite,new Rectangle(mState.X,mState.Y,5,5),Color.Black);
 			spriteBatch.End();
 
             base.Draw(gameTime);
@@ -172,7 +178,7 @@ namespace SwiftSands
 		/// </summary>
 		private void ToMap()
 		{
-			StateManager.OpenState(worldMap);
+			StateManager.OpenState(localMap);
 		}
 
 		/// <summary>
@@ -181,6 +187,7 @@ namespace SwiftSands
 		private void Load()
 		{
 			LoadManager.LoadSavefile("Save1.data",inventory,itemList,taskList);
+			StateManager.OpenState(worldMap);
 		}
 
 		/// <summary>
