@@ -18,7 +18,7 @@ namespace SwiftSands
     {
         Map map;
 
-        public LocalMap(Game game, Viewport port) : base(game, port) { }
+        public LocalMap(Game1 game, Viewport port) : base(game, port) { }
 
         public override void OnEnter()
         {
@@ -38,7 +38,11 @@ namespace SwiftSands
 
         public override void Update(GameTime time)
         {
-			base.Update(time);
+            if (Keyboard.GetState().IsKeyDown(Keys.P))
+            {
+                StateManager.OpenState(StateGame.Pause);
+            }
+            base.Update(time);
         }
 
         public override void Draw(GameTime time, SpriteBatch spriteBatch)

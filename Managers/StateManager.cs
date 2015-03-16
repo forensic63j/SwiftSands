@@ -19,6 +19,25 @@ namespace SwiftSands
         static public Stack<State> stateStack;
 
 
+        static private MouseState mState;
+        static private MouseState mPrevious;
+
+        /// <summary>
+        /// Gets the current mouse state.
+        /// </summary>
+        static public MouseState MState
+        {
+            get { return mState; }
+        }
+
+        /// <summary>
+        /// Gets the last mouse state.
+        /// </summary>
+        static public MouseState MPrevious
+        {
+            get { return mPrevious; }
+        }
+
         static StateManager()
         {
             allStates = new Dictionary<string, State>();
@@ -69,6 +88,10 @@ namespace SwiftSands
 		/// </summary>
 		static public void Update(GameTime time)
 		{
+            mPrevious = mState;
+            mState = Mouse.GetState();
+
+
 			stateStack.Peek().Update(time);
 		}
 

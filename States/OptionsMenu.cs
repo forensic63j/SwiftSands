@@ -54,7 +54,7 @@ namespace SwiftSands
 		/// <summary>
 		/// Instatiates the Options Menu
 		/// </summary>
-		public OptionsMenu(SpriteFont font,Texture2D sprite, Game game,Viewport port)
+		public OptionsMenu(SpriteFont font,Texture2D sprite, Game1 game,Viewport port)
 			: base(game,port) 
 		{
 			this.font = font;
@@ -85,12 +85,9 @@ namespace SwiftSands
 
         public override void Update(GameTime time)
         {
-			mPrevious = mState;
-			mState = Mouse.GetState();
-
-			volume.Update(mState,mPrevious);
-			resolution.Update(mState,mPrevious);
-			back.Update(mState,mPrevious);
+			volume.Update();
+			resolution.Update();
+			back.Update();
 
 			base.Update(time);
         }

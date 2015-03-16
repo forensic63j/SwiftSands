@@ -70,7 +70,7 @@ namespace SwiftSands
 		}
 		#endregion
 
-		public PauseMenu(SpriteFont font,Texture2D sprite,Game game,Viewport port)
+		public PauseMenu(SpriteFont font,Texture2D sprite,Game1 game,Viewport port)
 			: base(game,port)
 		{
 			this.font = font;
@@ -115,14 +115,12 @@ namespace SwiftSands
 		/// <param name="time">The time elapsed</param>
 		public override void Update(GameTime time)
 		{
-			mPrevious = mState;
-			mState = Mouse.GetState();
-
-			resume.Update(mState,mPrevious);
-			save.Update(mState,mPrevious);
-			options.Update(mState,mPrevious);
-			main.Update(mState,mPrevious);
-			quit.Update(mState,mPrevious);
+			
+			resume.Update();
+			save.Update();
+			options.Update();
+			main.Update();
+			quit.Update();
 
 			base.Update(time);
 		}

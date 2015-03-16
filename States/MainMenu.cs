@@ -64,7 +64,7 @@ namespace SwiftSands
         /// <summary>
         /// Instatiates the Main Menu
         /// </summary>
-        public MainMenu(SpriteFont font,Texture2D sprite, Game game, Viewport port)
+        public MainMenu(SpriteFont font,Texture2D sprite, Game1 game, Viewport port)
             : base(game, port)
         {
 			this.font = font;
@@ -108,13 +108,10 @@ namespace SwiftSands
         /// <param name="time">The time elapsed</param>
         public override void Update(GameTime time)
         {
-			mPrevious = mState;
-			mState = Mouse.GetState();
-
-			play.Update(mState,mPrevious);
-			load.Update(mState,mPrevious);
-			options.Update(mState,mPrevious);
-			quit.Update(mState,mPrevious);
+			play.Update();
+			load.Update();
+			options.Update();
+			quit.Update();
 
 			base.Update(time);
         }   

@@ -13,12 +13,18 @@ namespace SwiftSands
 {
     abstract class State
     {
-        Game game;
+        Game1 game;
         Viewport viewPort;
+
+        public Game1 StateGame
+        {
+            get { return game; }
+        }
+
         /// <summary>
         /// State creation
         /// </summary>
-        public State(Game game, Viewport port)
+        public State(Game1 game,Viewport port)
         {
             this.game = game;
             this.viewPort = port;

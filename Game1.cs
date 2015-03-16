@@ -48,7 +48,49 @@ namespace SwiftSands
 		MouseState mState;
 		#endregion
 
-		public Game1()
+        #region properties
+        /// <summary>
+        /// Gets main menu.
+        /// </summary>
+        internal MainMenu MainMenu
+        {
+            get { return mainMenu; }
+        }
+
+        /// <summary>
+        /// Gets pause menu.
+        /// </summary>
+        internal PauseMenu Pause
+        {
+            get { return pause; }
+        }
+
+        /// <summary>
+        /// Gets options menu.
+        /// </summary>
+        internal OptionsMenu Options
+        {
+            get { return options; }
+        }
+
+        /// <summary>
+        /// Gets world map.
+        /// </summary>
+        internal WorldMap WorldMap
+        {
+            get { return worldMap; }
+        }
+
+        /// <summary>
+        /// Gets local map.
+        /// </summary>
+        internal LocalMap LocalMap
+        {
+            get { return localMap; }
+        }
+        #endregion
+
+        public Game1()
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -105,7 +147,7 @@ namespace SwiftSands
 			//Main Menu Buttons
 			mainMenu.Play.OnClick = ToMap;
 			mainMenu.Load.OnClick = Load;
-			mainMenu.Options.OnClick = Options;
+			mainMenu.Options.OnClick = ToOptions;
 			mainMenu.Quit.OnClick = Exit;
 
 			//Options buttons
@@ -115,7 +157,7 @@ namespace SwiftSands
 			
 			//Pause buttons
 			pause.Main.OnClick = ToMainMenu;
-			pause.Options.OnClick = Options;
+			pause.Options.OnClick = ToOptions;
 			pause.Save.OnClick = Save;
 			pause.Resume.OnClick = Back;
 			pause.Quit.OnClick = Exit;
@@ -192,7 +234,7 @@ namespace SwiftSands
 		/// <summary>
 		/// Opens options menu.
 		/// </summary>
-		private void Options()
+		private void ToOptions()
 		{
 			StateManager.OpenState(options);
 		}
