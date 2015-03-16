@@ -97,6 +97,8 @@ namespace SwiftSands
 
         public override void Draw(GameTime time, SpriteBatch spriteBatch)
         {
+			spriteBatch.DrawString(font,"Options:",new Vector2(350,0),Color.Brown);
+			
 			volume.Draw(spriteBatch);
 			resolution.Draw(spriteBatch);
 			back.Draw(spriteBatch);

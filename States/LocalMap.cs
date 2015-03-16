@@ -35,7 +35,7 @@ namespace SwiftSands
 
         public override void Update(GameTime time)
         {
-            base.Update(time);
+			base.Update(time);
         }
 
         public override void Draw(GameTime time, SpriteBatch spriteBatch)
