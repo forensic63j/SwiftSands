@@ -94,7 +94,6 @@ namespace SwiftSands
 			LoadManager.UpdateGame(this);
 
 			LoadManager.LoadContent(ref characterList, ref itemList,ref buttonSprite, ref font);
-            testMap = LoadManager.LoadMap("desert.txt");
             
 			//Menus
             font = this.Content.Load<SpriteFont>("GUI/menuFont");

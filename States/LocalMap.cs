@@ -16,10 +16,13 @@ namespace SwiftSands
   
     class LocalMap : State
     {
+        Map map;
+
         public LocalMap(Game game, Viewport port) : base(game, port) { }
 
         public override void OnEnter()
         {
+            map = LoadManager.LoadMap("desert.txt");
             base.OnEnter();
         }
 
@@ -40,6 +43,7 @@ namespace SwiftSands
 
         public override void Draw(GameTime time, SpriteBatch spriteBatch)
         {
+            map.Draw(time, spriteBatch);
             base.Draw(time, spriteBatch);
         }
     }

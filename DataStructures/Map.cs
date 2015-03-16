@@ -73,7 +73,14 @@ namespace SwiftSands
             {
                 for (int c = 0; c < width; c++)
                 {
-                    spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((groundLayer[r, c]-1) % (width / tilewidth) * tilewidth), ((groundLayer[r, c]-1) % (height / tileheight) * tilewidth), tilewidth, tileheight), Color.White);
+                    if (groundLayer[r, c] - 1 >= 0)
+                    {
+                        spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((groundLayer[r, c] - 1) % (8) * tilewidth), (((groundLayer[r, c] - 1) / 8) * tileheight), tilewidth, tileheight), Color.White);
+                    }
+                    if (colliderLayer[r, c] - 1 >= 0)
+                    {
+                        spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((colliderLayer[r, c] - 1) % (8) * tilewidth), (((colliderLayer[r, c] - 1) / 8) * tileheight), tilewidth, tileheight), Color.White);
+                    }
                 }
             }
         }
