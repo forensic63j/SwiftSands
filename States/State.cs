@@ -15,6 +15,12 @@ namespace SwiftSands
     {
         Game1 game;
         Viewport viewPort;
+        Camera camera;
+
+        public Camera StateCamera
+        {
+            get { return camera; }
+        }
 
         public Game1 StateGame
         {
@@ -26,6 +32,7 @@ namespace SwiftSands
         /// </summary>
         public State(Game1 game,Viewport port)
         {
+            this.camera = new Camera(port);
             this.game = game;
             this.viewPort = port;
         }
@@ -67,7 +74,17 @@ namespace SwiftSands
         /// </summary>
         /// <param name="time"></param>
         /// <param name="spriteBatch"></param>
-        public virtual void Draw(GameTime time, SpriteBatch spriteBatch)
+        public void Draw(GameTime time, SpriteBatch spriteBatch)
+        {
+           
+        }
+
+        public virtual void DrawWorld(GameTime time, SpriteBatch spriteBatch)
+        {
+           
+        }
+
+        public virtual void DrawScreen(GameTime time, SpriteBatch spriteBatch)
         {
 
         }

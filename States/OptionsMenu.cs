@@ -92,7 +92,7 @@ namespace SwiftSands
 			base.Update(time);
         }
 
-        public override void Draw(GameTime time, SpriteBatch spriteBatch)
+        public override void DrawScreen(GameTime time, SpriteBatch spriteBatch)
         {
 			spriteBatch.DrawString(font,"Options:",new Vector2(350,0),Color.Brown);
 			

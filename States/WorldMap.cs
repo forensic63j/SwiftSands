@@ -41,8 +41,15 @@ namespace SwiftSands
 			base.Update(time);
         }
 
-        public override void Draw(GameTime time, SpriteBatch spriteBatch)
+        public override void DrawWorld(GameTime time, SpriteBatch spriteBatch)
         {
+            // TODO: Add your drawing code here          
+            base.Draw(time, spriteBatch);
+        }
+
+        public override void DrawScreen(GameTime time, SpriteBatch spriteBatch)
+        {
+            // TODO: Add your drawing code here          
             base.Draw(time, spriteBatch);
         }
     }

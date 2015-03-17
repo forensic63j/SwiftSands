@@ -50,6 +50,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sprites\Sprite.cs" />
+    <Compile Include="DataStructures\Camera.cs" />
     <Compile Include="States\LocalMap.cs" />
     <Compile Include="States\MainMenu.cs" />
     <Compile Include="States\OptionsMenu.cs" />

@@ -130,7 +130,7 @@ namespace SwiftSands
 		/// </summary>
 		/// <param name="time">Time elapsed.</param>
 		/// <param name="spriteBatch"></param>
-		public override void Draw(GameTime time,SpriteBatch spriteBatch)
+		public override void DrawScreen(GameTime time,SpriteBatch spriteBatch)
 		{
 
 			spriteBatch.DrawString(font,"The game is paused.",new Vector2(320,0),Color.Brown);

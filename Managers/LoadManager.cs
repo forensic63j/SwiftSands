@@ -30,6 +30,17 @@ namespace SwiftSands
 			saveInfo = Directory.CreateDirectory("Data//SaveFiles"); 
         }
 
+        static public Texture2D LoadSprite(string spritename)
+        {
+            Texture2D tempsprite;
+            using (Stream imgStream = File.OpenRead("Content\\" + spritename))//Update once filetype is decided.
+            {
+                tempsprite = Texture2D.FromStream(game.GraphicsDevice, imgStream);
+                return tempsprite;
+            }
+            return tempsprite;
+        }
+
         /// <summary>
         /// Loads content.
         /// </summary>

@@ -23,6 +23,8 @@ namespace SwiftSands
         private Button options;
         private Button quit;
 
+        Texture2D buttonSprite;
+
 		private MouseState mState;
 		private MouseState mPrevious;
         #endregion
@@ -68,9 +70,10 @@ namespace SwiftSands
             : base(game, port)
         {
 			this.font = font;
-
+            base.StateCamera.InputEnabled = false;
 			int buttonWidth = 120;
 			int centering = (port.Width - buttonWidth) / 2;
+            buttonSprite = sprite;
 			play = new Button("Play",font,sprite,new Rectangle(centering,20,buttonWidth,30),true,true);
 			load = new Button("Load",font,sprite,new Rectangle(centering,60,buttonWidth,30),true,true);
 			options = new Button("Options",font,sprite,new Rectangle(centering,100,buttonWidth,30),true,true);
@@ -108,6 +111,7 @@ namespace SwiftSands
         /// <param name="time">The time elapsed</param>
         public override void Update(GameTime time)
         {
+            mState = Mouse.GetState();
 			play.Update();
 			load.Update();
 			options.Update();
@@ -121,17 +125,16 @@ namespace SwiftSands
         /// </summary>
         /// <param name="time">Time elapsed.</param>
         /// <param name="spriteBatch"></param>
-        public override void Draw(GameTime time, SpriteBatch spriteBatch)
+        public override void DrawScreen(GameTime time, SpriteBatch spriteBatch)
         {
 
 			spriteBatch.DrawString(font,"Main menu:",new Vector2(350,0),Color.Brown);
-
 			play.Draw(spriteBatch);
 			load.Draw(spriteBatch);
 			options.Draw(spriteBatch);
 			quit.Draw(spriteBatch);
-			
-			base.Draw(time, spriteBatch);
+            spriteBatch.Draw(buttonSprite, new Rectangle(mState.X, mState.Y, 5, 5), Color.Black);
+            base.Draw(time, spriteBatch);
         }
         #endregion
     }

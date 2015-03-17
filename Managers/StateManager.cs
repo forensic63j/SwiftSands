@@ -18,10 +18,17 @@ namespace SwiftSands
         static Dictionary<string, State> allStates;
         static public Stack<State> stateStack;
 
+        static Texture2D buttonSprite;
 
         static private MouseState mState;
         static private MouseState mPrevious;
 
+        static public Stack<State> StateStack{
+           get{return stateStack;}
+        }
+        static public State CurrentState{
+           get{return stateStack.Peek();}
+        }
         /// <summary>
         /// Gets the current mouse state.
         /// </summary>
@@ -90,8 +97,7 @@ namespace SwiftSands
 		{
             mPrevious = mState;
             mState = Mouse.GetState();
-
-
+            CurrentState.StateCamera.Update();
 			stateStack.Peek().Update(time);
 		}
 
@@ -100,7 +106,12 @@ namespace SwiftSands
 		/// </summary>
 		static public void Draw(GameTime time,SpriteBatch spriteBatch)
 		{
-			stateStack.Peek().Draw(time,spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, CurrentState.StateCamera.Transform);
+            stateStack.Peek().DrawWorld(time, spriteBatch);
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            stateStack.Peek().DrawScreen(time, spriteBatch);
+            spriteBatch.End();
 		}
     }
 }

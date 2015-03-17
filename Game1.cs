@@ -40,15 +40,18 @@ namespace SwiftSands
 		Inventory inventory;
 
 		//GUI
-		Texture2D buttonSprite;
+        Texture2D buttonSprite;
 		SpriteFont font;
 		Viewport viewport;
 
 		//State variables
 		MouseState mState;
+
 		#endregion
 
+
         #region properties
+
         /// <summary>
         /// Gets main menu.
         /// </summary>
@@ -200,14 +203,8 @@ namespace SwiftSands
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Cornsilk);
-
+            StateManager.Draw(gameTime, spriteBatch);
             // TODO: Add your drawing code here
-			spriteBatch.Begin();
-			StateManager.Draw(gameTime,spriteBatch);
-            //testMap.Draw(gameTime, spriteBatch);
-			spriteBatch.Draw(buttonSprite,new Rectangle(mState.X,mState.Y,5,5),Color.Black);
-			spriteBatch.End();
-
             base.Draw(gameTime);
 		}
 		#endregion
