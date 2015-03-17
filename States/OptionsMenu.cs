@@ -23,6 +23,8 @@ namespace SwiftSands
 
 		private MouseState mState;
 		private MouseState mPrevious;
+
+        private Texture2D buttonSprite;
 		#endregion
 
 		#region properties
@@ -58,7 +60,7 @@ namespace SwiftSands
 			: base(game,port) 
 		{
 			this.font = font;
-
+            buttonSprite = sprite;
 			int buttonWidth = 120;
 			int centering = (port.Width - buttonWidth) / 2;
 			volume = new Button("Volume",font,sprite,new Rectangle(centering,20,buttonWidth,30),true,true);

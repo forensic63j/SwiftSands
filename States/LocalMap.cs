@@ -21,7 +21,8 @@ namespace SwiftSands
         Texture2D buttonSprite;
 
         Vector2 mouse;
-   
+
+        KeyboardState oldState;
         public LocalMap(Game1 game, Viewport port) : base(game, port) { }
 
         public override void OnEnter()
@@ -43,9 +44,13 @@ namespace SwiftSands
 
         public override void Update(GameTime time)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            StateManager.KState = Keyboard.GetState();
+            if (StateManager.KState.IsKeyDown(Keys.Escape))
             {
-                StateManager.OpenState(StateGame.Pause);
+                if (!StateManager.KPrevious.IsKeyDown(Keys.Escape))
+                {
+                    StateManager.OpenState(StateGame.Pause);
+                }
             }
             mState = Mouse.GetState();
             mouse = new Vector2(mState.X, mState.Y);

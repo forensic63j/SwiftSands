@@ -1,4 +1,4 @@
-﻿//Brian Sandon and Clayton Scavone (LoadMap)
+﻿//Brian Sandon and Clayton Scavone (LoadMap, LoadSprite)
 
 using System;
 using System.Collections.Generic;

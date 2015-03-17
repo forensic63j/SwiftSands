@@ -18,10 +18,11 @@ namespace SwiftSands
         static Dictionary<string, State> allStates;
         static public Stack<State> stateStack;
 
-        static Texture2D buttonSprite;
-
         static private MouseState mState;
         static private MouseState mPrevious;
+
+        static private KeyboardState kState;
+        static private KeyboardState kPrevious;
 
         static public Stack<State> StateStack{
            get{return stateStack;}
@@ -43,6 +44,23 @@ namespace SwiftSands
         static public MouseState MPrevious
         {
             get { return mPrevious; }
+        }
+        /// <summary>
+        /// Gets new key state
+        /// </summary>
+        static public KeyboardState KState
+        {
+            get { return kState; }
+            set { kState = value; }
+        }
+
+        /// <summary>
+        /// Gets the last key state.
+        /// </summary>
+        static public KeyboardState KPrevious
+        {
+            get { return kPrevious; }
+            set { kPrevious = value; }
         }
 
         static StateManager()

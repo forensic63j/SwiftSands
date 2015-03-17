@@ -112,6 +112,7 @@ namespace SwiftSands
         public override void Update(GameTime time)
         {
             mState = Mouse.GetState();
+            StateManager.KState = Keyboard.GetState();
 			play.Update();
 			load.Update();
 			options.Update();

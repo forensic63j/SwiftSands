@@ -24,8 +24,12 @@ namespace SwiftSands
 		private Button main;
 		private Button quit;
 
+        Texture2D buttonSprite;
+
 		private MouseState mState;
 		private MouseState mPrevious;
+
+        KeyboardState oldState;
 		#endregion
 
 		#region properties
@@ -77,6 +81,7 @@ namespace SwiftSands
 
 			int buttonWidth = 120;
 			int centering = (port.Width - buttonWidth) / 2;
+            buttonSprite = sprite;
 			resume = new Button("Resume",font,sprite,new Rectangle(centering,20,buttonWidth,30),true,true);
 			save = new Button("Save",font,sprite,new Rectangle(centering,60,buttonWidth,30),true,true);
 			options = new Button("Options",font,sprite,new Rectangle(centering,100,buttonWidth,30),true,true);
@@ -115,13 +120,20 @@ namespace SwiftSands
 		/// <param name="time">The time elapsed</param>
 		public override void Update(GameTime time)
 		{
-			
+            StateManager.KState = Keyboard.GetState();
+            if (StateManager.KState.IsKeyDown(Keys.Escape))
+            {
+                if (!StateManager.KPrevious.IsKeyDown(Keys.Escape))
+                {
+                    StateManager.CloseState();
+                }
+            }
 			resume.Update();
 			save.Update();
 			options.Update();
 			main.Update();
 			quit.Update();
-
+            mState = Mouse.GetState();
 			base.Update(time);
 		}
 
@@ -140,7 +152,7 @@ namespace SwiftSands
 			options.Draw(spriteBatch);
 			main.Draw(spriteBatch);
 			quit.Draw(spriteBatch);
-
+            spriteBatch.Draw(buttonSprite, new Rectangle((int)mState.X, (int)mState.Y, 5, 5), Color.Black);
 			base.Draw(time,spriteBatch);
 		}
 		#endregion

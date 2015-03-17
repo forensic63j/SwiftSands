@@ -67,7 +67,7 @@ namespace SwiftSands
         /// <param name="time"></param>
         public virtual void Update(GameTime time)
         {
-            
+            StateManager.KPrevious = StateManager.KState;  
         }
         /// <summary>
         /// On Drawing State
