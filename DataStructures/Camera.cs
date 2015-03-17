@@ -37,19 +37,19 @@ namespace SwiftSands
             keyState = Keyboard.GetState();
             if (keyState.IsKeyDown(Keys.A))
             {
-                position.X += 1F;
+                position.X += 2F;
             }
             if (keyState.IsKeyDown(Keys.D))
             {
-                position.X -= 1F;
+                position.X -= 2F;
             } 
             if (keyState.IsKeyDown(Keys.S))
             {
-                position.Y -= 1F;
+                position.Y -= 2F;
             } 
             if (keyState.IsKeyDown(Keys.W))
             {
-                position.Y += 1F;
+                position.Y += 2F;
             }
         }
 
