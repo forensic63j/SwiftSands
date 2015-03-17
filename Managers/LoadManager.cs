@@ -237,8 +237,9 @@ namespace SwiftSands
 					{
 						#region player
 						Party.Clear();
+						int partyCount = input.ReadInt32();
 
-						for(int i = 0; i < sprites.Length; i++)
+						for(int i = 0; i < partyCount; i++)
 						{
 							//Name
 							String name = input.ReadString();
