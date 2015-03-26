@@ -14,16 +14,31 @@ using Microsoft.Xna.Framework.GamerServices;
 namespace SwiftSands
 {
   
-    class LocalMap : State
-    {
-        Map map;
-        MouseState mState;
-        Texture2D buttonSprite;
+    class LocalMap:State
+	{
+		#region map
+		Map map;
+		MouseState mState;
+		Texture2D buttonSprite;
 
-        Vector2 mouse;
+		Vector2 mouse;
 
-        KeyboardState oldState;
-        public LocalMap(Game1 game, Viewport port) : base(game, port) { }
+		KeyboardState oldState;
+
+		#region Properties
+		/// <summary>
+		/// Gets the sprite for buttons.
+		/// </summary>
+		public Texture2D ButtonSprite
+		{
+			get { return buttonSprite; }
+		}
+		#endregion
+
+		public LocalMap(Game1 game, Viewport port) : base(game, port) 
+		{
+			
+		}
 
         public override void OnEnter()
         {
@@ -68,6 +83,7 @@ namespace SwiftSands
         {
             //spriteBatch.Draw(buttonSprite, new Rectangle((int)mouse.X, (int)mouse.Y, 5, 5), Color.Black);
             base.DrawScreen(time, spriteBatch);
-        }
-    }
+		}
+		#endregion
+	}
 }

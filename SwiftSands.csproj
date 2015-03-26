@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DataStructures\Map.cs" />
+    <Compile Include="States\Combat.cs" />
     <Compile Include="Managers\StateManager.cs" />
     <Compile Include="Sprites\Button.cs" />
     <Compile Include="DataStructures\Inventory.cs" />
