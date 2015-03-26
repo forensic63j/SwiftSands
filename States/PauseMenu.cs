@@ -152,7 +152,7 @@ namespace SwiftSands
 			options.Draw(spriteBatch);
 			main.Draw(spriteBatch);
 			quit.Draw(spriteBatch);
-            spriteBatch.Draw(buttonSprite, new Rectangle((int)mState.X, (int)mState.Y, 5, 5), Color.Black);
+            //spriteBatch.Draw(buttonSprite, new Rectangle((int)mState.X, (int)mState.Y, 5, 5), Color.Black);
 			base.Draw(time,spriteBatch);
 		}
 		#endregion

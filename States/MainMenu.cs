@@ -133,7 +133,7 @@ namespace SwiftSands
 			load.Draw(spriteBatch);
 			options.Draw(spriteBatch);
 			quit.Draw(spriteBatch);
-            spriteBatch.Draw(buttonSprite, new Rectangle(mState.X, mState.Y, 5, 5), Color.Black);
+            //spriteBatch.Draw(buttonSprite, new Rectangle(mState.X, mState.Y, 5, 5), Color.Black);
             base.Draw(time, spriteBatch);
         }
         #endregion

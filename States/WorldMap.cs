@@ -34,7 +34,7 @@ namespace SwiftSands
 
         public override void Update(GameTime time)
         {
-			if(Keyboard.GetState().IsKeyDown(Keys.P))
+			if(Keyboard.GetState().IsKeyDown(Keys.Escape))
 			{
 				StateManager.OpenState(StateGame.Pause);
 			}

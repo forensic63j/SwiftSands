@@ -123,6 +123,8 @@ namespace SwiftSands
 			font = null;
 			buttonSprite = null;
 
+			base.IsMouseVisible = true;
+
             base.Initialize();
         }
 
