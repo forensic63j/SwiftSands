@@ -23,7 +23,15 @@ namespace SwiftSands
 
         bool inputEnabled;
 
-        public Matrix Transform{
+		/// <summary>
+		/// Gets the position.
+		/// </summary>
+		public Vector2 Position
+		{
+			get { return position; }
+		}
+
+		public Matrix Transform{
             get{ return transform; }
         }
 

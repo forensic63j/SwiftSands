@@ -25,6 +25,8 @@ namespace SwiftSands
 
 		KeyboardState oldState;
 
+		Character c;//For testing.
+
 		#region Properties
 		/// <summary>
 		/// Gets the sprite for buttons.
@@ -32,6 +34,22 @@ namespace SwiftSands
 		public Texture2D ButtonSprite
 		{
 			get { return buttonSprite; }
+		}
+
+		/// <summary>
+		/// Gets the mouse coodinates relitive to the camara.
+		/// </summary>
+		public Vector2 MouseData
+		{
+			get { return mouse; }
+		}
+
+		/// <summary>
+		/// Gets the map.
+		/// </summary>
+		public Map Map
+		{
+			get { return map; }
 		}
 		#endregion
 
@@ -44,6 +62,7 @@ namespace SwiftSands
         {
             map = LoadManager.LoadMap("desert.txt");
             buttonSprite = LoadManager.LoadSprite("GUI\\button-sprite.png");
+			c = base.StateGame.CharacterList[0];
             base.OnEnter();
         }
 
@@ -67,15 +86,26 @@ namespace SwiftSands
                     StateManager.OpenState(StateGame.Pause);
                 }
             }
-            mState = Mouse.GetState();
+
+			mState = Mouse.GetState();
             mouse = new Vector2(mState.X, mState.Y);
             mouse = Vector2.Transform(mouse, Matrix.Transpose(StateCamera.Transform));
+
+			//For testing:
+			if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
+			{
+				Console.WriteLine("Mouse: " + map.ConvertPosition(mouse,StateCamera));
+				Console.WriteLine("Character: " + map.ConvertPosition(c.Position,StateCamera));
+			} 
+
+
             base.Update(time);
         }
 
         public override void DrawWorld(GameTime time, SpriteBatch spriteBatch)
         {
             map.Draw(time, spriteBatch);
+			c.Draw(spriteBatch);
             base.DrawWorld(time, spriteBatch);
         }
 

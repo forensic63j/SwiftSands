@@ -91,6 +91,14 @@ namespace SwiftSands
         {
             get { return localMap; }
         }
+		
+		/// <summary>
+		/// Gets the character list.
+		/// </summary>
+		internal List<Character> CharacterList
+		{
+			get { return characterList; }
+		}
         #endregion
 
         public Game1()

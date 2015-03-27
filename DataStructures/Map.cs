@@ -24,6 +24,11 @@ namespace SwiftSands
         int[,] colliderLayer;
         Texture2D tileset;
 
+		public int[,] ColliderLayer
+		{
+			get { return colliderLayer; }
+		}
+
         public Texture2D Tileset{
             get{
                 return tileset;    
@@ -84,5 +89,41 @@ namespace SwiftSands
                 }
             }
         }
+
+		/// <summary>
+		/// Translates a vector's coodinates into tile coodinates.
+		/// </summary>
+		/// <param name="position">The vector coodinates in terms of the world.</param>
+		/// <returns>The mouse coodunates in terms of the tile system.</returns>
+		public Vector2 ConvertPosition(Vector2 position,Camera camera)
+		{
+			float x = (float)(Math.Round((position.X - camera.Position.X) / tilewidth));
+			float y = (float)(Math.Round((position.Y - camera.Position.Y)/ tilewidth));
+			return new Vector2(x,y);
+		}
+
+		/// <summary>
+		/// Translates a rectangle's coodinates into tile coodinates.
+		/// </summary>
+		/// <param name="position">The rectangle coodinates in terms of the world.</param>
+		/// <returns>The mouse coodunates in terms of the tile system.</returns>
+		public Rectangle ConvertPosition(Rectangle position,Camera camera)
+		{
+			int x = (int)(Math.Round((decimal)(position.X / tilewidth)));
+			int y = (int)(Math.Round((decimal)(position.Y / tilewidth)));
+			int width = (int)(Math.Round((decimal)(position.Width / tilewidth)) + 1);
+			int height =  (int)(Math.Round((decimal)(position.Height / tileheight)) + 1);
+			return new Rectangle(x,y,width,height);
+		}
+
+		/// <summary>
+		/// Checks if coodinate is in bounds.
+		/// </summary>
+		/// <param name="x">The x coordinate.</param>
+		/// <param name="y">The y coodinate.</param>
+		/// <returns></returns>
+		public bool InBounds(int x, int y){
+			return (x >= 0 && x < colliderLayer.GetLength(0)) && (x >= 0 && x < colliderLayer.GetLength(1));
+		}
     }
 }
