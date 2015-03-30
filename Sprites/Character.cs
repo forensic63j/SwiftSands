@@ -22,6 +22,7 @@ namespace SwiftSands
 		private bool canJoin;
 		private bool alive;
 		private String name;
+        private Item equipItem;
         #endregion
 
         public Character(int max, int health, int mana, int speed, int strength, int accuracy, int level, bool a,
@@ -33,8 +34,10 @@ namespace SwiftSands
 			this.strength = strength;
 			this.accuracy = accuracy;
 			this.level = level;
+            this.name = name;
 			canJoin = a;
 			alive = true;
+            equipItem = null;
 		}
 		
         #region Properties
@@ -136,6 +139,17 @@ namespace SwiftSands
 				alive = value;
 			}
 		}
+        public Item EquipItem
+        {
+            get
+            {
+                return equipItem;
+            }
+            set
+            {
+                equipItem = value;
+            }
+        }
         #endregion
 
         #region Methods
