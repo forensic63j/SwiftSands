@@ -30,3 +30,35 @@ C:\Users\Brian\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.Direct3D9.x
 C:\Users\Brian\Documents\GitHub\SwiftSands\obj\x86\Debug\SwiftSands.csprojResolveAssemblyReference.cache
 C:\Users\Brian\Documents\GitHub\SwiftSands\obj\x86\Debug\SwiftSands.exe
 C:\Users\Brian\Documents\GitHub\SwiftSands\obj\x86\Debug\SwiftSands.pdb
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\obj\x86\Debug\SwiftSands.exe
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\obj\x86\Debug\SwiftSands.pdb
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\Content\GUI\button-sprite.png
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\Content\CharacterSprites\character-sprite.png
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\Content\Data\GameEntities\Item.txt
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\Content\Data\Tasks.txt
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\Content\ItemSprites\item-sprite.png
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\Content\GUI\menuFont.xnb
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\Content\Data\GameEntities\Characters.txt
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SwiftSands.exe
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SwiftSands.pdb
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\MonoGame.Framework.dll
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.MediaFoundation.dll
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.dll
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.XAudio2.dll
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.Direct3D11.dll
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.DXGI.dll
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.Direct2D1.dll
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\Lidgren.Network.dll
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.XInput.dll
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.RawInput.dll
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.Direct3D9.dll
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.MediaFoundation.xml
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.xml
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.XAudio2.xml
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.Direct3D11.xml
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.DXGI.xml
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.Direct2D1.xml
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.XInput.xml
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.RawInput.xml
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.Direct3D9.xml
+C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\obj\x86\Debug\SwiftSands.csprojResolveAssemblyReference.cache
