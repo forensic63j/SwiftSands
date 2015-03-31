@@ -78,11 +78,11 @@ namespace SwiftSands
             {
                 for (int c = 0; c < width; c++)
                 {
-                    if (groundLayer[r, c] - 1 >= 0)
+                    if (groundLayer[r, c] - 1 > 0)
                     {
                         spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((groundLayer[r, c] - 1) % (8) * tilewidth), (((groundLayer[r, c] - 1) / 8) * tileheight), tilewidth, tileheight), Color.White);
                     }
-                    if (colliderLayer[r, c] - 1 >= 0)
+                    if (colliderLayer[r, c] - 1 > 0)
                     {
                         spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((colliderLayer[r, c] - 1) % (8) * tilewidth), (((colliderLayer[r, c] - 1) / 8) * tileheight), tilewidth, tileheight), Color.White);
                     }
@@ -97,8 +97,10 @@ namespace SwiftSands
 		/// <returns>The mouse coodunates in terms of the tile system.</returns>
 		public Vector2 ConvertPosition(Vector2 position,Camera camera)
 		{
-			float x = (float)(Math.Round((position.X - camera.Position.X) / tilewidth));
-			float y = (float)(Math.Round((position.Y - camera.Position.Y)/ tilewidth));
+            Vector2 mouse = position;
+            mouse = Vector2.Transform(mouse, camera.InverseTransform);
+			float x = (float)(Math.Floor((mouse.X) / tilewidth));
+            float y = (float)(Math.Floor((mouse.Y) / tilewidth));
 			return new Vector2(x,y);
 		}
 
@@ -109,12 +111,42 @@ namespace SwiftSands
 		/// <returns>The mouse coodunates in terms of the tile system.</returns>
 		public Rectangle ConvertPosition(Rectangle position,Camera camera)
 		{
-			int x = (int)(Math.Round((decimal)(position.X / tilewidth)));
-			int y = (int)(Math.Round((decimal)(position.Y / tilewidth)));
-			int width = (int)(Math.Round((decimal)(position.Width / tilewidth)) + 1);
-			int height =  (int)(Math.Round((decimal)(position.Height / tileheight)) + 1);
+            Vector2 mouse = new Vector2(position.X, position.Y);
+            mouse = Vector2.Transform(new Vector2(position.X, position.Y), camera.InverseTransform);
+			int x = (int)(Math.Round((mouse.X / tilewidth)));
+            int y = (int)(Math.Round((mouse.Y / tilewidth)));
+            int width = tilewidth+1;
+            int height = tileheight+1;
+			//int width = (int)(Math.Round((decimal)(position.Width / tilewidth)) + 1);
+			//int height =  (int)(Math.Round((decimal)(position.Height / tileheight)) + 1);
 			return new Rectangle(x,y,width,height);
 		}
+
+        public Boolean TileCollide(Vector2 pos)
+        {
+            Console.Out.WriteLine((int) pos.X + " " + (int) pos.Y);
+            if (pos.X > -1 && pos.X < width && pos.Y > -1 && pos.Y < height)
+            {
+                if (colliderLayer[(int)pos.X, (int)pos.Y] > 0)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+            else
+                return false;
+           
+        }
+
+        public Boolean TileCollide(int x, int y)
+        {
+            if (colliderLayer[x, y] > 0)
+            {
+                return true;
+            }
+            else return false;
+        }
 
 		/// <summary>
 		/// Checks if coodinate is in bounds.

@@ -16,6 +16,7 @@ namespace SwiftSands
     {
         float zoom;
         Matrix transform;
+        Matrix inverseTransform;
         Vector2 position;
         float rotation;
         Viewport viewport;
@@ -33,6 +34,11 @@ namespace SwiftSands
 
 		public Matrix Transform{
             get{ return transform; }
+        }
+
+        public Matrix InverseTransform
+        {
+            get { return inverseTransform; }
         }
 
         public bool InputEnabled
@@ -69,7 +75,8 @@ namespace SwiftSands
             }
             MathHelper.Clamp(zoom, 0.01f, 10.0f);
             rotation = MathHelper.WrapAngle(rotation);
-            transform = Matrix.CreateRotationZ(rotation) * Matrix.CreateScale(new Vector3(zoom, zoom, 1)) * Matrix.CreateTranslation(position.X, position.Y, 0);        
+            transform = Matrix.CreateRotationZ(rotation) * Matrix.CreateScale(new Vector3(zoom, zoom, 1)) * Matrix.CreateTranslation(position.X, position.Y, 0);
+            inverseTransform = Matrix.Invert(transform);
         }
 
         public Camera(Viewport viewport)

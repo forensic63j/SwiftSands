@@ -95,6 +95,7 @@ namespace SwiftSands
 			if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
 			{
 				Console.WriteLine("Mouse: " + map.ConvertPosition(mouse,StateCamera));
+                Console.WriteLine("Can Collide: " + map.TileCollide(map.ConvertPosition(mouse, StateCamera)));
 				Console.WriteLine("Character: " + map.ConvertPosition(c.Position,StateCamera));
 			} 
 
