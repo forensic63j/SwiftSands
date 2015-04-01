@@ -112,16 +112,44 @@ namespace SwiftSands
 			{
 				Player cPlayer = combatants[currentTurn] as Player;
 				endTurn.IsActive = true;
-				bool[,] validTiles = new bool[Map.ColliderLayer.GetLength(0),Map.ColliderLayer.GetLength(1)];
-				validTiles.Initialize();
+				bool[,] invalidTiles = new bool[Map.ColliderLayer.GetLength(0),Map.ColliderLayer.GetLength(1)];
+				invalidTiles.Initialize();
 
 				if(targeting)
 				{
 					attack.IsActive = false;
+					ValidTargets(ref invalidTiles,cPosition.X + cPosition.Center.X,cPosition.Y + cPosition.Height,2);
+					if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
+					{
+						Point mousePoint = StateManager.MState.Position;
+						Rectangle tileVector = this.Map.ConvertPosition(new Rectangle(mousePoint.X,mousePoint.Y,0,0),this.StateCamera);
+						if(!invalidTiles[tileVector.X,tileVector.Y])
+						{
+							ItemType pItemType = cPlayer.EquipItem.Type;
+							if(pItemType == ItemType.Gun && pItemType == ItemType.Melee)
+							{
+								cPlayer.Attack(cPlayer.EquipItem,TileOccupent(tileVector.X,tileVector.Y));
+							} else if(pItemType == ItemType.HealingSpell && pItemType == ItemType.AttackSpell)
+							{
+								cPlayer.Cast(cPlayer.EquipItem,TileOccupent(tileVector.X,tileVector.Y));
+							}
+							actionLeft = false;
+						}
+					}
 				} else
 				{
 					attack.IsActive = actionLeft;
-					ValidMovements(ref validTiles,cPosition.X + cPosition.Center.X,cPosition.Y + cPosition.Height,5);
+					ValidMovements(ref invalidTiles,cPosition.X + cPosition.Center.X,cPosition.Y + cPosition.Height,5);
+					if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
+					{
+						Point mousePoint = StateManager.MState.Position;
+						Rectangle tileVector = this.Map.ConvertPosition(new Rectangle(mousePoint.X,mousePoint.Y,0,0),this.StateCamera);
+						if(!invalidTiles[tileVector.X,tileVector.Y])
+						{
+							//cPlayer.Move(mousePoint.X,mousePoint.Y);
+							moveLeft = false;
+						}
+					}
 				}
 			} else
 			{
@@ -210,54 +238,54 @@ namespace SwiftSands
 		/// <summary>
 		/// Finds the valid movements for the current character
 		/// </summary>
-		/// <param name="validTiles">A map of the tiles on the screen, you can move to tiles with a value of "false".</param>
+		/// <param name="invalidTiles">A map of the tiles on the screen, you can move to tiles with a value of "false".</param>
 		/// <param name="x">Current x.</param>
 		/// <param name="y">Current y.</param>
 		/// <param name="move">Moves left.</param>
-		public void ValidMovements(ref bool[,] validTiles, int x, int y, int move) 
+		public void ValidMovements(ref bool[,] invalidTiles, int x, int y, int move) 
 		{
-			if(base.Map.InBounds(x,y) && base.Map.ColliderLayer[x,y] < 0)
+			if(base.Map.InBounds(x,y) && base.Map.ColliderLayer[x,y] < 0 && TileOccupent(x,y) == null)
 			{
-				validTiles[x,y] = false;
+				invalidTiles[x,y] = false;
 				//checks adjacent
 				if(move > 1)
 				{
 					//top
-					if(base.Map.InBounds(x - 1,y - 1) && validTiles[x - 1,y - 1])
+					if(base.Map.InBounds(x - 1,y - 1) && invalidTiles[x - 1,y - 1])
 					{
-						ValidMovements(ref validTiles,x - 1,y - 1,move - 1);
+						ValidMovements(ref invalidTiles,x - 1,y - 1,move - 1);
 					}
-					if(base.Map.InBounds(x,y - 1) && !validTiles[x,y - 1])
+					if(base.Map.InBounds(x,y - 1) && !invalidTiles[x,y - 1])
 					{
-						ValidMovements(ref validTiles,x,y - 1,move - 1);
+						ValidMovements(ref invalidTiles,x,y - 1,move - 1);
 					}
-					if(base.Map.InBounds(x + 1,y - 1) && !validTiles[x + 1,y - 1])
+					if(base.Map.InBounds(x + 1,y - 1) && !invalidTiles[x + 1,y - 1])
 					{
-						ValidMovements(ref validTiles,x + 1,y - 1,move - 1);
+						ValidMovements(ref invalidTiles,x + 1,y - 1,move - 1);
 					}
 
 					//middle
-					if(base.Map.InBounds(x - 1,y) && !validTiles[x - 1,y])
+					if(base.Map.InBounds(x - 1,y) && !invalidTiles[x - 1,y])
 					{
-						ValidMovements(ref validTiles,x - 1,y,move - 1);
+						ValidMovements(ref invalidTiles,x - 1,y,move - 1);
 					}
-					if(base.Map.InBounds(x + 1,y) && !validTiles[x + 1,y])
+					if(base.Map.InBounds(x + 1,y) && !invalidTiles[x + 1,y])
 					{
-						ValidMovements(ref validTiles,x + 1,y,move - 1);
+						ValidMovements(ref invalidTiles,x + 1,y,move - 1);
 					}
 
 					//bottom
-					if(base.Map.InBounds(x - 1,y + 1) && !validTiles[x - 1,y + 1])
+					if(base.Map.InBounds(x - 1,y + 1) && !invalidTiles[x - 1,y + 1])
 					{
-						ValidMovements(ref validTiles,x - 1,y + 1,move - 1);
+						ValidMovements(ref invalidTiles,x - 1,y + 1,move - 1);
 					}
-					if(base.Map.InBounds(x,y + 1) && !validTiles[x,y + 1])
+					if(base.Map.InBounds(x,y + 1) && !invalidTiles[x,y + 1])
 					{
-						ValidMovements(ref validTiles,x,y + 1,move - 1);
+						ValidMovements(ref invalidTiles,x,y + 1,move - 1);
 					}
-					if(base.Map.InBounds(x + 1,y + 1) && !validTiles[x + 1,y + 1])
+					if(base.Map.InBounds(x + 1,y + 1) && !invalidTiles[x + 1,y + 1])
 					{
-						ValidMovements(ref validTiles,x + 1,y + 1,move - 1);
+						ValidMovements(ref invalidTiles,x + 1,y + 1,move - 1);
 					}
 				}
 			}
@@ -266,61 +294,79 @@ namespace SwiftSands
 		/// <summary>
 		/// Finds the valid movements for the current character
 		/// </summary>
-		/// <param name="validTiles">A map of the tiles on the screen, you can move to tiles with a value of "false".</param>
+		/// <param name="invalidTiles">A map of the tiles on the screen, you can move to tiles with a value of "false".</param>
 		/// <param name="x">Current x.</param>
 		/// <param name="y">Current y.</param>
 		/// <param name="range">The range from this point the player can shoot.</param>
-		public void ValidTargets(ref bool[,] validTiles,int x,int y,int range)
+		public void ValidTargets(ref bool[,] invalidTiles,int x,int y,int range)
 		{
 			if(base.Map.InBounds(x,y))
 			{
-				if(false) //need some way to tell if a character is on a tile
+				if(TileOccupent(x,y) != null)
 				{
-					validTiles[x,y] = false;
+					invalidTiles[x,y] = false;
 				}
 
 				////checks adjacent
 				if(range > 1)
 				{
 					//top
-					if(base.Map.InBounds(x - 1,y - 1) && validTiles[x - 1,y - 1])
+					if(base.Map.InBounds(x - 1,y - 1) && invalidTiles[x - 1,y - 1])
 					{
-						ValidTargets(ref validTiles,x - 1,y - 1,range - 1);
+						ValidTargets(ref invalidTiles,x - 1,y - 1,range - 1);
 					}
-					if(base.Map.InBounds(x,y - 1) && !validTiles[x,y - 1])
+					if(base.Map.InBounds(x,y - 1) && !invalidTiles[x,y - 1])
 					{
-						ValidTargets(ref validTiles,x,y - 1,range - 1);
+						ValidTargets(ref invalidTiles,x,y - 1,range - 1);
 					}
-					if(base.Map.InBounds(x + 1,y - 1) && !validTiles[x + 1,y - 1])
+					if(base.Map.InBounds(x + 1,y - 1) && !invalidTiles[x + 1,y - 1])
 					{
-						ValidTargets(ref validTiles,x + 1,y - 1,range - 1);
+						ValidTargets(ref invalidTiles,x + 1,y - 1,range - 1);
 					}
 
 					//middle
-					if(base.Map.InBounds(x - 1,y) && !validTiles[x - 1,y])
+					if(base.Map.InBounds(x - 1,y) && !invalidTiles[x - 1,y])
 					{
-						ValidTargets(ref validTiles,x - 1,y,range - 1);
+						ValidTargets(ref invalidTiles,x - 1,y,range - 1);
 					}
-					if(base.Map.InBounds(x + 1,y) && !validTiles[x + 1,y])
+					if(base.Map.InBounds(x + 1,y) && !invalidTiles[x + 1,y])
 					{
-						ValidTargets(ref validTiles,x + 1,y,range - 1);
+						ValidTargets(ref invalidTiles,x + 1,y,range - 1);
 					}
 
 					//bottom
-					if(base.Map.InBounds(x - 1,y + 1) && !validTiles[x - 1,y + 1])
+					if(base.Map.InBounds(x - 1,y + 1) && !invalidTiles[x - 1,y + 1])
 					{
-						ValidTargets(ref validTiles,x - 1,y + 1,range - 1);
+						ValidTargets(ref invalidTiles,x - 1,y + 1,range - 1);
 					}
-					if(base.Map.InBounds(x,y + 1) && !validTiles[x,y + 1])
+					if(base.Map.InBounds(x,y + 1) && !invalidTiles[x,y + 1])
 					{
-						ValidTargets(ref validTiles,x,y + 1,range - 1);
+						ValidTargets(ref invalidTiles,x,y + 1,range - 1);
 					}
-					if(base.Map.InBounds(x + 1,y + 1) && !validTiles[x + 1,y + 1])
+					if(base.Map.InBounds(x + 1,y + 1) && !invalidTiles[x + 1,y + 1])
 					{
-						ValidTargets(ref validTiles,x + 1,y + 1,range - 1);
+						ValidTargets(ref invalidTiles,x + 1,y + 1,range - 1);
 					}
 				}
 			}
+		}
+
+		/// <summary>
+		/// Finds the character at a certian tile.
+		/// </summary>
+		/// <param name="x">The tiles x.</param>
+		/// <param name="y">The tiles y.</param>
+		/// <returns>The character on that tile.</returns>
+		public Character TileOccupent(int x,int y)
+		{
+			foreach(Character c in combatants){
+				Rectangle cPosition = this.Map.ConvertPosition(c.Position,this.StateCamera);
+				if(cPosition.X == x && cPosition.Y == y)
+				{
+					return c;
+				}
+			}
+			return null;
 		}
 		#endregion
 	}
