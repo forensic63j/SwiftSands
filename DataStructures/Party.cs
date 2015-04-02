@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace SwiftSands
 {
@@ -11,6 +13,7 @@ namespace SwiftSands
 	{
 		#region fields
 		static private List<Player> partyList;
+        static private Player selectedPlayer;
 		#endregion
 
         static Party()
@@ -26,6 +29,12 @@ namespace SwiftSands
 		{
             get { return partyList; }
 		}
+
+        static public Player SelectedPlayer
+        {
+            get { return selectedPlayer; }
+            set { selectedPlayer = value; }
+        }
 
 		/*Unused indexer
 		 * /// <summary>
@@ -91,6 +100,26 @@ namespace SwiftSands
 		{
 			partyList.Clear();
 		}
+
+        static public bool CheckForPlayers(Map map, Vector2 pos) {
+            foreach (Player p in PartyList)
+            {
+                if (map.ConvertPosition(p.Position, StateManager.CurrentState.StateCamera).Contains(pos))
+                {
+                    SelectedPlayer = p;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        static public void DrawPartyOnMap(SpriteBatch spriteBatch)
+        {
+            foreach (Player p in PartyList)
+            {
+                p.Draw(spriteBatch);
+            }
+        }
 		#endregion
 	}
 

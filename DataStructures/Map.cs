@@ -99,8 +99,8 @@ namespace SwiftSands
 		{
             Vector2 mouse = position;
             mouse = Vector2.Transform(mouse, camera.InverseTransform);
-			float x = (float)(Math.Floor((mouse.X) / tilewidth));
-            float y = (float)(Math.Floor((mouse.Y) / tilewidth));
+            int x = (int)(Math.Floor((mouse.X) / tilewidth));
+            int y = (int)(Math.Floor((mouse.Y) / tilewidth));
 			return new Vector2(x,y);
 		}
 
@@ -109,16 +109,14 @@ namespace SwiftSands
 		/// </summary>
 		/// <param name="position">The rectangle coodinates in terms of the world.</param>
 		/// <returns>The mouse coodunates in terms of the tile system.</returns>
-		public Rectangle ConvertPosition(Rectangle position,Camera camera)
+		public Rectangle ConvertPosition(Rectangle position, Camera camera)
 		{
             Vector2 mouse = new Vector2(position.X, position.Y);
             mouse = Vector2.Transform(new Vector2(position.X, position.Y), camera.InverseTransform);
-			int x = (int)(Math.Round((mouse.X / tilewidth)));
-            int y = (int)(Math.Round((mouse.Y / tilewidth)));
-            int width = tilewidth+1;
-            int height = tileheight+1;
-			//int width = (int)(Math.Round((decimal)(position.Width / tilewidth)) + 1);
-			//int height =  (int)(Math.Round((decimal)(position.Height / tileheight)) + 1);
+			int x = (int)(Math.Floor((mouse.X / tilewidth)));
+            int y = (int)(Math.Floor((mouse.Y / tilewidth)));
+            int width = tilewidth;
+            int height = tileheight;
 			return new Rectangle(x,y,width,height);
 		}
 

@@ -104,18 +104,17 @@ namespace SwiftSands
 
 						//active/on screen
 						bool active = bool.Parse(characterStats[15]);
-						bool onScreen = bool.Parse(characterStats[16]);
 
 						if(characterStats.Length > 17)
 						{
 							int xpAwarded = int.Parse(characterStats[17]);
 							//create enemy
-							Enemy tempEnemy = new Enemy(maxHealth,health,mana,speed,strength,accuracy,level,recruitable,xpAwarded,sprite,position,active,onScreen,name);
+							Enemy tempEnemy = new Enemy(maxHealth,health,mana,speed,strength,accuracy,level,recruitable,xpAwarded,sprite,position,active,name);
 							characterList.Add(tempEnemy);
 						} else
 						{
 							//Builds character
-							Character tempCharacter = new Character(maxHealth,health,mana,speed,strength,accuracy,level,recruitable,sprite,position,active,onScreen,name);
+							Character tempCharacter = new Character(maxHealth,health,mana,speed,strength,accuracy,level,recruitable,sprite,position,active,name);
 							characterList.Add(tempCharacter);
 						}
 					}
@@ -270,10 +269,9 @@ namespace SwiftSands
 
 							//Booleans
 							bool active = input.ReadBoolean();
-							bool onScreen = input.ReadBoolean();
 
 							//instantiate player
-							Player tempPlayer = new Player(maxHealth,health,mana,speed,strength,accuracy,level,true,deathsAllowed,sprites[i],position,active,onScreen,name);
+							Player tempPlayer = new Player(maxHealth,health,mana,speed,strength,accuracy,level,true,deathsAllowed,sprites[i],position,active,name);
 							tempPlayer.NumDeaths = numDeaths;
 							Party.Add(tempPlayer);
 						}

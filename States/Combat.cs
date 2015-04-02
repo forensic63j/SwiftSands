@@ -83,8 +83,8 @@ namespace SwiftSands
 				}
 			}
 
-			attack = new Button("Attack",font,base.ButtonSprite,new Rectangle(5,port.Height-75,100,30),false,true);
-			endTurn = new Button("End Turn",font,base.ButtonSprite,new Rectangle(5,port.Height - 35,100,30),false,true);
+			attack = new Button("Attack",font,base.ButtonSprite,new Rectangle(5,port.Height-75,100,30),true);
+			endTurn = new Button("End Turn",font,base.ButtonSprite,new Rectangle(5,port.Height - 35,100,30),true);
 
 			attack.OnClick = Attack;
 			endTurn.OnClick = EndTurn;

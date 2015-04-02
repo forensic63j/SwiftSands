@@ -15,7 +15,6 @@ namespace SwiftSands
 		private Texture2D texture;
 		private Rectangle position;
 		private bool isActive;
-		private bool isOnField;
         private String name;
 		#endregion
 
@@ -41,12 +40,6 @@ namespace SwiftSands
 			get { return isActive; }
 			set { isActive = value; }
 		}
-		
-		public bool IsOnField
-		{
-			get { return isOnField; }
-			set { isOnField = value; }
-		}
 
         public String Name
         {
@@ -61,12 +54,11 @@ namespace SwiftSands
         }
 		#endregion
 
-        public Sprite(Texture2D tex, Rectangle pos, bool act, bool field, String name)
+        public Sprite(Texture2D tex, Rectangle pos, bool act, String name)
         {
             this.texture = tex;
             this.position = pos;
             isActive = act;
-            isOnField = field;
             this.name = name;
         }
 
@@ -76,7 +68,10 @@ namespace SwiftSands
         /// </summary>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, Color.White);
+            if (IsActive)
+            {
+                spriteBatch.Draw(texture, position, Color.White);
+            }
         }
         #endregion
     }

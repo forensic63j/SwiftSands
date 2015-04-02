@@ -63,9 +63,9 @@ namespace SwiftSands
             buttonSprite = sprite;
 			int buttonWidth = 120;
 			int centering = (port.Width - buttonWidth) / 2;
-			volume = new Button("Volume",font,sprite,new Rectangle(centering,20,buttonWidth,30),true,true);
-			resolution = new Button("Resolution",font,sprite,new Rectangle(centering,60,buttonWidth,30),true,true);
-			back = new Button("Back",font,sprite,new Rectangle(centering,100,buttonWidth,30),true,true);
+			volume = new Button("Volume",font,sprite,new Rectangle(centering,20,buttonWidth,30),true);
+			resolution = new Button("Resolution",font,sprite,new Rectangle(centering,60,buttonWidth,30),true);
+			back = new Button("Back",font,sprite,new Rectangle(centering,100,buttonWidth,30),true);
 			
 		}
 

@@ -13,7 +13,7 @@ namespace SwiftSands
 	{
 		private int expAwarded; //How much exp this enemy gives when it's defeated
 		public Enemy(int mH, int h, int m, int sp, int st, int a, int l, bool c, int e, Texture2D texture,
-            Rectangle pos, bool active, bool field, String n):base(mH, h, m, sp, st, a, l, c, texture, pos, active, field, n)
+            Rectangle pos, bool active, String n):base(mH, h, m, sp, st, a, l, c, texture, pos, active, n)
 		{
 			expAwarded = e;
 		}

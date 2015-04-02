@@ -18,14 +18,7 @@ namespace SwiftSands
 	{
 		#region map
 		Map map;
-		MouseState mState;
 		Texture2D buttonSprite;
-
-		Vector2 mouse;
-
-		KeyboardState oldState;
-
-		Character c;//For testing.
 
 		#region Properties
 		/// <summary>
@@ -34,14 +27,6 @@ namespace SwiftSands
 		public Texture2D ButtonSprite
 		{
 			get { return buttonSprite; }
-		}
-
-		/// <summary>
-		/// Gets the mouse coodinates relitive to the camara.
-		/// </summary>
-		public Vector2 MouseData
-		{
-			get { return mouse; }
 		}
 
 		/// <summary>
@@ -62,7 +47,7 @@ namespace SwiftSands
         {
             map = LoadManager.LoadMap("desert.txt");
             buttonSprite = LoadManager.LoadSprite("GUI\\button-sprite.png");
-			c = base.StateGame.CharacterList[0];
+            Party.Add(base.StateGame.CharacterList[0].ToPlayer());
             base.OnEnter();
         }
 
@@ -78,7 +63,6 @@ namespace SwiftSands
 
         public override void Update(GameTime time)
         {
-            StateManager.KState = Keyboard.GetState();
             if (StateManager.KState.IsKeyDown(Keys.Escape))
             {
                 if (!StateManager.KPrevious.IsKeyDown(Keys.Escape))
@@ -87,16 +71,14 @@ namespace SwiftSands
                 }
             }
 
-			mState = Mouse.GetState();
-            mouse = new Vector2(mState.X, mState.Y);
-            mouse = Vector2.Transform(mouse, Matrix.Transpose(StateCamera.Transform));
+
 
 			//For testing:
 			if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
 			{
-				Console.WriteLine("Mouse: " + map.ConvertPosition(mouse,StateCamera));
-                Console.WriteLine("Can Collide: " + map.TileCollide(map.ConvertPosition(mouse, StateCamera)));
-				Console.WriteLine("Character: " + map.ConvertPosition(c.Position,StateCamera));
+                Console.WriteLine("Mouse: " + map.ConvertPosition(StateManager.MousePosition, StateCamera));
+                Console.WriteLine("Can Collide: " + map.TileCollide(map.ConvertPosition(StateManager.MousePosition, StateCamera)));
+                Console.WriteLine("Character Under Mouse: " + Party.CheckForPlayers(map, StateManager.MousePosition));
 			} 
 
 
@@ -106,7 +88,7 @@ namespace SwiftSands
         public override void DrawWorld(GameTime time, SpriteBatch spriteBatch)
         {
             map.Draw(time, spriteBatch);
-			c.Draw(spriteBatch);
+            Party.DrawPartyOnMap(spriteBatch);
             base.DrawWorld(time, spriteBatch);
         }
 

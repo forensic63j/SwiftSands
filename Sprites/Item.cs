@@ -28,7 +28,7 @@ namespace SwiftSands
         private bool collected; //Whether or not the item has been collected
 
 		public Item(ItemType i, int h, int d, String de, bool col, Texture2D texture, Rectangle pos, bool active, 
-			bool field, String name):base(texture, pos, active, field, name)
+			bool field, String name):base(texture, pos, active, name)
 		{
 			itemType = i;
 			healing = h;

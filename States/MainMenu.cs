@@ -74,10 +74,10 @@ namespace SwiftSands
 			int buttonWidth = 120;
 			int centering = (port.Width - buttonWidth) / 2;
             buttonSprite = sprite;
-			play = new Button("Play",font,sprite,new Rectangle(centering,20,buttonWidth,30),true,true);
-			load = new Button("Load",font,sprite,new Rectangle(centering,60,buttonWidth,30),true,true);
-			options = new Button("Options",font,sprite,new Rectangle(centering,100,buttonWidth,30),true,true);
-			quit = new Button("Quit",font,sprite,new Rectangle(centering,140,buttonWidth,30),true,true);
+			play = new Button("Play",font,sprite,new Rectangle(centering,20,buttonWidth,30),true);
+			load = new Button("Load",font,sprite,new Rectangle(centering,60,buttonWidth,30),true);
+			options = new Button("Options",font,sprite,new Rectangle(centering,100,buttonWidth,30),true);
+			quit = new Button("Quit",font,sprite,new Rectangle(centering,140,buttonWidth,30),true);
         }
         
         #region Methods

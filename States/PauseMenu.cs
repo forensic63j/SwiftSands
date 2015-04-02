@@ -82,11 +82,11 @@ namespace SwiftSands
 			int buttonWidth = 120;
 			int centering = (port.Width - buttonWidth) / 2;
             buttonSprite = sprite;
-			resume = new Button("Resume",font,sprite,new Rectangle(centering,20,buttonWidth,30),true,true);
-			save = new Button("Save",font,sprite,new Rectangle(centering,60,buttonWidth,30),true,true);
-			options = new Button("Options",font,sprite,new Rectangle(centering,100,buttonWidth,30),true,true);
-			main = new Button("Main Menu",font,sprite,new Rectangle(centering,140,buttonWidth,30),true,true);
-			quit = new Button("Quit",font,sprite,new Rectangle(centering,180,buttonWidth,30),true,true);
+			resume = new Button("Resume",font,sprite,new Rectangle(centering,20,buttonWidth,30),true);
+			save = new Button("Save",font,sprite,new Rectangle(centering,60,buttonWidth,30),true);
+			options = new Button("Options",font,sprite,new Rectangle(centering,100,buttonWidth,30),true);
+			main = new Button("Main Menu",font,sprite,new Rectangle(centering,140,buttonWidth,30),true);
+			quit = new Button("Quit",font,sprite,new Rectangle(centering,180,buttonWidth,30),true);
 		}
 
 		#region Methods

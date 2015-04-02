@@ -60,7 +60,6 @@ namespace SwiftSands
 
 							//Booleans
 							output.Write(player.IsActive);
-							output.Write(player.IsOnField);
 							#endregion
 						}
 
@@ -89,7 +88,6 @@ namespace SwiftSands
 							//Sprite control bools
 							output.Write(item.Collected);
 							output.Write(item.IsActive);
-							output.Write(item.IsOnField);
 							#endregion
 						}
 

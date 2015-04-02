@@ -19,19 +19,19 @@ namespace SwiftSands
 		List<int> stats;
         #endregion
 
-        public Player(int max, int h, int m, int sp, int st, int acc, int level, bool canJoin, int deaths, Texture2D texture,
-            Rectangle pos, bool active, bool field, String name):base(max, h, m, sp, st, acc, level, canJoin, texture, pos, active, field, name)
+        public Player(int maxHealth, int health, int mana, int speed, int strength, int accuracy, int level, bool canJoin, int deaths, Texture2D texture,
+            Rectangle pos, bool active, String name):base(maxHealth, health, mana, speed, strength, accuracy, level, canJoin, texture, pos, active, name)
 		{
 			numDeaths = 0;
 			exp = 0;
 			deathsAllowed = deaths;
 			expNeeded = (int)(10 * Math.Pow(2, level - 1));
 			stats = new List<int>();
-			stats.Add(h);
-			stats.Add(m);
-			stats.Add(sp);
-			stats.Add(st);
-			stats.Add(acc);
+			stats.Add(Health);
+			stats.Add(Mana);
+			stats.Add(Speed);
+			stats.Add(Strength);
+			stats.Add(Accuracy);
 		}
 
         #region Properties

@@ -40,8 +40,8 @@ namespace SwiftSands
 		/// <param name="active">Tells whether a button is active and should appear on screen.</param>
 		/// <param name="onScreen">Tells whether the button is within the window range.</param>
 		/// <param name="clickDelegate"></param>
-		public Button(String name,SpriteFont font,Texture2D sprite,Rectangle position,bool active,bool onScreen)
-			: base(sprite,position,active,onScreen,name)
+		public Button(String name,SpriteFont font,Texture2D sprite,Rectangle position,bool active)
+			: base(sprite,position,active,name)
 		{
 			this.font = font;
 		}

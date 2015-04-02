@@ -21,6 +21,8 @@ namespace SwiftSands
         static private MouseState mState;
         static private MouseState mPrevious;
 
+        static private Vector2 mousePosition;
+
         static private KeyboardState kState;
         static private KeyboardState kPrevious;
 
@@ -36,6 +38,12 @@ namespace SwiftSands
         static public MouseState MState
         {
             get { return mState; }
+        }
+
+        static public Vector2 MousePosition
+        {
+            get { return mousePosition; }
+            private set { mousePosition = value; }
         }
 
         /// <summary>
@@ -115,6 +123,9 @@ namespace SwiftSands
 		{
             mPrevious = mState;
             mState = Mouse.GetState();
+            MousePosition = new Vector2(mState.X, mState.Y);
+            MousePosition = Vector2.Transform(MousePosition, Matrix.Transpose(CurrentState.StateCamera.Transform));
+            KState = Keyboard.GetState();
             CurrentState.StateCamera.Update();
 			stateStack.Peek().Update(time);
 		}

@@ -12,30 +12,33 @@ namespace SwiftSands
 	class Character:Sprite
     {
         #region Fields
-        private int maxHealth;
-		private int health;
-		private int mana;
-		private int speed;
-		private int strength;
-		private int accuracy;
-		private int level;
-		private bool canJoin;
-		private bool alive;
-		private String name;
+        private int maxHealth = 0;
+		private int health = 0;
+        private int mana = 0;
+        private int speed = 0;
+        private int strength = 0;
+        private int accuracy = 0;
+        private int level = 0;
+        private bool active = true;
+        private bool canJoin = false;
+        private bool alive = true;
+        private String name = "";
         private Item equipItem;
         #endregion
 
-        public Character(int max, int health, int mana, int speed, int strength, int accuracy, int level, bool a,
-            Texture2D texture, Rectangle pos, bool active, bool field, String name):base(texture, pos, active, field, name)
+        public Character(int max, int health, int mana, int speed, int strength, int accuracy, int level, bool canJoin,
+            Texture2D texture, Rectangle pos, bool active, String name):base(texture, pos, active, name)
 		{
-			this.health = health;
-			this.mana = mana;
-			this.speed = speed;
-			this.strength = strength;
-			this.accuracy = accuracy;
-			this.level = level;
-            this.name = name;
-			canJoin = a;
+            MaxHealth = max;
+			Health = health;
+			Mana = mana;
+			Speed = speed;
+			Strength = strength;
+			Accuracy = accuracy;
+			Level = level;
+            Name = name;
+			CanJoin = canJoin;
+            this.active = active;
 			alive = true;
             equipItem = null;
 		}
@@ -71,10 +74,14 @@ namespace SwiftSands
 			}
 			set
 			{
-				if(value > maxHealth)
-					health = maxHealth;
+                if (value > maxHealth)
+                    health = maxHealth;
 				else
-					health = value;
+                    health = value;
+                if (health <= 0)
+                {
+                    Alive = false;
+                }
 			}
 		}
 		public int Mana
@@ -127,6 +134,10 @@ namespace SwiftSands
 			{
 				return canJoin;
 			}
+            set
+            {
+                canJoin = value;
+            }
 		}
 		public bool Alive
 		{
@@ -193,6 +204,10 @@ namespace SwiftSands
 		{
 			this.Health += addHealth;
 		}
+        public Player ToPlayer()
+        {
+            return new Player(MaxHealth, Health, Mana, Speed, Strength, Accuracy, Level, CanJoin, 0, Texture, Position, active, Name);
+        }
     }
         #endregion
 }
