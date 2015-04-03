@@ -106,11 +106,25 @@ namespace SwiftSands
             {
                 if (map.ConvertPosition(p.Position, StateManager.CurrentState.StateCamera).Contains(pos))
                 {
+                    if (SelectedPlayer != null)
+                    {
+                        SelectedPlayer.Selected = false;
+                    }
+                    p.Selected = true;
                     SelectedPlayer = p;
                     return true;
                 }
             }
             return false;
+        }
+
+        static public void UnselectPlayer()
+        {
+            if (SelectedPlayer != null)
+            {
+                SelectedPlayer.Selected = false;
+                SelectedPlayer = null;
+            }
         }
 
         static public void DrawPartyOnMap(SpriteBatch spriteBatch)

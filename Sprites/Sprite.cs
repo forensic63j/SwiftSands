@@ -73,6 +73,17 @@ namespace SwiftSands
                 spriteBatch.Draw(texture, position, Color.White);
             }
         }
+
+        /// <summary>
+        /// Draws the sprite.
+        /// </summary>
+        public virtual void Draw(SpriteBatch spriteBatch, Color color)
+        {
+            if (IsActive)
+            {
+                spriteBatch.Draw(texture, position, color);
+            }
+        }
         #endregion
     }
 }
