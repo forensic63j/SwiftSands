@@ -46,6 +46,10 @@ namespace SwiftSands
         public override void OnEnter()
         {
             map = LoadManager.LoadMap("desert.txt");
+            StateCamera.RightCameraBound = map.Width*map.TileWidth;
+            StateCamera.BottomCameraBound = map.Height * map.TileHeight;
+            StateCamera.LeftCameraBound = 0;
+            StateCamera.TopCameraBound = 0;
             buttonSprite = LoadManager.LoadSprite("GUI\\button-sprite.png");
             Party.Add(base.StateGame.CharacterList[0].ToPlayer());
             base.OnEnter();

@@ -24,6 +24,26 @@ namespace SwiftSands
         int[,] colliderLayer;
         Texture2D tileset;
 
+        public int Width
+        {
+            get { return width; }
+        }
+
+        public int Height
+        {
+            get { return height; }
+        }
+
+        public int TileWidth
+        {
+            get { return tilewidth; }
+        }
+
+        public int TileHeight
+        {
+            get { return tileheight; }
+        }
+
 		public int[,] ColliderLayer
 		{
 			get { return colliderLayer; }

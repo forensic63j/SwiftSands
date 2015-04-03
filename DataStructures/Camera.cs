@@ -21,8 +21,37 @@ namespace SwiftSands
         float rotation;
         Viewport viewport;
         KeyboardState keyState;
+        float cameraSpeed = 4f;
+        float rightCameraBound;
+        float leftCameraBound;
+        float topCameraBound;
+        float bottomCameraBound;
 
         bool inputEnabled;
+
+        public float RightCameraBound
+        {
+            get { return rightCameraBound; }
+            set { rightCameraBound = value; }
+        }
+
+        public float BottomCameraBound
+        {
+            get { return bottomCameraBound; }
+            set { bottomCameraBound = value; }
+        }
+
+        public float TopCameraBound
+        {
+            get { return topCameraBound; }
+            set { topCameraBound = value; }
+        }
+        public float LeftCameraBound
+        {
+            get { return leftCameraBound; }
+            set { leftCameraBound = value; }
+        }
+
 
 		/// <summary>
 		/// Gets the position.
@@ -30,6 +59,7 @@ namespace SwiftSands
 		public Vector2 Position
 		{
 			get { return position; }
+            set { position = value; }
 		}
 
 		public Matrix Transform{
@@ -48,22 +78,34 @@ namespace SwiftSands
         }
         public void Input()
         {
-            keyState = Keyboard.GetState();
+            keyState = StateManager.KState;
             if (keyState.IsKeyDown(Keys.A))
             {
-                position.X += 2F;
+                if (position.X >= LeftCameraBound)
+                {
+                    position.X += cameraSpeed;
+                }
             }
             if (keyState.IsKeyDown(Keys.D))
             {
-                position.X -= 2F;
+                if (position.X <= RightCameraBound)
+                {
+                    position.X -= cameraSpeed;
+                }
             } 
             if (keyState.IsKeyDown(Keys.S))
             {
-                position.Y -= 2F;
+                if (position.Y <= BottomCameraBound)
+                {
+                    position.Y -= cameraSpeed;
+                }
             } 
             if (keyState.IsKeyDown(Keys.W))
             {
-                position.Y += 2F;
+                if (position.Y >= TopCameraBound)
+                {
+                    position.Y += cameraSpeed;
+                }
             }
         }
 

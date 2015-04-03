@@ -22,9 +22,26 @@ namespace SwiftSands
         private bool active = true;
         private bool canJoin = false;
         private bool alive = true;
+        private bool selected = false;
         private String name = "";
         private Item equipItem;
         #endregion
+
+        public Character(bool canJoin, Texture2D texture, Rectangle pos, bool active, String name): base(texture, pos, active, name)
+        {
+            MaxHealth = 1;
+            Health = 1;
+            Mana = 0;
+            Speed = 0;
+            Strength = 0;
+            Accuracy = 0;
+            Level = 0;
+            Name = name;
+            CanJoin = canJoin;
+            this.active = active;
+            alive = true;
+            equipItem = null;
+        }
 
         public Character(int max, int health, int mana, int speed, int strength, int accuracy, int level, bool canJoin,
             Texture2D texture, Rectangle pos, bool active, String name):base(texture, pos, active, name)
@@ -161,6 +178,17 @@ namespace SwiftSands
                 equipItem = value;
             }
         }
+        public bool Selected
+        {
+            get
+            {
+                return selected;
+            }
+            set
+            {
+                selected = value;
+            }
+        }
         #endregion
 
         #region Methods
@@ -207,6 +235,17 @@ namespace SwiftSands
         public Player ToPlayer()
         {
             return new Player(MaxHealth, Health, Mana, Speed, Strength, Accuracy, Level, CanJoin, 0, Texture, Position, active, Name);
+        }
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (selected)
+            {
+                base.Draw(spriteBatch, Color.Red);
+            }
+            else
+            {
+                base.Draw(spriteBatch);
+            }
         }
     }
         #endregion
