@@ -107,7 +107,7 @@ namespace SwiftSands
 
 						if(characterStats.Length > 17)
 						{
-							int xpAwarded = int.Parse(characterStats[17]);
+							int xpAwarded = int.Parse(characterStats[16]);
 							//create enemy
 							Enemy tempEnemy = new Enemy(maxHealth,health,mana,speed,strength,accuracy,level,recruitable,xpAwarded,sprite,position,active,name);
 							characterList.Add(tempEnemy);

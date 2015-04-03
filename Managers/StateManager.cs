@@ -46,6 +46,16 @@ namespace SwiftSands
             private set { mousePosition = value; }
         }
 
+        static public Vector2 WorldMousePosition
+        {
+            get
+            {
+                Vector2 mouse = MousePosition;
+                mouse = Vector2.Transform(mouse, CurrentState.StateCamera.InverseTransform);
+                return mouse;
+            }
+        }
+
         /// <summary>
         /// Gets the last mouse state.
         /// </summary>
