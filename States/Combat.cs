@@ -30,6 +30,9 @@ namespace SwiftSands
 		#endregion
 
 		#region main methods
+		/// <summary>
+		/// The main constructor for combat.
+		/// </summary>
 		public Combat(Game1 game, Viewport port,List<Enemy> enemies,SpriteFont font) : base(game, port) {
 			currentTurn = 0;
 			moveLeft = true;
@@ -105,6 +108,10 @@ namespace SwiftSands
             base.OnExit();
         }
 
+		/// <summary>
+		/// Updates state each turn.
+		/// </summary>
+		/// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime time)
         {
 			Rectangle cPosition = base.Map.ConvertPosition(combatants[currentTurn].Position,StateCamera);
@@ -198,6 +205,11 @@ namespace SwiftSands
             base.Update(time);
         }
 
+		/// <summary>
+		/// Draws the current state.
+		/// </summary>
+		/// <param name="time">Keeps track of timing details.</param>
+		/// <param name="spriteBatch">Used to draw sprites to the screen.</param>
         public override void DrawWorld(GameTime time, SpriteBatch spriteBatch)
         {
             base.DrawWorld(time, spriteBatch);
@@ -208,6 +220,11 @@ namespace SwiftSands
 			}
         }
 
+		/// <summary>
+		/// Does something?
+		/// </summary>
+		/// <param name="time"></param>
+		/// <param name="spriteBatch"></param>
         public override void DrawScreen(GameTime time, SpriteBatch spriteBatch)
         {
             //spriteBatch.Draw(buttonSprite, new Rectangle((int)mouse.X, (int)mouse.Y, 5, 5), Color.Black);
