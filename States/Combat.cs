@@ -27,6 +27,9 @@ namespace SwiftSands
 		//GUI
 		Button attack;
 		Button endTurn;
+
+		//RNG
+		Random rng;
 		#endregion
 
 		#region main methods
@@ -91,6 +94,8 @@ namespace SwiftSands
 
 			attack.OnClick = Attack;
 			endTurn.OnClick = EndTurn;
+
+			rng = new Random();
 		}
 
         public override void OnEnter()
@@ -115,12 +120,13 @@ namespace SwiftSands
         public override void Update(GameTime time)
         {
 			Rectangle cPosition = base.Map.ConvertPosition(combatants[currentTurn].Position,StateCamera);
+			bool[,] invalidTiles = new bool[Map.ColliderLayer.GetLength(0),Map.ColliderLayer.GetLength(1)];
+			invalidTiles.Initialize();
 			if(combatants[currentTurn] is Player)
 			{
+				#region player
 				Player cPlayer = combatants[currentTurn] as Player;
 				endTurn.IsActive = true;
-				bool[,] invalidTiles = new bool[Map.ColliderLayer.GetLength(0),Map.ColliderLayer.GetLength(1)];
-				invalidTiles.Initialize();
 
 				if(targeting)
 				{
@@ -158,11 +164,71 @@ namespace SwiftSands
 						}
 					}
 				}
+				#endregion
 			} else
 			{
 				attack.IsActive = false;
 				endTurn.IsActive = false;
 				Enemy cEnemy = combatants[currentTurn] as Enemy;
+				if(actionLeft && moveLeft)
+				{
+					targeting = (rng.Next(0,3) == 0);
+				}
+				if(targeting)
+				{
+					if(actionLeft)
+					{
+						ValidTargets(ref invalidTiles,cPosition.X + cPosition.Center.X,cPosition.Y + cPosition.Height,2);
+
+						int x = 0;
+						int y = 0;
+						do
+						{
+							x = rng.Next(0,invalidTiles.GetLength(0));
+							y = rng.Next(0,invalidTiles.GetLength(1));
+						} while(invalidTiles[x,y]);
+
+						Character target = TileOccupent(x,y);
+						Item enemyItem = cEnemy.EquipItem;
+						if(enemyItem.Type == ItemType.HealingSpell)
+						{
+							if(target is Enemy)
+							{
+								cEnemy.Cast(enemyItem,target);
+							}
+						} else
+						{
+							if(target is Player)
+							{
+								if(enemyItem.Type == ItemType.AttackSpell)
+								{
+									cEnemy.Cast(enemyItem,target);
+								} else
+								{
+									cEnemy.Attack(enemyItem,target);
+								}
+							}
+						}
+						actionLeft = false;
+						targeting = false;
+					}
+				} else
+				{
+					if(moveLeft)
+					{
+						ValidMovements(ref invalidTiles,cPosition.X + cPosition.Center.X,cPosition.Y + cPosition.Height,5);
+						int x = 0;
+						int y = 0;
+						do
+						{
+							x = rng.Next(0,invalidTiles.GetLength(0));
+							y = rng.Next(0,invalidTiles.GetLength(1));
+						} while(invalidTiles[x,y]);
+						//cEnemy.Move(x,y);
+						moveLeft = false;
+						targeting = true;
+					}
+				}
 			}
 
 			attack.Update();
