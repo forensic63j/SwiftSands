@@ -80,9 +80,14 @@ namespace SwiftSands
 			//For testing:
 			if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
 			{
-                Console.WriteLine("Mouse: " + map.ConvertPosition(StateManager.MousePosition, StateCamera));
-                Console.WriteLine("Can Collide: " + map.TileCollide(map.ConvertPosition(StateManager.MousePosition, StateCamera)));
-                Console.WriteLine("Character Under Mouse: " + Party.CheckForPlayers(map, StateManager.WorldMousePosition));
+                if (Party.SelectedPlayer == null)
+                {
+                    Party.CheckForPlayers(map, StateManager.WorldMousePosition);
+                }
+                else
+                {
+                    Party.SelectedPlayer.PlayerMove(StateManager.WorldMousePosition);
+                }
 			}
 
             if (StateManager.MState.RightButton == ButtonState.Pressed && StateManager.MPrevious.RightButton == ButtonState.Released)

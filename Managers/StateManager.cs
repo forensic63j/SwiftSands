@@ -101,6 +101,49 @@ namespace SwiftSands
             stateStack.Push(newState);
             stateStack.Peek().OnEnter();
         }
+
+        static public Vector2 UnConvertPosition(Vector2 position, Camera camera)
+        {
+            Vector2 newPosition = position;
+            newPosition = Vector2.Transform(newPosition, camera.InverseTransform);
+            LocalMap localmap = CurrentState as LocalMap;
+            int x = (int)(Math.Floor((newPosition.X) * localmap.Map.TileWidth));
+            int y = (int)(Math.Floor((newPosition.Y) * localmap.Map.TileHeight));
+            return new Vector2(x, y);
+        }
+
+        /// <summary>
+        /// Translates a vector's coodinates into tile coodinates.
+        /// </summary>
+        /// <param name="position">The vector coodinates in terms of the world.</param>
+        /// <returns>The mouse coodunates in terms of the tile system.</returns>
+        static public Vector2 ConvertPosition(Vector2 position, Camera camera)
+        {
+            Vector2 newPosition = position;
+            newPosition = Vector2.Transform(newPosition, camera.InverseTransform);
+            LocalMap localmap = CurrentState as LocalMap;
+            int x = (int)(Math.Floor((newPosition.X) / localmap.Map.TileWidth));
+            int y = (int)(Math.Floor((newPosition.Y) / localmap.Map.TileHeight));
+            return new Vector2(x, y);
+        }
+
+        /// <summary>
+        /// Translates a rectangle's coodinates into tile coodinates.
+        /// </summary>
+        /// <param name="position">The rectangle coodinates in terms of the world.</param>
+        /// <returns>The mouse coodunates in terms of the tile system.</returns>
+        static public Rectangle ConvertPosition(Rectangle position, Camera camera)
+        {
+            Vector2 newPosition = new Vector2(position.X, position.Y);
+            newPosition = Vector2.Transform(new Vector2(position.X, position.Y), camera.InverseTransform);
+            LocalMap localmap = CurrentState as LocalMap;
+            int x = (int)(Math.Floor((newPosition.X / localmap.Map.TileWidth)));
+            int y = (int)(Math.Floor((newPosition.Y / localmap.Map.TileHeight)));
+            int width = localmap.Map.TileWidth;
+            int height = localmap.Map.TileHeight;
+            return new Rectangle(x, y, width, height);
+        }
+
         /// <summary>
         /// Opens new state ontop of stack without closing previous state
         /// </summary>

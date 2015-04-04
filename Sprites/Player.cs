@@ -5,7 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Storage;
+using Microsoft.Xna.Framework.GamerServices;
 
 namespace SwiftSands
 {
@@ -132,6 +136,21 @@ namespace SwiftSands
         public void CollectItem(Item item)
         {
             
+        }
+
+        public void PlayerMove(Vector2 newTile)
+        {
+            if (Selected)
+            {
+                newTile = StateManager.ConvertPosition(newTile, StateManager.CurrentState.StateCamera);
+                Vector2 startTile = TilePosition;
+                double distance = Math.Sqrt(Math.Pow((startTile.X - newTile.X), 2) + Math.Pow((startTile.Y - newTile.Y), 2));
+                Console.Out.WriteLine(distance);
+                if (distance == 1)
+                {
+                    TilePosition = newTile;
+                }
+            }
         }
         #endregion
     }

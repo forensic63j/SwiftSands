@@ -16,7 +16,6 @@ namespace SwiftSands
     {
         float zoom;
         Matrix transform;
-        Matrix inverseTransform;
         Vector2 position;
         float rotation;
         Viewport viewport;
@@ -79,34 +78,36 @@ namespace SwiftSands
         public void Input()
         {
             keyState = StateManager.KState;
+            Vector2 newCameraPosition = this.position;
             if (keyState.IsKeyDown(Keys.A))
             {
-                if (position.X >= LeftCameraBound)
+                if (position.X <= LeftCameraBound)
                 {
-                    position.X += cameraSpeed;
+                    newCameraPosition.X += cameraSpeed;
                 }
             }
             if (keyState.IsKeyDown(Keys.D))
             {
-                if (position.X <= RightCameraBound)
+                if (position.X >= -RightCameraBound + viewport.Width)
                 {
-                    position.X -= cameraSpeed;
+                    newCameraPosition.X -= cameraSpeed;
                 }
             } 
             if (keyState.IsKeyDown(Keys.S))
             {
-                if (position.Y <= BottomCameraBound)
+                if (position.Y >= -BottomCameraBound + viewport.Height)
                 {
-                    position.Y -= cameraSpeed;
+                    newCameraPosition.Y -= cameraSpeed;
                 }
             } 
             if (keyState.IsKeyDown(Keys.W))
             {
-                if (position.Y >= TopCameraBound)
+                if (position.Y < -TopCameraBound)
                 {
-                    position.Y += cameraSpeed;
+                    newCameraPosition.Y += cameraSpeed;
                 }
             }
+            this.Position = newCameraPosition;
         }
 
         public void Update()

@@ -72,6 +72,19 @@ namespace SwiftSands
 				maxHealth = value;
 			}
 		}
+        public Vector2 TilePosition
+        {
+            get
+            {
+                Rectangle convertedPos = StateManager.ConvertPosition(Position, StateManager.CurrentState.StateCamera);
+                return new Vector2(convertedPos.X, convertedPos.Y);
+            }
+            set
+            {
+                Vector2 unconvertedPosition = StateManager.UnConvertPosition(value, StateManager.CurrentState.StateCamera);
+                Position = new Rectangle((int)unconvertedPosition.X, (int)unconvertedPosition.Y, Position.Width, Position.Height);
+            }
+        }
 		public int Speed
 		{
 			get
