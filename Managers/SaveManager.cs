@@ -50,6 +50,7 @@ namespace SwiftSands
 							output.Write(player.Accuracy);
 							output.Write(player.Speed);
 							output.Write(player.Strength);
+                            output.Write(player.MovementRange);
 
 							//Rectangle
 							Rectangle pos = player.Position;

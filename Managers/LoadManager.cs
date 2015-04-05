@@ -87,34 +87,35 @@ namespace SwiftSands
 						int accuracy = int.Parse(characterStats[7]);
 						int speed = int.Parse(characterStats[8]);
 						int strength = int.Parse(characterStats[9]);
+                        int movementRange = int.Parse(characterStats[10]);
 
 						//sprite fields
-						String textureFile = characterStats[10];
+						String textureFile = characterStats[11];
 						//Texture
 						Texture2D sprite = null;
 						using(Stream imgStream = File.OpenRead("Content\\CharacterSprites\\" + textureFile)){
 							sprite = Texture2D.FromStream(game.GraphicsDevice,imgStream);
 						}
 						//rectangle
-						int x = int.Parse(characterStats[11]);
-						int y = int.Parse(characterStats[12]);
-						int width = int.Parse(characterStats[13]);
-						int height = int.Parse(characterStats[14]);
+						int x = int.Parse(characterStats[12]);
+						int y = int.Parse(characterStats[13]);
+						int width = int.Parse(characterStats[14]);
+						int height = int.Parse(characterStats[15]);
 						Rectangle position = new Rectangle(x,y,width,height);
 
 						//active/on screen
-						bool active = bool.Parse(characterStats[15]);
+						bool active = bool.Parse(characterStats[16]);
 
 						if(characterStats.Length > 17)
 						{
-							int xpAwarded = int.Parse(characterStats[16]);
+							int xpAwarded = int.Parse(characterStats[17]);
 							//create enemy
-							Enemy tempEnemy = new Enemy(maxHealth,health,mana,speed,strength,accuracy,level,recruitable,xpAwarded,sprite,position,active,name);
+							Enemy tempEnemy = new Enemy(maxHealth,health,mana,speed,strength,accuracy,movementRange,level,recruitable,xpAwarded,sprite,position,active,name);
 							characterList.Add(tempEnemy);
 						} else
 						{
 							//Builds character
-							Character tempCharacter = new Character(maxHealth,health,mana,speed,strength,accuracy,level,recruitable,sprite,position,active,name);
+                            Character tempCharacter = new Character(maxHealth, health, mana, speed, strength, accuracy, movementRange, level, recruitable, sprite, position, active, name);
 							characterList.Add(tempCharacter);
 						}
 					}
@@ -259,6 +260,7 @@ namespace SwiftSands
 							int accuracy = input.ReadInt32();
 							int speed = input.ReadInt32();
 							int strength = input.ReadInt32();
+                            int moverange = input.ReadInt32();
 
 							//Rectangle
 							int x = input.ReadInt32();
@@ -271,7 +273,7 @@ namespace SwiftSands
 							bool active = input.ReadBoolean();
 
 							//instantiate player
-							Player tempPlayer = new Player(maxHealth,health,mana,speed,strength,accuracy,level,true,deathsAllowed,sprites[i],position,active,name);
+							Player tempPlayer = new Player(maxHealth,health,mana,speed,strength,accuracy, moverange,level,true,deathsAllowed,sprites[i],position,active,name);
 							tempPlayer.NumDeaths = numDeaths;
 							Party.Add(tempPlayer);
 						}

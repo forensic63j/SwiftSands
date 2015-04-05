@@ -19,6 +19,7 @@ namespace SwiftSands
         private int strength = 0;
         private int accuracy = 0;
         private int level = 0;
+        private int movementRange = 1;
         private bool active = true;
         private bool canJoin = false;
         private bool alive = true;
@@ -43,7 +44,7 @@ namespace SwiftSands
             equipItem = null;
         }
 
-        public Character(int max, int health, int mana, int speed, int strength, int accuracy, int level, bool canJoin,
+        public Character(int max, int health, int mana, int speed, int strength, int accuracy, int moverange, int level, bool canJoin,
             Texture2D texture, Rectangle pos, bool active, String name):base(texture, pos, active, name)
 		{
             MaxHealth = max;
@@ -53,6 +54,7 @@ namespace SwiftSands
 			Strength = strength;
 			Accuracy = accuracy;
 			Level = level;
+            MovementRange = moverange;
             Name = name;
 			CanJoin = canJoin;
             this.active = active;
@@ -84,6 +86,11 @@ namespace SwiftSands
                 Vector2 unconvertedPosition = StateManager.UnConvertPosition(value, StateManager.CurrentState.StateCamera);
                 Position = new Rectangle((int)unconvertedPosition.X, (int)unconvertedPosition.Y, Position.Width, Position.Height);
             }
+        }
+        public int MovementRange
+        {
+            get { return movementRange; }
+            set { movementRange = value; }
         }
 		public int Speed
 		{
@@ -247,13 +254,13 @@ namespace SwiftSands
 		}
         public Player ToPlayer()
         {
-            return new Player(MaxHealth, Health, Mana, Speed, Strength, Accuracy, Level, CanJoin, 0, Texture, Position, active, Name);
+            return new Player(MaxHealth, Health, Mana, Speed, Strength, Accuracy, 4, Level, CanJoin, 0, Texture, Position, active, Name);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (selected)
             {
-                base.Draw(spriteBatch, Color.Red);
+                base.Draw(spriteBatch, new Color(255, 150, 150));
             }
             else
             {

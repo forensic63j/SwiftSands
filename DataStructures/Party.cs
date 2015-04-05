@@ -104,7 +104,8 @@ namespace SwiftSands
         static public bool CheckForPlayers(Map map, Vector2 pos) {
             foreach (Player p in PartyList)
             {
-                if (map.ConvertPosition(p.Position, StateManager.CurrentState.StateCamera).Contains(pos))
+                Console.Out.WriteLine(p.TilePosition + " should be equal to " + StateManager.WorldMousePosition);
+                if (new Rectangle((int)p.Position.X, (int)p.Position.Y, 32, 32).Contains(StateManager.WorldMousePosition))
                 {
                     if (SelectedPlayer != null)
                     {

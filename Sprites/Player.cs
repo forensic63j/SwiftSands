@@ -23,8 +23,8 @@ namespace SwiftSands
 		List<int> stats;
         #endregion
 
-        public Player(int maxHealth, int health, int mana, int speed, int strength, int accuracy, int level, bool canJoin, int deaths, Texture2D texture,
-            Rectangle pos, bool active, String name):base(maxHealth, health, mana, speed, strength, accuracy, level, canJoin, texture, pos, active, name)
+        public Player(int maxHealth, int health, int mana, int speed, int strength, int accuracy, int moverange, int level, bool canJoin, int deaths, Texture2D texture,
+            Rectangle pos, bool active, String name):base(maxHealth, health, mana, speed, strength, accuracy, moverange, level, canJoin, texture, pos, active, name)
 		{
 			numDeaths = 0;
 			exp = 0;
@@ -36,9 +36,11 @@ namespace SwiftSands
 			stats.Add(Speed);
 			stats.Add(Strength);
 			stats.Add(Accuracy);
+            stats.Add(MovementRange);
 		}
 
         #region Properties
+
         public int Exp
 		{
 			get
@@ -149,6 +151,8 @@ namespace SwiftSands
                 if (distance == 1)
                 {
                     TilePosition = newTile;
+                    Console.Out.WriteLine(this.TilePosition);
+                    Console.Out.WriteLine(this.Position);
                 }
             }
         }
