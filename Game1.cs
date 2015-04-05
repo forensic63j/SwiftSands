@@ -28,6 +28,9 @@ namespace SwiftSands
 		OptionsMenu options;
 		PauseMenu pause;
 
+		/**/
+		Combat combat;/**/
+
 		//Map states
 		LocalMap localMap;
 		WorldMap worldMap;
@@ -149,12 +152,19 @@ namespace SwiftSands
 			LoadManager.UpdateGame(this);
 
 			LoadManager.LoadContent(ref characterList, ref itemList,ref buttonSprite, ref font);
-            
+
+
+			Party.Add(this.CharacterList["player"].ToPlayer()); //For testing.
+
 			//Menus
             font = this.Content.Load<SpriteFont>("GUI/menuFont");
 			mainMenu = new MainMenu(font,buttonSprite,this,viewport);
 			options = new OptionsMenu(font,buttonSprite,this,viewport);
 			pause = new PauseMenu(font,buttonSprite,this,viewport);
+
+			/**/List<Enemy> enemies = new List<Enemy>();
+			enemies.Add(characterList["enemy"] as Enemy);
+			combat = new Combat(this,viewport,enemies,font,buttonSprite);/**/
 
 			//Buttons:
 			//Main Menu Buttons
@@ -232,7 +242,7 @@ namespace SwiftSands
 		private void Load()
 		{
 			LoadManager.LoadSavefile("Save1.data",inventory,itemList,taskList);
-			StateManager.OpenState(worldMap);
+			StateManager.OpenState(combat);//Changed temporalily for testing purposeses.
 		}
 
 		/// <summary>

@@ -254,7 +254,9 @@ namespace SwiftSands
 		}
         public Player ToPlayer()
         {
-            return new Player(MaxHealth, Health, Mana, Speed, Strength, Accuracy, 4, Level, CanJoin, 0, Texture, Position, active, Name);
+            Player player = new Player(MaxHealth, Health, Mana, Speed, Strength, Accuracy, 4, Level, CanJoin, 0, Texture, Position, active, Name);
+			player.EquipItem = equipItem;
+			return player;
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

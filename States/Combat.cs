@@ -36,7 +36,7 @@ namespace SwiftSands
 		/// <summary>
 		/// The main constructor for combat.
 		/// </summary>
-		public Combat(Game1 game, Viewport port,List<Enemy> enemies,SpriteFont font) : base(game, port) {
+		public Combat(Game1 game, Viewport port,List<Enemy> enemies,SpriteFont font,Texture2D buttonSprite) : base(game, port) {
 			currentTurn = 0;
 			moveLeft = true;
 			actionLeft = true;
@@ -89,8 +89,8 @@ namespace SwiftSands
 				}
 			}
 
-			attack = new Button("Attack",font,base.ButtonSprite,new Rectangle(5,port.Height-75,100,30),true);
-			endTurn = new Button("End Turn",font,base.ButtonSprite,new Rectangle(5,port.Height - 35,100,30),true);
+			attack = new Button("Attack",font,buttonSprite,new Rectangle(5,port.Height-75,100,30),true);
+			endTurn = new Button("End Turn",font,buttonSprite,new Rectangle(5,port.Height - 35,100,30),true);
 
 			attack.OnClick = Attack;
 			endTurn.OnClick = EndTurn;

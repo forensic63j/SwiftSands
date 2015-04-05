@@ -118,6 +118,7 @@ namespace SwiftSands
 						String[] characterStats = characters[i].Split(',');
 						//name,recruitable
 						String name = characterStats[0];
+						Console.WriteLine("Name: 0" + name + "!!!");
 						bool recruitable = bool.Parse(characterStats[1]);
 
 						//Health, mana, death data
@@ -162,9 +163,9 @@ namespace SwiftSands
 						//active/on screen
 						bool active = bool.Parse(characterStats[17]);
 
-						if(characterStats.Length > 17)
+						if(characterStats.Length > 18)
 						{
-							int xpAwarded = int.Parse(characterStats[17]);
+							int xpAwarded = int.Parse(characterStats[18]);
 							//create enemy
 							Enemy tempEnemy = new Enemy(maxHealth,health,mana,speed,strength,accuracy,movementRange,level,recruitable,xpAwarded,sprite,position,active,name);
 							tempEnemy.EquipItem = charItem;
@@ -273,6 +274,14 @@ namespace SwiftSands
 							int strength = input.ReadInt32();
                             int moverange = input.ReadInt32();
 
+							//Item
+							String itemName = input.ReadString();
+							Item charItem = null;
+							if(itemList.ContainsKey(itemName))
+							{
+								charItem = itemList[itemName];
+							}
+
 							//Rectangle
 							int x = input.ReadInt32();
 							int y = input.ReadInt32();
@@ -286,6 +295,7 @@ namespace SwiftSands
 							//instantiate player
 							Player tempPlayer = new Player(maxHealth,health,mana,speed,strength,accuracy, moverange,level,true,deathsAllowed,sprites[i],position,active,name);
 							tempPlayer.NumDeaths = numDeaths;
+							tempPlayer.EquipItem = charItem;
 							Party.Add(tempPlayer);
 						}
 						#endregion	
