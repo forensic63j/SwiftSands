@@ -48,7 +48,7 @@ namespace SwiftSands
 		/// <param name="itemList">List of the items in the game.</param>
 		/// <param name="buttonSprite">The sprite used for all buttons.</param>
 		/// <param name="font">The font for the GUI.</param>
-        static public void LoadContent(ref List<Character> characterList, ref List<Item> itemList, ref Texture2D buttonSprite, ref SpriteFont font)
+		static public void LoadContent(ref Dictionary<String,Character> characterList,ref Dictionary<String,Item> itemList,ref Texture2D buttonSprite,ref SpriteFont font)
         {
 			try
 			{
@@ -60,67 +60,6 @@ namespace SwiftSands
 				{
 					buttonSprite = Texture2D.FromStream(game.GraphicsDevice,imgStream);
 				}
-
-
-				#region characters
-				using(StreamReader input = new StreamReader("Content\\Data\\GameEntities\\Characters.txt"))
-				{
-					String characterData = input.ReadToEnd();
-					String[] characters = characterData.Split(';');
-					for(int i = 0; i < characters.Length; i++)
-					{
-						String[] characterStats = characters[i].Split(',');
-						//name,recruitable
-						String name = characterStats[0];
-						bool recruitable = bool.Parse(characterStats[1]);
-
-						//Health, mana, death data
-						int maxHealth = int.Parse(characterStats[2]);
-						int health = int.Parse(characterStats[3]);
-						int mana = int.Parse(characterStats[4]);
-						int deathsAllowed = int.Parse(characterStats[5]);
-
-						//Leveling
-						int level = int.Parse(characterStats[6]);
-
-						//stats
-						int accuracy = int.Parse(characterStats[7]);
-						int speed = int.Parse(characterStats[8]);
-						int strength = int.Parse(characterStats[9]);
-                        int movementRange = int.Parse(characterStats[10]);
-
-						//sprite fields
-						String textureFile = characterStats[11];
-						//Texture
-						Texture2D sprite = null;
-						using(Stream imgStream = File.OpenRead("Content\\CharacterSprites\\" + textureFile)){
-							sprite = Texture2D.FromStream(game.GraphicsDevice,imgStream);
-						}
-						//rectangle
-						int x = int.Parse(characterStats[12]);
-						int y = int.Parse(characterStats[13]);
-						int width = int.Parse(characterStats[14]);
-						int height = int.Parse(characterStats[15]);
-						Rectangle position = new Rectangle(x,y,width,height);
-
-						//active/on screen
-						bool active = bool.Parse(characterStats[16]);
-
-						if(characterStats.Length > 17)
-						{
-							int xpAwarded = int.Parse(characterStats[17]);
-							//create enemy
-							Enemy tempEnemy = new Enemy(maxHealth,health,mana,speed,strength,accuracy,movementRange,level,recruitable,xpAwarded,sprite,position,active,name);
-							characterList.Add(tempEnemy);
-						} else
-						{
-							//Builds character
-                            Character tempCharacter = new Character(maxHealth, health, mana, speed, strength, accuracy, movementRange, level, recruitable, sprite, position, active, name);
-							characterList.Add(tempCharacter);
-						}
-					}
-				}
-				#endregion
 
 				#region items
 				using(StreamReader input = new StreamReader("Content\\Data\\GameEntities\\Item.txt"))
@@ -164,7 +103,79 @@ namespace SwiftSands
 
 						//Item creation
 						Item tempItem = new Item(type,healing,damage,description,collected,sprite,position,active,onScreen,name);
-						itemList.Add(tempItem);
+						itemList.Add(name,tempItem);
+					}
+				}
+				#endregion
+
+				#region characters
+				using(StreamReader input = new StreamReader("Content\\Data\\GameEntities\\Characters.txt"))
+				{
+					String characterData = input.ReadToEnd();
+					String[] characters = characterData.Split(';');
+					for(int i = 0; i < characters.Length; i++)
+					{
+						String[] characterStats = characters[i].Split(',');
+						//name,recruitable
+						String name = characterStats[0];
+						bool recruitable = bool.Parse(characterStats[1]);
+
+						//Health, mana, death data
+						int maxHealth = int.Parse(characterStats[2]);
+						int health = int.Parse(characterStats[3]);
+						int mana = int.Parse(characterStats[4]);
+						int deathsAllowed = int.Parse(characterStats[5]);
+
+						//Leveling
+						int level = int.Parse(characterStats[6]);
+
+						//stats
+						int accuracy = int.Parse(characterStats[7]);
+						int speed = int.Parse(characterStats[8]);
+						int strength = int.Parse(characterStats[9]);
+                        int movementRange = int.Parse(characterStats[10]);
+
+						//sprite fields
+						String textureFile = characterStats[11];
+
+						//Texture
+						Texture2D sprite = null;
+						using(Stream imgStream = File.OpenRead("Content\\CharacterSprites\\" + textureFile)){
+							sprite = Texture2D.FromStream(game.GraphicsDevice,imgStream);
+						}
+
+						//item
+						String itemName = characterStats[12];
+						Item charItem = null;
+						if(itemList.ContainsKey(itemName))
+						{
+							charItem = itemList[itemName];
+						}
+
+						//rectangle
+						int x = int.Parse(characterStats[13]);
+						int y = int.Parse(characterStats[14]);
+						int width = int.Parse(characterStats[15]);
+						int height = int.Parse(characterStats[16]);
+						Rectangle position = new Rectangle(x,y,width,height);
+
+						//active/on screen
+						bool active = bool.Parse(characterStats[17]);
+
+						if(characterStats.Length > 17)
+						{
+							int xpAwarded = int.Parse(characterStats[17]);
+							//create enemy
+							Enemy tempEnemy = new Enemy(maxHealth,health,mana,speed,strength,accuracy,movementRange,level,recruitable,xpAwarded,sprite,position,active,name);
+							tempEnemy.EquipItem = charItem;
+							characterList.Add(name,tempEnemy);
+						} else
+						{
+							//Builds character
+                            Character tempCharacter = new Character(maxHealth, health, mana, speed, strength, accuracy, movementRange, level, recruitable, sprite, position, active, name);
+							tempCharacter.EquipItem = charItem;
+							characterList.Add(name,tempCharacter);
+						}
 					}
 				}
 				#endregion
@@ -198,7 +209,7 @@ namespace SwiftSands
         /// Loads a savefile.
         /// </summary>
         /// <param name="filename">The name of the file to load.</param>
-        static public void LoadSavefile(String filename, Inventory inventory, List<Item> itemList, List<Task> taskList)
+		static public void LoadSavefile(String filename,Inventory inventory,Dictionary<String,Item> itemList,List<Task> taskList)
 		{
 			#region texture
 			Texture2D[] sprites = null;
@@ -452,14 +463,11 @@ namespace SwiftSands
 		/// <param name="name">The name of the </param>
 		/// <param name="itemList">List of item in the game.</param>
 		/// <returns>The appropriate sprite.</returns>
-		static public Texture2D GetItemSprite(String name,List<Item> itemList)
+		static public Texture2D GetItemSprite(String name,Dictionary<String,Item> itemList)
 		{
-			for(int i = 0; i < itemList.Count; i++)
+			if(itemList.ContainsKey(name))
 			{
-				if(name == itemList[i].Name)
-				{
-					return itemList[i].Texture;
-				}
+				return itemList[name].Texture;
 			}
 			return null;
 		}

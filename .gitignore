@@ -42,3 +42,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 *.suo
+bin/Windows/Debug/Content/Data/GameEntities/Characters.txt
+bin/Windows/Debug/SwiftSands.pdb
+obj/x86/Debug/SwiftSands.exe
+obj/x86/Debug/SwiftSands.pdb

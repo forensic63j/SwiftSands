@@ -1,2 +1,2 @@
-Sample,false,100,100,100,2,1,5,7,7,3,character-sprite.png,0,0,23,28,true;
-Sample,false,100,100,100,2,1,5,7,7,3,character-sprite.png,0,0,32,32,true,10;
+player,false,100,100,100,2,1,5,7,7,3,character-sprite.png,0,0,23,28,true;
+enemy,false,100,100,100,2,1,5,7,7,3,character-sprite.png,0,0,32,32,true,10;

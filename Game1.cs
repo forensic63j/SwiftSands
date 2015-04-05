@@ -34,8 +34,8 @@ namespace SwiftSands
         Map testMap;
 
 		//Data structures
-		List<Character> characterList;
-		List<Item> itemList;
+		Dictionary<String,Character> characterList;
+		Dictionary<String,Item> itemList;
 		List<Task> taskList;
 		Inventory inventory;
 
@@ -95,7 +95,7 @@ namespace SwiftSands
 		/// <summary>
 		/// Gets the character list.
 		/// </summary>
-		internal List<Character> CharacterList
+		internal Dictionary<String,Character> CharacterList
 		{
 			get { return characterList; }
 		}
@@ -123,8 +123,8 @@ namespace SwiftSands
 			localMap = new LocalMap(this,viewport);
 			worldMap = new WorldMap(this,viewport);
 
-			characterList = new List<Character>();
-			itemList = new List<Item>();
+			characterList = new Dictionary<String,Character>();
+			itemList = new Dictionary<String,Item>();
 			taskList = new List<Task>();
 			inventory = new Inventory();
 

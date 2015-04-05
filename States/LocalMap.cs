@@ -51,7 +51,7 @@ namespace SwiftSands
             StateCamera.LeftCameraBound = 0;
             StateCamera.TopCameraBound = 0;
             buttonSprite = LoadManager.LoadSprite("GUI\\button-sprite.png");
-            Party.Add(base.StateGame.CharacterList[0].ToPlayer());
+            Party.Add(base.StateGame.CharacterList["player"].ToPlayer());
             base.OnEnter();
         }
 
