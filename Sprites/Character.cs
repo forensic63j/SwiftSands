@@ -269,6 +269,23 @@ namespace SwiftSands
                 base.Draw(spriteBatch);
             }
         }
+
+		public void Move(Vector2 newTile)
+		{
+			if(Selected)
+			{
+				newTile = StateManager.ConvertPosition(newTile,StateManager.CurrentState.StateCamera);
+				Vector2 startTile = TilePosition;
+				double distance = Math.Sqrt(Math.Pow((startTile.X - newTile.X),2) + Math.Pow((startTile.Y - newTile.Y),2));
+				Console.Out.WriteLine(distance);
+				if(distance == 1)
+				{
+					TilePosition = newTile;
+					Console.Out.WriteLine(this.TilePosition);
+					Console.Out.WriteLine(this.Position);
+				}
+			}
+		}
     }
         #endregion
 }

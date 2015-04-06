@@ -85,7 +85,7 @@ namespace SwiftSands
                 }
                 else
                 {
-                    Party.SelectedPlayer.PlayerMove(StateManager.WorldMousePosition);
+                    (Party.SelectedPlayer as Character).Move(StateManager.WorldMousePosition);
                 }
 			}
 

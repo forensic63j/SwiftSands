@@ -30,6 +30,8 @@ namespace SwiftSands
 
 		//RNG
 		Random rng;
+
+		int combatTime;
 		#endregion
 
 		#region main methods
@@ -96,6 +98,8 @@ namespace SwiftSands
 			endTurn.OnClick = EndTurn;
 
 			rng = new Random();
+
+			combatTime = 0;
 		}
 
         public override void OnEnter()
@@ -156,10 +160,10 @@ namespace SwiftSands
 					if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
 					{
 						Point mousePoint = StateManager.MState.Position;
-						Rectangle tileVector = this.Map.ConvertPosition(new Rectangle(mousePoint.X,mousePoint.Y,0,0),this.StateCamera);
-						if(!invalidTiles[tileVector.X,tileVector.Y])
+						Vector2 tileVector = this.Map.ConvertPosition(new Vector2(mousePoint.X,mousePoint.Y),this.StateCamera);
+						if(!invalidTiles[(int)tileVector.X,(int)tileVector.Y])
 						{
-							//cPlayer.Move(mousePoint.X,mousePoint.Y);
+							combatants[currentTurn].Move(tileVector);
 							moveLeft = false;
 						}
 					}
@@ -167,66 +171,71 @@ namespace SwiftSands
 				#endregion
 			} else
 			{
-				attack.IsActive = false;
-				endTurn.IsActive = false;
-				Enemy cEnemy = combatants[currentTurn] as Enemy;
-				if(actionLeft && moveLeft)
-				{
-					targeting = (rng.Next(0,3) == 0);
-				}
-				if(targeting)
-				{
-					if(actionLeft)
+				combatTime += time.TotalGameTime.Milliseconds;
+				if(combatTime >= 100){
+					combatTime = 0;
+					attack.IsActive = false;
+					endTurn.IsActive = false;
+					Enemy cEnemy = combatants[currentTurn] as Enemy;
+					if(actionLeft && moveLeft)
 					{
-						ValidTargets(ref invalidTiles,cPosition.X + cPosition.Center.X,cPosition.Y + cPosition.Height,2);
+						targeting = (rng.Next(0,3) == 0);
+					}
+					if(targeting)
+					{
+						if(actionLeft)
+						{
+							ValidTargets(ref invalidTiles,cPosition.X + cPosition.Center.X,cPosition.Y + cPosition.Height,2);
 
-						int x = 0;
-						int y = 0;
-						do
-						{
-							x = rng.Next(0,invalidTiles.GetLength(0));
-							y = rng.Next(0,invalidTiles.GetLength(1));
-						} while(invalidTiles[x,y]);
+							int x = 0;
+							int y = 0;
+							do
+							{
+								x = rng.Next(0,invalidTiles.GetLength(0));
+								y = rng.Next(0,invalidTiles.GetLength(1));
+							} while(invalidTiles[x,y]);
 
-						Character target = TileOccupent(x,y);
-						Item enemyItem = cEnemy.EquipItem;
-						if(enemyItem.Type == ItemType.HealingSpell)
-						{
-							if(target is Enemy)
+							Character target = TileOccupent(x,y);
+							Item enemyItem = cEnemy.EquipItem;
+							if(enemyItem.Type == ItemType.HealingSpell)
 							{
-								cEnemy.Cast(enemyItem,target);
-							}
-						} else
-						{
-							if(target is Player)
-							{
-								if(enemyItem.Type == ItemType.AttackSpell)
+								if(target is Enemy)
 								{
 									cEnemy.Cast(enemyItem,target);
-								} else
+								}
+							} else
+							{
+								if(target is Player)
 								{
-									cEnemy.Attack(enemyItem,target);
+									if(enemyItem.Type == ItemType.AttackSpell)
+									{
+										cEnemy.Cast(enemyItem,target);
+									} else
+									{
+										cEnemy.Attack(enemyItem,target);
+									}
 								}
 							}
+							actionLeft = false;
+							targeting = false;
 						}
-						actionLeft = false;
-						targeting = false;
-					}
-				} else
-				{
-					if(moveLeft)
+					} else
 					{
-						ValidMovements(ref invalidTiles,cPosition.X + cPosition.Center.X,cPosition.Y + cPosition.Height,5);
-						int x = 0;
-						int y = 0;
-						do
+						if(moveLeft)
 						{
-							x = rng.Next(0,invalidTiles.GetLength(0));
-							y = rng.Next(0,invalidTiles.GetLength(1));
-						} while(invalidTiles[x,y]);
-						//cEnemy.Move(x,y);
-						moveLeft = false;
-						targeting = true;
+							ValidMovements(ref invalidTiles,cPosition.X + cPosition.Center.X,cPosition.Y + cPosition.Height,5);
+							int x = 0;
+							int y = 0;
+							do
+							{
+								x = rng.Next(0,invalidTiles.GetLength(0));
+								y = rng.Next(0,invalidTiles.GetLength(1));
+							} while(invalidTiles[x,y]);
+							Vector2 moveVector = new Vector2(x,y);
+							combatants[currentTurn].Move(moveVector);
+							moveLeft = false;
+							targeting = true;
+						}
 					}
 				}
 			}
@@ -278,7 +287,15 @@ namespace SwiftSands
 		/// <param name="spriteBatch">Used to draw sprites to the screen.</param>
         public override void DrawWorld(GameTime time, SpriteBatch spriteBatch)
         {
-            base.DrawWorld(time, spriteBatch);
+			foreach(Character c in combatants)
+			{
+				if(c.Alive)
+				{
+					Console.WriteLine(c.Name);
+					c.Draw(spriteBatch);
+				}
+			}
+			base.DrawWorld(time, spriteBatch);
 			if(combatants[currentTurn] is Player)
 			{
 				attack.Draw(spriteBatch);
