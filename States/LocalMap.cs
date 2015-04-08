@@ -77,7 +77,7 @@ namespace SwiftSands
 
 
 			//For testing:
-			if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
+			if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released && !(this is Combat))
 			{
                 if (Party.SelectedPlayer == null)
                 {

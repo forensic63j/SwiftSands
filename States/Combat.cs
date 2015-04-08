@@ -25,6 +25,7 @@ namespace SwiftSands
 		bool targeting;
 
 		//GUI
+		SpriteFont font;
 		Button attack;
 		Button endTurn;
 
@@ -91,6 +92,7 @@ namespace SwiftSands
 				}
 			}
 
+			this.font = font;
 			attack = new Button("Attack",font,buttonSprite,new Rectangle(5,port.Height-75,100,30),true);
 			endTurn = new Button("End Turn",font,buttonSprite,new Rectangle(5,port.Height - 35,100,30),true);
 
@@ -131,10 +133,12 @@ namespace SwiftSands
 				#region player
 				Player cPlayer = combatants[currentTurn] as Player;
 				endTurn.IsActive = true;
+				attack.IsActive = true;
 
 				if(targeting)
 				{
-					attack.IsActive = false;
+					cPlayer.Selected = false;
+					attack.Clickable = false;
 					ValidTargets(ref invalidTiles,cPosition.X + cPosition.Center.X,cPosition.Y + cPosition.Height,2);
 					if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
 					{
@@ -155,7 +159,8 @@ namespace SwiftSands
 					}
 				} else
 				{
-					attack.IsActive = actionLeft;
+					attack.Clickable = actionLeft;
+					cPlayer.Selected = moveLeft;
                     combatants[currentTurn].ValidMovements(ref invalidTiles, this.Map, cPosition.X + cPosition.Center.X, cPosition.Y + cPosition.Height, combatants[currentTurn].MovementRange);
 					if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
 					{
@@ -221,7 +226,11 @@ namespace SwiftSands
 							}
 							actionLeft = false;
 							targeting = false;
+						} else
+						{
+							targeting = false;
 						}
+						
 					} else
 					{
 						if(moveLeft)
@@ -246,11 +255,13 @@ namespace SwiftSands
 			attack.Update();
 			endTurn.Update();
 
-			int i = 0; 
+			int i = 0;
+			bool casualty = false;
 			while(i < combatants.Count)
 			{
 				if(!combatants[i].Alive)
 				{
+					casualty = true;
 					if(combatants[i] is Player)
 					{
 						Player cPlayer = combatants[currentTurn] as Player;
@@ -267,9 +278,16 @@ namespace SwiftSands
 					i++;
 				}
 			}
+			if(casualty && (!CombatentsInclude<Player>() || !CombatentsInclude<Enemy>())){
+				StateManager.CloseState();
+			}
 
 			if(!(moveLeft || actionLeft))
 			{
+				if(combatants[currentTurn] is Player)
+				{
+					combatants[currentTurn].Selected = false;
+				}
 				if(currentTurn < combatants.Count - 1)
 				{
 					currentTurn++;
@@ -290,15 +308,22 @@ namespace SwiftSands
 		/// <param name="spriteBatch">Used to draw sprites to the screen.</param>
         public override void DrawWorld(GameTime time, SpriteBatch spriteBatch)
         {
+			base.DrawWorld(time, spriteBatch);
+
+			String cName;
+			String cHealth;
 			foreach(Character c in combatants)
 			{
 				if(c.Alive)
 				{
-					Console.WriteLine(c.Name);
+					//Console.WriteLine(c.Name);
 					c.Draw(spriteBatch);
+					cName = "Name: " + c.Name;
+					spriteBatch.DrawString(font,cName,new Vector2(c.Position.X,c.Position.Y+c.Position.Height + 2),Color.Black);
+					cHealth = "Health: " + c.Health;
+					spriteBatch.DrawString(font,cHealth,new Vector2(c.Position.X,c.Position.Y + c.Position.Height + 16),Color.Black);
 				}
 			}
-			base.DrawWorld(time, spriteBatch);
         }
 
 		/// <summary>
@@ -316,6 +341,23 @@ namespace SwiftSands
             //spriteBatch.Draw(buttonSprite, new Rectangle((int)mouse.X, (int)mouse.Y, 5, 5), Color.Black);
             base.DrawScreen(time, spriteBatch);
 		}
+
+		/// <summary>
+		/// Determines if there are enemies or players in battle.
+		/// </summary>
+		/// <typeparam name="T">The type of character included.</typeparam>
+		/// <returns></returns>
+		public bool CombatentsInclude<T>()
+		{
+			foreach(Character c in combatants)
+			{
+				if(c is T)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
 		#endregion
 
 		#region button methods
@@ -324,7 +366,13 @@ namespace SwiftSands
 		/// </summary>
 		public void Attack()
 		{
-			targeting = true;
+			if(targeting)
+			{
+				targeting = false;
+			} else
+			{
+				targeting = true;
+			}
 		}
 
 		/// <summary>

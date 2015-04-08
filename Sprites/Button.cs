@@ -16,6 +16,7 @@ namespace SwiftSands
 		private SpriteFont font;
 		public delegate void Clicked();
 		private Clicked onClick;
+		private bool clickable;
 		#endregion
 
 		#region properties
@@ -27,6 +28,14 @@ namespace SwiftSands
             get { return onClick; }
             set { onClick = value; }
         }
+
+		/// <summary>
+		/// Gets and sets clickable;
+		/// </summary>
+		public bool Clickable{
+			get{return clickable;}
+			set{clickable = value;}
+		}
 		#endregion
 
 		#region methods
@@ -44,6 +53,7 @@ namespace SwiftSands
 			: base(sprite,position,active,name)
 		{
 			this.font = font;
+			clickable = true;
 		}
 
         /// <summary>
@@ -54,7 +64,7 @@ namespace SwiftSands
         {
 			Rectangle pos = this.Position;
             bool onButton = ((StateManager.MState.X >= pos.X && StateManager.MState.X < (pos.X + pos.Width)) && (StateManager.MState.Y >= pos.Y && StateManager.MState.Y < (pos.Y + pos.Height)));
-            if (this.IsActive && (StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton != ButtonState.Pressed) && onButton)
+            if (this.IsActive && Clickable && (StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton != ButtonState.Pressed) && onButton)
             {
                 onClick();
             }
@@ -66,7 +76,14 @@ namespace SwiftSands
         public override void Draw(SpriteBatch spriteBatch)
         {
             Rectangle pos = this.Position;
-			base.Draw(spriteBatch);
+			 if (clickable)
+            {
+               base.Draw(spriteBatch);
+            }
+            else
+            {
+                base.Draw(spriteBatch, new Color(128,128,128));
+            }
 			if(IsActive)
 			{
 				spriteBatch.DrawString(font,this.Name,new Vector2(pos.X + 5,pos.Y + 2),Color.Black);
