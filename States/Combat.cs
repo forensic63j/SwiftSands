@@ -124,7 +124,7 @@ namespace SwiftSands
         public override void Update(GameTime time)
         {
 			Rectangle cPosition = base.Map.ConvertPosition(combatants[currentTurn].Position,StateCamera);
-			bool[,] invalidTiles = new bool[Map.ColliderLayer.GetLength(0),Map.ColliderLayer.GetLength(1)];
+			bool[,] invalidTiles = new bool[Map.ColliderLayer.GetLength(0), Map.ColliderLayer.GetLength(1)];
 			invalidTiles.Initialize();
 			if(combatants[currentTurn] is Player)
 			{
@@ -156,15 +156,18 @@ namespace SwiftSands
 				} else
 				{
 					attack.IsActive = actionLeft;
-					ValidMovements(ref invalidTiles,cPosition.X + cPosition.Center.X,cPosition.Y + cPosition.Height,5);
+                    combatants[currentTurn].ValidMovements(ref invalidTiles, this.Map, cPosition.X + cPosition.Center.X, cPosition.Y + cPosition.Height, combatants[currentTurn].MovementRange);
 					if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
 					{
-						Point mousePoint = StateManager.MState.Position;
+						Vector2 mousePoint = StateManager.WorldMousePosition;
 						Vector2 tileVector = this.Map.ConvertPosition(new Vector2(mousePoint.X,mousePoint.Y),this.StateCamera);
 						if(!invalidTiles[(int)tileVector.X,(int)tileVector.Y])
 						{
-							combatants[currentTurn].Move(tileVector);
-							moveLeft = false;
+                            if (TileOccupent((int)StateManager.WorldMousePosition.X, (int)StateManager.WorldMousePosition.Y) == null)
+                            {
+                                combatants[currentTurn].Move(StateManager.WorldMousePosition);
+                                moveLeft = false;
+                            }
 						}
 					}
 				}
@@ -223,7 +226,7 @@ namespace SwiftSands
 					{
 						if(moveLeft)
 						{
-							ValidMovements(ref invalidTiles,cPosition.X + cPosition.Center.X,cPosition.Y + cPosition.Height,5);
+                            combatants[currentTurn].ValidMovements(ref invalidTiles, Map, cPosition.X + cPosition.Center.X, cPosition.Y + cPosition.Height, 5);
 							int x = 0;
 							int y = 0;
 							do
@@ -335,61 +338,6 @@ namespace SwiftSands
 		#endregion
 
 		#region movement/targeting
-		/// <summary>
-		/// Finds the valid movements for the current character
-		/// </summary>
-		/// <param name="invalidTiles">A map of the tiles on the screen, you can move to tiles with a value of "false".</param>
-		/// <param name="x">Current x.</param>
-		/// <param name="y">Current y.</param>
-		/// <param name="move">Moves left.</param>
-		public void ValidMovements(ref bool[,] invalidTiles, int x, int y, int move) 
-		{
-			if(base.Map.InBounds(x,y) && base.Map.ColliderLayer[x,y] < 0 && TileOccupent(x,y) == null)
-			{
-				invalidTiles[x,y] = false;
-				//checks adjacent
-				if(move > 1)
-				{
-					//top
-					if(base.Map.InBounds(x - 1,y - 1) && invalidTiles[x - 1,y - 1])
-					{
-						ValidMovements(ref invalidTiles,x - 1,y - 1,move - 1);
-					}
-					if(base.Map.InBounds(x,y - 1) && !invalidTiles[x,y - 1])
-					{
-						ValidMovements(ref invalidTiles,x,y - 1,move - 1);
-					}
-					if(base.Map.InBounds(x + 1,y - 1) && !invalidTiles[x + 1,y - 1])
-					{
-						ValidMovements(ref invalidTiles,x + 1,y - 1,move - 1);
-					}
-
-					//middle
-					if(base.Map.InBounds(x - 1,y) && !invalidTiles[x - 1,y])
-					{
-						ValidMovements(ref invalidTiles,x - 1,y,move - 1);
-					}
-					if(base.Map.InBounds(x + 1,y) && !invalidTiles[x + 1,y])
-					{
-						ValidMovements(ref invalidTiles,x + 1,y,move - 1);
-					}
-
-					//bottom
-					if(base.Map.InBounds(x - 1,y + 1) && !invalidTiles[x - 1,y + 1])
-					{
-						ValidMovements(ref invalidTiles,x - 1,y + 1,move - 1);
-					}
-					if(base.Map.InBounds(x,y + 1) && !invalidTiles[x,y + 1])
-					{
-						ValidMovements(ref invalidTiles,x,y + 1,move - 1);
-					}
-					if(base.Map.InBounds(x + 1,y + 1) && !invalidTiles[x + 1,y + 1])
-					{
-						ValidMovements(ref invalidTiles,x + 1,y + 1,move - 1);
-					}
-				}
-			}
-		}
 
 		/// <summary>
 		/// Finds the valid movements for the current character

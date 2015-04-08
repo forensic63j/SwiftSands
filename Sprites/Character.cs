@@ -270,6 +270,62 @@ namespace SwiftSands
             }
         }
 
+        /// <summary>
+        /// Finds the valid movements for the current character
+        /// </summary>
+        /// <param name="invalidTiles">A map of the tiles on the screen, you can move to tiles with a value of "false".</param>
+        /// <param name="x">Current x.</param>
+        /// <param name="y">Current y.</param>
+        /// <param name="move">Moves left.</param>
+        public void ValidMovements(ref bool[,] invalidTiles, Map map,  int x, int y, int move)
+        {
+            if (map.InBounds(x, y) && map.ColliderLayer[x, y] < 0)
+            {
+                invalidTiles[x, y] = false;
+                //checks adjacent
+                if (move > 1)
+                {
+                    //top
+                    if (map.InBounds(x - 1, y - 1) && invalidTiles[x - 1, y - 1])
+                    {
+                        ValidMovements(ref invalidTiles, map, x - 1, y - 1, move - 1);
+                    }
+                    if (map.InBounds(x, y - 1) && !invalidTiles[x, y - 1])
+                    {
+                        ValidMovements(ref invalidTiles, map, x, y - 1, move - 1);
+                    }
+                    if (map.InBounds(x + 1, y - 1) && !invalidTiles[x + 1, y - 1])
+                    {
+                        ValidMovements(ref invalidTiles, map, x + 1, y - 1, move - 1);
+                    }
+
+                    //middle
+                    if (map.InBounds(x - 1, y) && !invalidTiles[x - 1, y])
+                    {
+                        ValidMovements(ref invalidTiles, map, x - 1, y, move - 1);
+                    }
+                    if (map.InBounds(x + 1, y) && !invalidTiles[x + 1, y])
+                    {
+                        ValidMovements(ref invalidTiles, map, x + 1, y, move - 1);
+                    }
+
+                    //bottom
+                    if (map.InBounds(x - 1, y + 1) && !invalidTiles[x - 1, y + 1])
+                    {
+                        ValidMovements(ref invalidTiles, map, x - 1, y + 1, move - 1);
+                    }
+                    if (map.InBounds(x, y + 1) && !invalidTiles[x, y + 1])
+                    {
+                        ValidMovements(ref invalidTiles, map, x, y + 1, move - 1);
+                    }
+                    if (map.InBounds(x + 1, y + 1) && !invalidTiles[x + 1, y + 1])
+                    {
+                        ValidMovements(ref invalidTiles, map, x + 1, y + 1, move - 1);
+                    }
+                }
+            }
+        }
+
 		public void Move(Vector2 newTile)
 		{
 			if(Selected)
