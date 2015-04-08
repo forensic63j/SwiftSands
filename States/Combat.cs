@@ -296,11 +296,6 @@ namespace SwiftSands
 				}
 			}
 			base.DrawWorld(time, spriteBatch);
-			if(combatants[currentTurn] is Player)
-			{
-				attack.Draw(spriteBatch);
-				endTurn.Draw(spriteBatch);
-			}
         }
 
 		/// <summary>
@@ -310,6 +305,11 @@ namespace SwiftSands
 		/// <param name="spriteBatch"></param>
         public override void DrawScreen(GameTime time, SpriteBatch spriteBatch)
         {
+            if (combatants[currentTurn] is Player)
+            {
+                attack.Draw(spriteBatch);
+                endTurn.Draw(spriteBatch);
+            }
             //spriteBatch.Draw(buttonSprite, new Rectangle((int)mouse.X, (int)mouse.Y, 5, 5), Color.Black);
             base.DrawScreen(time, spriteBatch);
 		}
