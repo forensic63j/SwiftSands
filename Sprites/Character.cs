@@ -350,10 +350,9 @@ namespace SwiftSands
             }
 			if(Selected)
 			{
-				newTile = StateManager.ConvertPosition(newTile,StateManager.CurrentState.StateCamera);
 				Vector2 startTile = TilePosition;
 				double distance = Math.Sqrt(Math.Pow((startTile.X - newTile.X),2) + Math.Pow((startTile.Y - newTile.Y),2));
-				Console.Out.WriteLine(distance);
+				Console.Out.WriteLine("The character started the movement from " + startTile);
 				if(distance == 1)
 				{
                     if (!currentmap.TileCollide((int)newTile.X, (int)newTile.Y)) 

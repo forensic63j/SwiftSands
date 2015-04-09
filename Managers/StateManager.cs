@@ -56,6 +56,25 @@ namespace SwiftSands
             }
         }
 
+        static public Vector2 TileMousePosition
+        {
+            get
+            {
+                Map currentmap = new Map(0, 0, 0, 0, "error");
+                if (StateManager.CurrentState is LocalMap)
+                {
+                    LocalMap localmap = StateManager.CurrentState as LocalMap;
+                    currentmap = localmap.Map;
+                }
+                if (StateManager.CurrentState is WorldMap)
+                {
+                    WorldMap localmap = StateManager.CurrentState as WorldMap;
+                    currentmap = localmap.Map;
+                }
+                return currentmap.ConvertPosition(MousePosition, StateManager.CurrentState.StateCamera);
+            }
+        }
+
         /// <summary>
         /// Gets the last mouse state.
         /// </summary>
@@ -105,10 +124,27 @@ namespace SwiftSands
         static public Vector2 UnConvertPosition(Vector2 position, Camera camera)
         {
             Vector2 newPosition = position;
-            newPosition = Vector2.Transform(newPosition, camera.InverseTransform);
-            LocalMap localmap = CurrentState as LocalMap;
-            int x = (int)(Math.Floor((newPosition.X) * localmap.Map.TileWidth));
-            int y = (int)(Math.Floor((newPosition.Y) * localmap.Map.TileHeight));
+            Map currentmap = new Map(0, 0, 0, 0, "error");
+            if (StateManager.CurrentState is LocalMap)
+            {
+                LocalMap localmap = StateManager.CurrentState as LocalMap;
+                currentmap = localmap.Map;
+            }
+            if (StateManager.CurrentState is WorldMap)
+            {
+                WorldMap localmap = StateManager.CurrentState as WorldMap;
+                currentmap = localmap.Map;
+            }
+            int x = (int)(Math.Floor((newPosition.X) * currentmap.TileWidth));
+            int y = (int)(Math.Floor((newPosition.Y) * currentmap.TileHeight));
+            if (x < 0)
+            {
+                x = 0;
+            }
+            if (y < 0)
+            {
+                y = 0;
+            }
             return new Vector2(x, y);
         }
 
@@ -121,9 +157,27 @@ namespace SwiftSands
         {
             Vector2 newPosition = position;
             newPosition = Vector2.Transform(newPosition, camera.InverseTransform);
-            LocalMap localmap = CurrentState as LocalMap;
-            int x = (int)(Math.Floor((newPosition.X) / localmap.Map.TileWidth));
-            int y = (int)(Math.Floor((newPosition.Y) / localmap.Map.TileHeight));
+            Map currentmap = new Map(0, 0, 0, 0, "error");
+            if (StateManager.CurrentState is LocalMap)
+            {
+                LocalMap localmap = StateManager.CurrentState as LocalMap;
+                currentmap = localmap.Map;
+            }
+            if (StateManager.CurrentState is WorldMap)
+            {
+                WorldMap localmap = StateManager.CurrentState as WorldMap;
+                currentmap = localmap.Map;
+            }
+            int x = (int)(Math.Floor((newPosition.X) / currentmap.TileWidth));
+            int y = (int)(Math.Floor((newPosition.Y) / currentmap.TileHeight));
+            if (x < 0)
+            {
+                x = 0;
+            }
+            if (y < 0)
+            {
+                y = 0;
+            }
             return new Vector2(x, y);
         }
 
@@ -135,12 +189,30 @@ namespace SwiftSands
         static public Rectangle ConvertPosition(Rectangle position, Camera camera)
         {
             Vector2 newPosition = new Vector2(position.X, position.Y);
-            newPosition = Vector2.Transform(new Vector2(position.X, position.Y), camera.InverseTransform);
-            LocalMap localmap = CurrentState as LocalMap;
-            int x = (int)(Math.Floor((newPosition.X / localmap.Map.TileWidth)));
-            int y = (int)(Math.Floor((newPosition.Y / localmap.Map.TileHeight)));
-            int width = localmap.Map.TileWidth;
-            int height = localmap.Map.TileHeight;
+            //newPosition = Vector2.Transform(new Vector2(position.X, position.Y), camera.InverseTransform);
+            Map currentmap = new Map(0, 0, 0, 0, "error");
+            if (StateManager.CurrentState is LocalMap)
+            {
+                LocalMap localmap = StateManager.CurrentState as LocalMap;
+                currentmap = localmap.Map;
+            }
+            if (StateManager.CurrentState is WorldMap)
+            {
+                WorldMap localmap = StateManager.CurrentState as WorldMap;
+                currentmap = localmap.Map;
+            }
+            int x = (int)(Math.Floor((newPosition.X / currentmap.TileWidth)));
+            int y = (int)(Math.Floor((newPosition.Y / currentmap.TileHeight)));
+            if (x < 0)
+            {
+                x = 0;
+            }
+            if (y < 0)
+            {
+                y = 0;
+            }
+            int width = currentmap.TileWidth;
+            int height = currentmap.TileHeight;
             return new Rectangle(x, y, width, height);
         }
 

@@ -124,7 +124,10 @@ namespace SwiftSands
 
         public void TintTile(Vector2 tilePos, Color col)
         {
-            colorLayer[(int)tilePos.X, (int)tilePos.Y] = col;
+            if (InBounds((int)tilePos.X, (int)tilePos.Y))
+            {
+                colorLayer[(int)tilePos.X, (int)tilePos.Y] = col;
+            }
         }
 
         public void Draw(GameTime time, SpriteBatch spriteBatch)

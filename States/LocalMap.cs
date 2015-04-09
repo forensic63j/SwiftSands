@@ -19,6 +19,7 @@ namespace SwiftSands
 		#region map
 		Map map;
 		Texture2D buttonSprite;
+        bool[,] tintedTiles;
 
 		#region Properties
 		/// <summary>
@@ -39,13 +40,13 @@ namespace SwiftSands
 		#endregion
 
 		public LocalMap(Game1 game, Viewport port) : base(game, port) 
-		{
-			
+		{	
 		}
 
         public override void OnEnter()
         {
             map = LoadManager.LoadMap("desert.txt");
+            tintedTiles = new bool[map.Width,Map.Height];
             StateCamera.RightCameraBound = map.Width*map.TileWidth;
             StateCamera.BottomCameraBound = map.Height * map.TileHeight;
             StateCamera.LeftCameraBound = 0;
@@ -74,7 +75,28 @@ namespace SwiftSands
                 }
             }
 
-
+            for (int r = 0; r < Map.Width; r++)
+            {
+                for (int c = 0; c < Map.Height; c++)
+                {
+                    if (tintedTiles[r, c])
+                    {
+                        Map.TintTile(new Vector2(r, c), Color.White);
+                    }
+                }
+            }
+            if (Map.InBounds((int)StateManager.TileMousePosition.X, (int)StateManager.TileMousePosition.Y))
+            {
+                if (Map.ColliderLayer[(int)StateManager.TileMousePosition.X, (int)StateManager.TileMousePosition.Y] > 0)
+                {
+                    Map.TintTile(StateManager.TileMousePosition, new Color(255, 210, 210));
+                }
+                else
+                {
+                    Map.TintTile(StateManager.TileMousePosition, new Color(210, 210, 255));
+                }
+                tintedTiles[(int)StateManager.TileMousePosition.X, (int)StateManager.TileMousePosition.Y] = true;
+            }
 
 			//For testing:
 			if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released && !(this is Combat))
@@ -85,7 +107,8 @@ namespace SwiftSands
                 }
                 else
                 {
-                    (Party.SelectedPlayer as Character).Move(StateManager.WorldMousePosition);
+                    Console.Out.WriteLine(StateManager.TileMousePosition);
+                    (Party.SelectedPlayer as Character).Move(StateManager.TileMousePosition);
                 }
 			}
 
