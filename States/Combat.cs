@@ -197,7 +197,7 @@ namespace SwiftSands
 				}
 				#endregion
 			} else
-			{
+			{/*
 				combatTime += time.TotalGameTime.Milliseconds;
 				if(combatTime >= 100){
 					combatTime = 0;
@@ -269,8 +269,11 @@ namespace SwiftSands
 						}
 					}
 				}
+			*/
+				moveLeft = false;
+				actionLeft = false;
 			}
-
+			
 			attack.Update();
 			endTurn.Update();
 
