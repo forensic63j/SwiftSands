@@ -160,7 +160,7 @@ namespace SwiftSands
 				} else
 				{
 					attack.Clickable = actionLeft;
-                    combatants[currentTurn].ValidMovements(ref invalidTiles, this.Map, cPosition.X + cPosition.Center.X, cPosition.Y + cPosition.Height, combatants[currentTurn].MovementRange);
+                    combatants[currentTurn].ValidMovements(ref invalidTiles, cPosition.X + cPosition.Center.X, cPosition.Y + cPosition.Height, combatants[currentTurn].MovementRange);
 					if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
 					{
 						Vector2 mousePoint = StateManager.WorldMousePosition;
@@ -240,7 +240,7 @@ namespace SwiftSands
 					{
 						if(moveLeft)
 						{
-                            combatants[currentTurn].ValidMovements(ref invalidTiles, Map, cPosition.X + cPosition.Center.X, cPosition.Y + cPosition.Height, 5);
+                            combatants[currentTurn].ValidMovements(ref invalidTiles, cPosition.X + cPosition.Center.X, cPosition.Y + cPosition.Height, 5);
 							int x = 0;
 							int y = 0;
 							do
