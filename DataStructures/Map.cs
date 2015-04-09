@@ -211,7 +211,7 @@ namespace SwiftSands
 		/// <param name="y">The y coodinate.</param>
 		/// <returns></returns>
 		public bool InBounds(int x, int y){
-			return (x >= 0 && x < colliderLayer.GetLength(0)) && (x >= 0 && x < colliderLayer.GetLength(1));
+			return (x >= 0 && x < colliderLayer.GetLength(0)) && (y >= 0 && y < colliderLayer.GetLength(1));
 		}
     }
 }
