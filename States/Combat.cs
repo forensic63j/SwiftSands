@@ -181,6 +181,20 @@ namespace SwiftSands
                         }
 					}
 				}
+
+				for(int j = 0; j < validTiles.GetLength(0); j++)
+				{
+					for(int k = 0; k < validTiles.GetLength(0); k++)
+					{
+						if(validTiles[j,k])
+						{
+							base.Map.TintTile(new Vector2(j,k),Color.Yellow);
+						} else
+						{
+							base.Map.TintTile(new Vector2(j,k),Color.White);
+						}
+					}
+				}
 				#endregion
 			} else
 			{
@@ -303,19 +317,6 @@ namespace SwiftSands
 				}
 				moveLeft = true;
 				actionLeft = true;
-			}
-			for(int j = 0; j < validTiles.GetLength(0); j++)
-			{
-				for(int k = 0; k < validTiles.GetLength(1); k++)
-				{
-					if(validTiles[j,k])
-					{
-						base.Map.TintTile(new Vector2(j,k),Color.Yellow);
-					} else
-					{
-						base.Map.TintTile(new Vector2(j,k),Color.White);
-					}
-				}
 			}
 				base.Update(time);
         }
@@ -463,6 +464,7 @@ namespace SwiftSands
 					{
 						ValidTargets(ref validTiles,x + 1,y + 1,range - 1);
 					}
+
 				}
 			}
 		}
@@ -475,7 +477,8 @@ namespace SwiftSands
 		/// <returns>The character on that tile.</returns>
 		public Character TileOccupent(int x,int y)
 		{
-			foreach(Character c in combatants){
+			foreach(Character c in combatants)
+			{
 				Rectangle cPosition = this.Map.ConvertPosition(c.Position,this.StateCamera);
 				if(cPosition.X == x && cPosition.Y == y)
 				{
@@ -484,6 +487,7 @@ namespace SwiftSands
 			}
 			return null;
 		}
+
 		#endregion
 	}
 }
