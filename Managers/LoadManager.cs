@@ -118,7 +118,7 @@ namespace SwiftSands
 						String[] characterStats = characters[i].Split(',');
 						//name,recruitable
 						String name = characterStats[0];
-						Console.WriteLine("Name: 0" + name + "!!!");
+						//Console.WriteLine("Name: 0" + name + "!!!");
 						bool recruitable = bool.Parse(characterStats[1]);
 
 						//Health, mana, death data
