@@ -135,12 +135,48 @@ namespace SwiftSands
                 }
             }
         }
-        public void CollectItem(Item item)
+        public void Interact(Dictionary<String, Character> characters, Dictionary<String, Item> items, Game1 game1)
         {
-            
+            Vector2 currentPos = TilePosition;
+            foreach(KeyValuePair<String, Character> character in characters)
+            {
+                Character ch = character.Value;
+                if (ch.IsActive)
+                {
+                    Vector2 charPos = ch.TilePosition;
+                    double distance = Math.Sqrt(Math.Pow((currentPos.X - charPos.X), 2) + Math.Pow((currentPos.Y - charPos.Y), 2));
+                    if (distance == 1)
+                    {
+                        Converse(ch, game1);
+                    }
+                }
+            }
+            foreach (KeyValuePair<String, Item> its in items)
+            {
+                Item it = its.Value;
+                if (it.IsActive)
+                {
+                    Vector2 itemPos = new Vector2(it.Position.X + it.Position.Width / 2, it.Position.Y + it.Position.Height / 2);
+                    double distance = Math.Sqrt(Math.Pow((currentPos.X - itemPos.X), 2) + Math.Pow((currentPos.Y - itemPos.Y), 2));
+                    if (distance == 1)
+                    {
+                        PickUpItem(it, game1);
+                    }
+                }
+            }
         }
+        public void PickUpItem(Item item, Game1 game1)
+        {
+            Viewport viewport = game1.GraphicsDevice.Viewport;
+            Rectangle textBox = new Rectangle(0, viewport.Height * (4/5), viewport.Width, viewport.Height * (1/5));
+            Inventory.Items.Add(item);
+        }
+        public void Converse(Character character, Game1 game1)
+        {
+            Viewport viewport = game1.GraphicsDevice.Viewport;
+            Rectangle textBox = new Rectangle(0, viewport.Height * (4 / 5), viewport.Width, viewport.Height * (1 / 5));
 
-       
+        }
         #endregion
     }
 }
