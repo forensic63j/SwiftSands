@@ -160,20 +160,25 @@ namespace SwiftSands
 				} else
 				{
 					attack.Clickable = actionLeft;
-					cPlayer.Selected = moveLeft;
                     combatants[currentTurn].ValidMovements(ref invalidTiles, this.Map, cPosition.X + cPosition.Center.X, cPosition.Y + cPosition.Height, combatants[currentTurn].MovementRange);
 					if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
 					{
 						Vector2 mousePoint = StateManager.WorldMousePosition;
 						Vector2 tileVector = this.Map.ConvertPosition(new Vector2(mousePoint.X,mousePoint.Y),this.StateCamera);
-						if(!invalidTiles[(int)tileVector.X,(int)tileVector.Y])
-						{
-                            if (TileOccupent((int)StateManager.WorldMousePosition.X, (int)StateManager.WorldMousePosition.Y) == null)
+                        Party.CheckForPlayers(this.Map, StateManager.WorldMousePosition);
+                        if (moveLeft)
+                        {
+                            if (!invalidTiles[(int)tileVector.X, (int)tileVector.Y])
                             {
-                                combatants[currentTurn].Move(StateManager.WorldMousePosition);
-                                moveLeft = false;
+                                if (TileOccupent((int)StateManager.WorldMousePosition.X, (int)StateManager.WorldMousePosition.Y) == null)
+                                {
+                                    if (combatants[currentTurn].Move(StateManager.WorldMousePosition))
+                                    {
+                                        moveLeft = false;
+                                    }
+                                }
                             }
-						}
+                        }
 					}
 				}
 				#endregion

@@ -22,6 +22,7 @@ namespace SwiftSands
         string tilesetName;
         int[,] groundLayer;
         int[,] colliderLayer;
+        Color[,] colorLayer;
         Texture2D tileset;
 
         public int Width
@@ -49,6 +50,11 @@ namespace SwiftSands
 			get { return colliderLayer; }
 		}
 
+        public Color[,] ColorLayer
+        {
+            get { return colorLayer; }
+        }
+
         public Texture2D Tileset{
             get{
                 return tileset;    
@@ -66,7 +72,15 @@ namespace SwiftSands
             tileheight = pTileHeight;
             groundLayer = groundTiles;
             colliderLayer = colliderTiles;
-            this.tilesetName = tilesetname;
+            colorLayer = new Color[width,height];
+            for (int i = 0; i < width; i++)
+            {
+                for (int c = 0; c < height; c++)
+                {
+                    colorLayer[i, c] = Color.White;
+                }
+            }
+                this.tilesetName = tilesetname;
         }
 
         public Map(int pWidth, int pHeight, int pTileWidth, int pTileHeight, string tilesetname)
@@ -75,6 +89,14 @@ namespace SwiftSands
             height = pHeight;
             tilewidth = pTileWidth;
             tileheight = pTileHeight;
+            colorLayer = new Color[width, height];
+            for (int i = 0; i < width; i++)
+            {
+                for (int c = 0; c < height; c++)
+                {
+                    colorLayer[i, c] = Color.White;
+                }
+            }
             this.tilesetName = tilesetname;
         }
 
@@ -84,12 +106,25 @@ namespace SwiftSands
             height = pHeight;
             tilewidth = pTileWidth;
             tileheight = pTileHeight;
+            colorLayer = new Color[width, height];
+            for (int i = 0; i < width; i++)
+            {
+                for (int c = 0; c < height; c++)
+                {
+                    colorLayer[i, c] = Color.White;
+                }
+            }
             this.tileset = tileset;
         }
 
         public void LoadTileset(Game1 game)
         {
             tileset = game.Content.Load<Texture2D>("Tilesets/"+tilesetName);
+        }
+
+        public void TintTile(Vector2 tilePos, Color col)
+        {
+            colorLayer[(int)tilePos.X, (int)tilePos.Y] = col;
         }
 
         public void Draw(GameTime time, SpriteBatch spriteBatch)
@@ -100,11 +135,11 @@ namespace SwiftSands
                 {
                     if (groundLayer[r, c] - 1 > 0)
                     {
-                        spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((groundLayer[r, c] - 1) % (8) * tilewidth), (((groundLayer[r, c] - 1) / 8) * tileheight), tilewidth, tileheight), Color.White);
+                        spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((groundLayer[r, c] - 1) % (8) * tilewidth), (((groundLayer[r, c] - 1) / 8) * tileheight), tilewidth, tileheight), ColorLayer[r,c]);
                     }
                     if (colliderLayer[r, c] - 1 > 0)
                     {
-                        spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((colliderLayer[r, c] - 1) % (8) * tilewidth), (((colliderLayer[r, c] - 1) / 8) * tileheight), tilewidth, tileheight), Color.White);
+                        spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((colliderLayer[r, c] - 1) % (8) * tilewidth), (((colliderLayer[r, c] - 1) / 8) * tileheight), tilewidth, tileheight), ColorLayer[r, c]);
                     }
                 }
             }
