@@ -107,7 +107,6 @@ namespace SwiftSands
                 }
                 else
                 {
-                    Console.Out.WriteLine(StateManager.TileMousePosition);
                     (Party.SelectedPlayer as Character).Move(StateManager.TileMousePosition);
                 }
 			}

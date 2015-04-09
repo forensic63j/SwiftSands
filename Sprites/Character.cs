@@ -352,15 +352,12 @@ namespace SwiftSands
 			{
 				Vector2 startTile = TilePosition;
 				double distance = Math.Sqrt(Math.Pow((startTile.X - newTile.X),2) + Math.Pow((startTile.Y - newTile.Y),2));
-				Console.Out.WriteLine("The character started the movement from " + startTile);
 				if(distance == 1)
 				{
                     if (!currentmap.TileCollide((int)newTile.X, (int)newTile.Y)) 
                     {
 					    TilePosition = newTile;
                         return true;
-					    Console.Out.WriteLine(this.TilePosition);
-					    Console.Out.WriteLine(this.Position);
                     }
 				}
 			}

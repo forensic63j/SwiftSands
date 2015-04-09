@@ -172,7 +172,7 @@ namespace SwiftSands
                             {
                                 if (TileOccupent((int)StateManager.WorldMousePosition.X, (int)StateManager.WorldMousePosition.Y) == null)
                                 {
-                                    if (combatants[currentTurn].Move(StateManager.WorldMousePosition))
+                                    if (combatants[currentTurn].Move(StateManager.TileMousePosition))
                                     {
                                         moveLeft = false;
                                     }
