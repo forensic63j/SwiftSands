@@ -199,7 +199,7 @@ namespace SwiftSands
 					}
 				}
 			} else
-			{/*
+			{
 				combatTime += time.TotalGameTime.Milliseconds;
 				if(combatTime >= 100){
 					combatTime = 0;
@@ -271,9 +271,9 @@ namespace SwiftSands
 						}
 					}
 				}
-			*/
+			/*
 				moveLeft = false;
-				actionLeft = false;
+				actionLeft = false; */
 			}
 			
 			attack.Update();
