@@ -221,6 +221,14 @@ namespace SwiftSands
 						{
 							ValidTargets(ref validTiles,cPosition.X,cPosition.Y,2);
 
+                            Item enemyItem = cEnemy.EquipItem;
+
+                            bool targetsAllies = enemyItem.Type == ItemType.HealingSpell;
+                            if(NoValidTargets(validTiles,targetsAllies)){
+                                actionLeft = false;
+							    targeting = false;
+                            }else{
+                                
 							int x = 0;
 							int y = 0;
 							do
@@ -230,13 +238,15 @@ namespace SwiftSands
 							} while(!validTiles[x,y]);
 
 							Character target = TileOccupent(x,y);
-							Item enemyItem = cEnemy.EquipItem;
-							if(enemyItem.Type == ItemType.HealingSpell)
+							
+							if(targetsAllies)
 							{
 								if(target is Enemy)
 								{
 									cEnemy.Cast(enemyItem,target);
 								}
+                                actionLeft = false;
+							    targeting = false;
 							} else
 							{
 								if(target is Player)
@@ -248,10 +258,11 @@ namespace SwiftSands
 									{
 										cEnemy.Attack(enemyItem,target);
 									}
+                                    actionLeft = false;
+							        targeting = false;
 								}
 							}
-							actionLeft = false;
-							targeting = false;
+                            }
 						} else
 						{
 							targeting = false;
@@ -302,6 +313,10 @@ namespace SwiftSands
 					}
 
 					combatants.RemoveAt(i);
+                    if (currentTurn > i)
+                    {
+                        currentTurn--;
+                    }
 				} else
 				{
 					i++;
@@ -310,6 +325,7 @@ namespace SwiftSands
 
 			if(casualty && (!CombatentsInclude<Player>() || !CombatentsInclude<Enemy>())){
 				StateManager.CloseState();
+                return;
 			}
 
 			if(!(moveLeft || actionLeft))
@@ -498,6 +514,21 @@ namespace SwiftSands
 			return null;
 		}
 
+
+        public bool NoValidTargets(bool[,] validTiles, bool targetsAllies)
+        {
+            for (int i = 0; i < validTiles.GetLength(0); i++)
+            {
+                for (int j = 0; j < validTiles.GetLength(1); j++)
+                {
+                    if (validTiles[i, j] && ((TileOccupent(i, j) is Player && !targetsAllies) || (TileOccupent(i, j) is Enemy && targetsAllies)))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
 		#endregion
 	}
 }
