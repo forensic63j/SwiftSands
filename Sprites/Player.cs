@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -147,7 +148,7 @@ namespace SwiftSands
                     double distance = Math.Sqrt(Math.Pow((currentPos.X - charPos.X), 2) + Math.Pow((currentPos.Y - charPos.Y), 2));
                     if (distance == 1)
                     {
-                        Converse(ch, game1);
+                        Converse(ch);
                     }
                 }
             }
@@ -160,22 +161,20 @@ namespace SwiftSands
                     double distance = Math.Sqrt(Math.Pow((currentPos.X - itemPos.X), 2) + Math.Pow((currentPos.Y - itemPos.Y), 2));
                     if (distance == 1)
                     {
-                        PickUpItem(it, game1);
+                        PickUpItem(it);
                     }
                 }
             }
         }
-        public void PickUpItem(Item item, Game1 game1)
+        public void PickUpItem(Item item)
         {
-            Viewport viewport = game1.GraphicsDevice.Viewport;
-            Rectangle textBox = new Rectangle(0, viewport.Height * (4/5), viewport.Width, viewport.Height * (1/5));
             Inventory.Items.Add(item);
+            TextBox textBox = new TextBox(null, new Rectangle(0, 384, 800, 96), true, null, null);
+            
         }
-        public void Converse(Character character, Game1 game1)
+        public void Converse(Character character)
         {
-            Viewport viewport = game1.GraphicsDevice.Viewport;
-            Rectangle textBox = new Rectangle(0, viewport.Height * (4 / 5), viewport.Width, viewport.Height * (1 / 5));
-
+            TextBox textBox = new TextBox(null, new Rectangle(0, 384, 800, 96), true, null, null);
         }
         #endregion
     }
