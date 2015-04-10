@@ -56,3 +56,10 @@ obj/x86/Debug/SwiftSands.exe
 obj/x86/Debug/SwiftSands.pdb
 SwiftSands.v12.suo
 bin/Windows/Debug/SwiftSands.vshost.exe
+bin/Windows/Debug/SwiftSands.exe
+*.pdb
+obj/x86/Debug/SwiftSands.exe
+*.exe
+*.cache
+*.exe
+obj/x86/Debug/DesignTimeResolveAssemblyReferencesInput.cache
