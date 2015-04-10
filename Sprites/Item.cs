@@ -30,7 +30,7 @@ namespace SwiftSands
 		public Item(ItemType i, int h, int d, String de, bool col, Texture2D texture, Rectangle pos, bool active, 
 			bool field, String name):base(texture, pos, active, name)
 		{
-			itemType = i;
+			type = i;
 			healing = h;
 			damage = d;
 			description = de;

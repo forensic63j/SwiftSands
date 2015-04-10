@@ -273,11 +273,11 @@ namespace SwiftSands
         /// <summary>
         /// Finds the valid movements for the current character
         /// </summary>
-        /// <param name="invalidTiles">A map of the tiles on the screen, you can move to tiles with a value of "false".</param>
+        /// <param name="validTiles">A map of the tiles on the screen, you can move to tiles with a value of "false".</param>
         /// <param name="x">Current x.</param>
         /// <param name="y">Current y.</param>
         /// <param name="move">Moves left.</param>
-        public void ValidMovements(ref bool[,] invalidTiles, int x, int y, int move)
+        public void ValidMovements(ref bool[,] validTiles, int x, int y, int move)
         {
             Map currentmap = new Map(0, 0, 0, 0, "error");
             if (StateManager.CurrentState is LocalMap)
@@ -290,48 +290,48 @@ namespace SwiftSands
                 WorldMap localmap = StateManager.CurrentState as WorldMap;
                 currentmap = localmap.Map;
             }
-            if (currentmap.InBounds(x, y) && currentmap.ColliderLayer[x, y] < 0)
+            if (currentmap.InBounds(x, y) && currentmap.ColliderLayer[x, y] <= 0)
             {
-                invalidTiles[x, y] = false;
+                validTiles[x, y] = true;
                 //checks adjacent
                 if (move > 1)
                 {
                     //top
-                    if (currentmap.InBounds(x - 1, y - 1) && invalidTiles[x - 1, y - 1])
+                    if (currentmap.InBounds(x - 1, y - 1) && validTiles[x - 1, y - 1])
                     {
-                        ValidMovements(ref invalidTiles, x - 1, y - 1, move - 1);
+                        ValidMovements(ref validTiles, x - 1, y - 1, move - 1);
                     }
-                    if (currentmap.InBounds(x, y - 1) && !invalidTiles[x, y - 1])
+                    if (currentmap.InBounds(x, y - 1) && !validTiles[x, y - 1])
                     {
-                        ValidMovements(ref invalidTiles, x, y - 1, move - 1);
+                        ValidMovements(ref validTiles, x, y - 1, move - 1);
                     }
-                    if (currentmap.InBounds(x + 1, y - 1) && !invalidTiles[x + 1, y - 1])
+                    if (currentmap.InBounds(x + 1, y - 1) && !validTiles[x + 1, y - 1])
                     {
-                        ValidMovements(ref invalidTiles, x + 1, y - 1, move - 1);
+                        ValidMovements(ref validTiles, x + 1, y - 1, move - 1);
                     }
 
                     //middle
-                    if (currentmap.InBounds(x - 1, y) && !invalidTiles[x - 1, y])
+                    if (currentmap.InBounds(x - 1, y) && !validTiles[x - 1, y])
                     {
-                        ValidMovements(ref invalidTiles, x - 1, y, move - 1);
+                        ValidMovements(ref validTiles, x - 1, y, move - 1);
                     }
-                    if (currentmap.InBounds(x + 1, y) && !invalidTiles[x + 1, y])
+                    if (currentmap.InBounds(x + 1, y) && !validTiles[x + 1, y])
                     {
-                        ValidMovements(ref invalidTiles, x + 1, y, move - 1);
+                        ValidMovements(ref validTiles, x + 1, y, move - 1);
                     }
 
                     //bottom
-                    if (currentmap.InBounds(x - 1, y + 1) && !invalidTiles[x - 1, y + 1])
+                    if (currentmap.InBounds(x - 1, y + 1) && !validTiles[x - 1, y + 1])
                     {
-                        ValidMovements(ref invalidTiles, x - 1, y + 1, move - 1);
+                        ValidMovements(ref validTiles, x - 1, y + 1, move - 1);
                     }
-                    if (currentmap.InBounds(x, y + 1) && !invalidTiles[x, y + 1])
+                    if (currentmap.InBounds(x, y + 1) && !validTiles[x, y + 1])
                     {
-                        ValidMovements(ref invalidTiles, x, y + 1, move - 1);
+                        ValidMovements(ref validTiles, x, y + 1, move - 1);
                     }
-                    if (currentmap.InBounds(x + 1, y + 1) && !invalidTiles[x + 1, y + 1])
+                    if (currentmap.InBounds(x + 1, y + 1) && !validTiles[x + 1, y + 1])
                     {
-                        ValidMovements(ref invalidTiles, x + 1, y + 1, move - 1);
+                        ValidMovements(ref validTiles, x + 1, y + 1, move - 1);
                     }
                 }
             }

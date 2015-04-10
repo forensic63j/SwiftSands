@@ -138,7 +138,7 @@ namespace SwiftSands
 				if(targeting)
 				{
 					cPlayer.Selected = false;
-					attack.Clickable = false;
+					attack.Clickable = true;
 					ValidTargets(ref validTiles,cPosition.X,cPosition.Y,2);
 					if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
 					{
@@ -147,14 +147,15 @@ namespace SwiftSands
 						if(validTiles[tileVector.X,tileVector.Y])
 						{
 							ItemType pItemType = cPlayer.EquipItem.Type;
-							if(pItemType == ItemType.Gun && pItemType == ItemType.Melee)
+							if(pItemType == ItemType.Gun ||pItemType == ItemType.Melee)
 							{
 								cPlayer.Attack(cPlayer.EquipItem,TileOccupent(tileVector.X,tileVector.Y));
-							} else if(pItemType == ItemType.HealingSpell && pItemType == ItemType.AttackSpell)
+							} else if(pItemType == ItemType.HealingSpell || pItemType == ItemType.AttackSpell)
 							{
 								cPlayer.Cast(cPlayer.EquipItem,TileOccupent(tileVector.X,tileVector.Y));
 							}
 							actionLeft = false;
+							targeting = false;
 						}
 					}
 				} else
@@ -170,7 +171,7 @@ namespace SwiftSands
                         {
                             if (validTiles[(int)tileVector.X, (int)tileVector.Y])
                             {
-                                if (TileOccupent((int)StateManager.WorldMousePosition.X, (int)StateManager.WorldMousePosition.Y) == null)
+                                if (TileOccupent((int)tileVector.X, (int)tileVector.Y) == null)
                                 {
                                     if (combatants[currentTurn].Move(StateManager.TileMousePosition))
                                     {
@@ -181,6 +182,8 @@ namespace SwiftSands
                         }
 					}
 				}
+				#endregion
+
 
 				for(int j = 0; j < validTiles.GetLength(0); j++)
 				{
@@ -188,14 +191,13 @@ namespace SwiftSands
 					{
 						if(validTiles[j,k])
 						{
-							base.Map.TintTile(new Vector2(j,k),Color.Yellow);
+							base.Map.TintTile(new Vector2(j,k),Color.LightGreen);
 						} else
 						{
 							base.Map.TintTile(new Vector2(j,k),Color.White);
 						}
 					}
 				}
-				#endregion
 			} else
 			{/*
 				combatTime += time.TotalGameTime.Milliseconds;

@@ -1,1 +1,1 @@
-box,Evidence,Some random item.,0,0,item-sprite.png,50,50,23,28,true,true,true;pistol,Gun,A basic firearm.,0,3,item-sprite.png,50,50,23,28,true,false,true
+box,Evidence,Some random item.,0,0,item-sprite.png,50,50,23,28,true,true,true;pistol,Gun,A basic firearm.,0,10,item-sprite.png,50,50,23,28,true,false,true
