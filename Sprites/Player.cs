@@ -25,6 +25,23 @@ namespace SwiftSands
         #endregion
 
         public Player(int maxHealth, int health, int mana, int speed, int strength, int accuracy, int moverange, int level, bool canJoin, int deaths, Texture2D texture,
+            Rectangle pos, bool active, String name)
+            : base(maxHealth, health, mana, speed, strength, accuracy, moverange, level, canJoin, texture, pos, active, name)
+        {
+            numDeaths = 0;
+            exp = 0;
+            deathsAllowed = deaths;
+            expNeeded = (int)(10 * Math.Pow(2, level - 1));
+            stats = new List<int>();
+            stats.Add(Health);
+            stats.Add(Mana);
+            stats.Add(Speed);
+            stats.Add(Strength);
+            stats.Add(Accuracy);
+            stats.Add(MovementRange);
+        }
+
+        public Player(int maxHealth, int health, int mana, int speed, int strength, int accuracy, int moverange, int level, bool canJoin, int deaths, Texture2D texture,
             Rectangle pos, bool active, String name, String conversation)
             : base(maxHealth, health, mana, speed, strength, accuracy, moverange, level, canJoin, texture, pos, active, name, conversation)
 		{

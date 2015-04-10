@@ -29,6 +29,43 @@ namespace SwiftSands
         private Item equipItem;
         #endregion
 
+        public Character(bool canJoin, Texture2D texture, Rectangle pos, bool active, String name)
+            : base(texture, pos, active, name)
+        {
+            MaxHealth = 1;
+            Health = 1;
+            Mana = 0;
+            Speed = 0;
+            Strength = 0;
+            Accuracy = 0;
+            Level = 0;
+            Name = name;
+            CanJoin = canJoin;
+            this.active = active;
+            alive = true;
+            equipItem = null;
+        }
+
+        public Character(int max, int health, int mana, int speed, int strength, int accuracy, int moverange, int level, bool canJoin,
+            Texture2D texture, Rectangle pos, bool active, String name)
+            : base(texture, pos, active, name)
+        {
+            MaxHealth = max;
+            Health = health;
+            Mana = mana;
+            Speed = speed;
+            Strength = strength;
+            Accuracy = accuracy;
+            Level = level;
+            MovementRange = moverange;
+            Name = name;
+            CanJoin = canJoin;
+            this.active = active;
+            alive = true;
+            equipItem = null;
+        }
+
+
         public Character(bool canJoin, Texture2D texture, Rectangle pos, bool active, String name, String conversation)
             : base(texture, pos, active, name)
         {
