@@ -189,12 +189,13 @@ namespace SwiftSands
 				{
 					for(int k = 0; k < validTiles.GetLength(0); k++)
 					{
+						Vector2 tintVector = Vector2.Transform(new Vector2(j,k),StateCamera.Transform);
 						if(validTiles[j,k])
 						{
-							base.Map.TintTile(new Vector2(j,k),Color.LightGreen);
+							base.Map.TintTile(tintVector,Color.LightGreen);
 						} else
 						{
-							base.Map.TintTile(new Vector2(j,k),Color.White);
+							base.Map.TintTile(tintVector,Color.White);
 						}
 					}
 				}
