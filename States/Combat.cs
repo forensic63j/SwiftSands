@@ -106,6 +106,10 @@ namespace SwiftSands
 
         public override void OnEnter()
         {
+            if ((!CombatentsInclude<Player>() || !CombatentsInclude<Enemy>()))
+            {
+                StateManager.CloseState();
+            }
             base.OnEnter();
         }
 
@@ -289,11 +293,11 @@ namespace SwiftSands
 					casualty = true;
 					if(combatants[i] is Player)
 					{
-						Player cPlayer = combatants[currentTurn] as Player;
+						Player cPlayer = combatants[i] as Player;
 						cPlayer.ReturnToDoctor();
 					} else
 					{
-						Enemy cEnemy = combatants[currentTurn] as Enemy;
+						Enemy cEnemy = combatants[i] as Enemy;
 						(combatants[currentTurn] as Player).Exp += cEnemy.ExpAwarded;
 					}
 
