@@ -25,7 +25,8 @@ namespace SwiftSands
         #endregion
 
         public Player(int maxHealth, int health, int mana, int speed, int strength, int accuracy, int moverange, int level, bool canJoin, int deaths, Texture2D texture,
-            Rectangle pos, bool active, String name):base(maxHealth, health, mana, speed, strength, accuracy, moverange, level, canJoin, texture, pos, active, name)
+            Rectangle pos, bool active, String name, String conversation)
+            : base(maxHealth, health, mana, speed, strength, accuracy, moverange, level, canJoin, texture, pos, active, name, conversation)
 		{
 			numDeaths = 0;
 			exp = 0;
@@ -136,7 +137,7 @@ namespace SwiftSands
                 }
             }
         }
-        public void Interact(Dictionary<String, Character> characters, Dictionary<String, Item> items, Game1 game1)
+        public void Interact(Dictionary<String, Character> characters, Dictionary<String, Item> items)
         {
             Vector2 currentPos = TilePosition;
             foreach(KeyValuePair<String, Character> character in characters)
@@ -169,12 +170,12 @@ namespace SwiftSands
         public void PickUpItem(Item item)
         {
             Inventory.Items.Add(item);
-            TextBox textBox = new TextBox(null, new Rectangle(0, 384, 800, 96), true, null, null);
+            TextBox textBox = new TextBox(null, new Rectangle(0, 384, 800, 96), true, ("You have picked up " + item.Name), null);
             
         }
         public void Converse(Character character)
         {
-            TextBox textBox = new TextBox(null, new Rectangle(0, 384, 800, 96), true, null, null);
+            TextBox textBox = new TextBox(null, new Rectangle(0, 384, 800, 96), true, character.Conversation, null);
         }
         #endregion
     }

@@ -25,10 +25,12 @@ namespace SwiftSands
         private bool alive = true;
         private bool selected = false;
         private String name = "";
+        private String conversation;
         private Item equipItem;
         #endregion
 
-        public Character(bool canJoin, Texture2D texture, Rectangle pos, bool active, String name): base(texture, pos, active, name)
+        public Character(bool canJoin, Texture2D texture, Rectangle pos, bool active, String name, String conversation)
+            : base(texture, pos, active, name)
         {
             MaxHealth = 1;
             Health = 1;
@@ -41,11 +43,12 @@ namespace SwiftSands
             CanJoin = canJoin;
             this.active = active;
             alive = true;
+            this.conversation = conversation;
             equipItem = null;
         }
 
         public Character(int max, int health, int mana, int speed, int strength, int accuracy, int moverange, int level, bool canJoin,
-            Texture2D texture, Rectangle pos, bool active, String name):base(texture, pos, active, name)
+            Texture2D texture, Rectangle pos, bool active, String name, String conversation):base(texture, pos, active, name)
 		{
             MaxHealth = max;
 			Health = health;
@@ -59,6 +62,7 @@ namespace SwiftSands
 			CanJoin = canJoin;
             this.active = active;
 			alive = true;
+            this.conversation = conversation;
             equipItem = null;
 		}
 		
@@ -209,6 +213,17 @@ namespace SwiftSands
                 selected = value;
             }
         }
+        public String Conversation
+        {
+            get
+            {
+                return conversation;
+            }
+            set
+            {
+                conversation = value;
+            }
+        }
         #endregion
 
         #region Methods
@@ -254,7 +269,7 @@ namespace SwiftSands
 		}
         public Player ToPlayer()
         {
-            Player player = new Player(MaxHealth, Health, Mana, Speed, Strength, Accuracy, 4, Level, CanJoin, 0, Texture, Position, active, Name);
+            Player player = new Player(MaxHealth, Health, Mana, Speed, Strength, Accuracy, 4, Level, CanJoin, 0, Texture, Position, active, Name, conversation);
 			player.EquipItem = equipItem;
 			return player;
         }

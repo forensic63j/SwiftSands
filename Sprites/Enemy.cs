@@ -12,11 +12,12 @@ namespace SwiftSands
 	class Enemy:Character
 	{
 		private int expAwarded; //How much exp this enemy gives when it's defeated
-		public Enemy(int mH, int h, int m, int sp, int st, int a, int movementrange, int l, bool c, int e, Texture2D texture,
-            Rectangle pos, bool active, String n):base(mH, h, m, sp, st, a, movementrange, l, c, texture, pos, active, n)
+		public Enemy(int maxHealth, int health, int mana, int speed, int strength, int accuracy, int movementrange, int level, bool canJoin, 
+            int exp, Texture2D texture, Rectangle pos, bool active, String n, String conversation)
+            : base(maxHealth, health, mana, speed, strength, accuracy, movementrange, level, canJoin, texture, pos, active, n, conversation)
 		{
 
-			expAwarded = e;
+			expAwarded = exp;
 		}
         public int ExpAwarded
         {
