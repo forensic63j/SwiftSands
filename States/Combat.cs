@@ -106,6 +106,10 @@ namespace SwiftSands
 
         public override void OnEnter()
         {
+            if ((!CombatentsInclude<Player>() || !CombatentsInclude<Enemy>()))
+            {
+                StateManager.CloseState();
+            }
             base.OnEnter();
         }
 

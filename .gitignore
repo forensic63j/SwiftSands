@@ -63,3 +63,5 @@ obj/x86/Debug/SwiftSands.exe
 *.cache
 *.exe
 obj/x86/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+*.exe
+*.pdb
