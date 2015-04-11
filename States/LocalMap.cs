@@ -82,6 +82,7 @@ namespace SwiftSands
                     if (tintedTiles[r, c])
                     {
                         Map.TintTile(new Vector2(r, c), Color.White);
+                        tintedTiles[r, c] = false;
                     }
                 }
             }
@@ -89,13 +90,32 @@ namespace SwiftSands
             {
                 if (Map.ColliderLayer[(int)StateManager.TileMousePosition.X, (int)StateManager.TileMousePosition.Y] > 0)
                 {
-                    Map.TintTile(StateManager.TileMousePosition, new Color(255, 210, 210));
+                        Map.TintTile(StateManager.TileMousePosition, new Color(255, 210, 210));
                 }
                 else
                 {
-                    Map.TintTile(StateManager.TileMousePosition, new Color(210, 210, 255));
+                    if (Map.ColorLayer[(int)StateManager.TileMousePosition.X, (int)StateManager.TileMousePosition.Y] == Color.LightGreen)
+                    {
+                        Console.Out.WriteLine("LIGHT GREEN! SET TO TEAL");
+                        Map.TintTile(StateManager.TileMousePosition, new Color(38, 205, 255));
+                    }
+                    else if (Map.ColorLayer[(int)StateManager.TileMousePosition.X, (int)StateManager.TileMousePosition.Y] == new Color(38, 205, 255))
+                    {
+                        Console.Out.WriteLine("TEAL! KEEP TEAL!");
+                        Map.TintTile(StateManager.TileMousePosition, new Color(38, 205, 255));
+                    }
+                    else
+                    {
+                        Map.TintTile(StateManager.TileMousePosition, new Color(210, 210, 255));
+                    }
                 }
-                tintedTiles[(int)StateManager.TileMousePosition.X, (int)StateManager.TileMousePosition.Y] = true;
+                if (Map.ColorLayer[(int)StateManager.TileMousePosition.X, (int)StateManager.TileMousePosition.Y] != Color.LightGreen)
+                {
+                    if (Map.ColorLayer[(int)StateManager.TileMousePosition.X, (int)StateManager.TileMousePosition.Y] != new Color(38, 205, 255))
+                    {
+                        tintedTiles[(int)StateManager.TileMousePosition.X, (int)StateManager.TileMousePosition.Y] = true;
+                    }
+                }
             }
 
 			//For testing:
