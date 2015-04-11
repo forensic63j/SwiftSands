@@ -196,7 +196,7 @@ namespace SwiftSands
 						Vector2 tintVector = Vector2.Transform(new Vector2(j,k),StateCamera.Transform);
 						if(validTiles[j,k])
 						{
-							base.Map.TintTile(tintVector,Color.LightGreen);      
+							base.Map.TintTile(tintVector,Color.LightGreen);
 						} else
 						{
 							base.Map.TintTile(tintVector,Color.White);
