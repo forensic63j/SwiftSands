@@ -62,3 +62,35 @@ C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug
 C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.Direct3D9.xml
 C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\obj\x86\Debug\SwiftSands.csprojResolveAssemblyReference.cache
 C:\Users\Brian\Documents\GitHub\SwiftSands\obj\x86\Debug\SwiftSands.csprojResolveAssemblyReference.cache
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\obj\x86\Debug\SwiftSands.exe
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\Content\GUI\button-sprite.png
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\Content\CharacterSprites\character-sprite.png
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\Content\Data\GameEntities\Characters.txt
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\Content\Data\GameEntities\Item.txt
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\Content\Data\Tasks.txt
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\Content\ItemSprites\item-sprite.png
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\Content\GUI\menuFont.xnb
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SwiftSands.exe
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SwiftSands.pdb
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\MonoGame.Framework.dll
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.MediaFoundation.dll
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.dll
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.XAudio2.dll
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.Direct3D11.dll
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.DXGI.dll
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.Direct2D1.dll
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\Lidgren.Network.dll
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.XInput.dll
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.RawInput.dll
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.Direct3D9.dll
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.MediaFoundation.xml
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.xml
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.XAudio2.xml
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.Direct3D11.xml
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.DXGI.xml
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.Direct2D1.xml
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.XInput.xml
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.RawInput.xml
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\bin\Windows\Debug\SharpDX.Direct3D9.xml
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\obj\x86\Debug\SwiftSands.csprojResolveAssemblyReference.cache
+D:\Users\jrp7423\Documents\GitHub\SwiftSands\obj\x86\Debug\SwiftSands.pdb
