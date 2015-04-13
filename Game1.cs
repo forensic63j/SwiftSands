@@ -102,6 +102,16 @@ namespace SwiftSands
 		{
 			get { return characterList; }
 		}
+
+        public SpriteFont Font
+        {
+            get { return font; }
+        }
+
+        public Texture2D ButtonSprite
+        {
+            get { return buttonSprite; }
+        }
         #endregion
 
         public Game1()
@@ -154,7 +164,7 @@ namespace SwiftSands
 			LoadManager.LoadContent(ref characterList, ref itemList,ref buttonSprite, ref font);
 
 
-			Party.Add(this.CharacterList["player"].ToPlayer()); //For testing.
+			Party.Add(this.characterList["player"].ToPlayer()); //For testing.
 
 			//Menus
             font = this.Content.Load<SpriteFont>("GUI/menuFont");
@@ -164,7 +174,7 @@ namespace SwiftSands
 
 			/**/List<Enemy> enemies = new List<Enemy>();
 			enemies.Add(characterList["enemy"] as Enemy);
-			combat = new Combat(this,viewport,enemies,font,buttonSprite);/**/
+			combat = new Combat(this,viewport,enemies);/**/
 
 			//Buttons:
 			//Main Menu Buttons
@@ -186,7 +196,6 @@ namespace SwiftSands
 			pause.Quit.OnClick = Exit;
 
 			StateManager.OpenState(mainMenu);
-            
         }
 
         /// <summary>
