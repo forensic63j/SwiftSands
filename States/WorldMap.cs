@@ -107,7 +107,7 @@ namespace SwiftSands
             {
                 if (Party.SelectedPlayer == null)
                 {
-                    Party.CheckForMainCharacter(map, StateManager.WorldMousePosition);
+                    Party.CheckForParty(map, StateManager.WorldMousePosition);
                 }
                 else
                 {
