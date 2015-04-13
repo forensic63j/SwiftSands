@@ -188,7 +188,6 @@ namespace SwiftSands
 				}
 				#endregion
 
-
 				for(int j = 0; j < validTiles.GetLength(0); j++)
 				{
 					for(int k = 0; k < validTiles.GetLength(0); k++)

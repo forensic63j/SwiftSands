@@ -233,7 +233,7 @@ namespace SwiftSands
 		/// </summary>
 		private void ToMap()
 		{
-			StateManager.OpenState(localMap);
+			StateManager.OpenState(worldMap);
 		}
 
 		/// <summary>

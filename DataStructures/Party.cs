@@ -118,6 +118,22 @@ namespace SwiftSands
             return false;
         }
 
+        static public bool CheckForMainCharacter(Map map, Vector2 pos)
+        {
+            Player p = partyList[0];
+            if (new Rectangle((int)p.Position.X, (int)p.Position.Y, 32, 32).Contains(StateManager.WorldMousePosition))
+            {
+                if (SelectedPlayer != null)
+                {
+                    SelectedPlayer.Selected = false;
+                }
+                p.Selected = true;
+                SelectedPlayer = p;
+                return true;
+            }
+            return false;
+        }
+
         static public void UnselectPlayer()
         {
             if (SelectedPlayer != null)
@@ -133,6 +149,11 @@ namespace SwiftSands
             {
                 p.Draw(spriteBatch);
             }
+        }
+
+        static public void DrawMainCharacterOnMap(SpriteBatch spriteBatch)
+        {
+             partyList[0].Draw(spriteBatch);
         }
 		#endregion
 	}
