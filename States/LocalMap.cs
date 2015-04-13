@@ -75,6 +75,14 @@ namespace SwiftSands
                 }
             }
 
+            if (StateManager.KState.IsKeyDown(Keys.I))
+            {
+                if (!StateManager.KPrevious.IsKeyDown(Keys.I))
+                {
+                    StateManager.OpenState(StateGame.IMenu);
+                }
+            }
+
             for (int r = 0; r < Map.Width; r++)
             {
                 for (int c = 0; c < Map.Height; c++)

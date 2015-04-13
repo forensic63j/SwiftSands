@@ -187,7 +187,7 @@ namespace SwiftSands
         public void PickUpItem(Item item)
         {
             Inventory.Items.Add(item);
-            TextBox textBox = new TextBox(null, new Rectangle(0, 384, 800, 96), true, ("You have picked up " + item.Name), null);
+            TextBox textBox = new TextBox(StateManager.CurrentState.StateGame.ButtonSprite, new Rectangle(0, 384, 800, 96), true, ("You have picked up " + item.Name), StateManager.CurrentState.StateGame.Font);
             while (textBox.IsActive)
             {
                 KeyboardState ks = Keyboard.GetState();
@@ -199,7 +199,7 @@ namespace SwiftSands
         }
         public void Converse(Character character)
         {
-            TextBox textBox = new TextBox(null, new Rectangle(0, 384, 800, 96), true, character.Conversation, null);
+            TextBox textBox = new TextBox(StateManager.CurrentState.StateGame.ButtonSprite, new Rectangle(0, 384, 800, 96), true, character.Conversation, StateManager.CurrentState.StateGame.Font);
             while (textBox.IsActive)
             {
                 KeyboardState ks = Keyboard.GetState();

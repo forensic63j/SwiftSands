@@ -27,6 +27,7 @@ namespace SwiftSands
 		MainMenu mainMenu;
 		OptionsMenu options;
 		PauseMenu pause;
+        InventoryMenu iMenu;
 
 		/**/
 		Combat combat;/**/
@@ -77,6 +78,14 @@ namespace SwiftSands
         internal OptionsMenu Options
         {
             get { return options; }
+        }
+
+        /// <summary>
+        /// Gets Inventory Menu
+        /// </summary>
+        internal InventoryMenu IMenu
+        {
+            get { return iMenu; }
         }
 
         /// <summary>
@@ -140,6 +149,7 @@ namespace SwiftSands
 			itemList = new Dictionary<String,Item>();
 			taskList = new List<Task>();
 			inventory = new Inventory();
+            inventory.AddItem(new Item(ItemType.AttackSpell, 0, 15, 2, "A basic fire spell", true, null, new Rectangle(), false, false, "Fire Spell"));
 
 			font = null;
 			buttonSprite = null;
@@ -171,6 +181,7 @@ namespace SwiftSands
 			mainMenu = new MainMenu(font,buttonSprite,this,viewport);
 			options = new OptionsMenu(font,buttonSprite,this,viewport);
 			pause = new PauseMenu(font,buttonSprite,this,viewport);
+            iMenu = new InventoryMenu(font, buttonSprite, this, viewport);
 
 			/**/List<Enemy> enemies = new List<Enemy>();
 			enemies.Add(characterList["enemy"] as Enemy);
