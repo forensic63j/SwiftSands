@@ -360,6 +360,7 @@ namespace SwiftSands
             int tileheight = 0;
             string tilesetname = "";
             int[,] groundLayer = new int[width, height];
+            int[,] ground2Layer = new int[width, height];
             int[,] colliderLayer = new int[width, height];
             using (StreamReader input = new StreamReader("Content\\Maps\\" + filename))
             {
@@ -368,6 +369,7 @@ namespace SwiftSands
                 int dataIndex = 0;
                 string layerType = "";
                 bool readingGroundData = false;
+                bool readingGround2Data = false;
                 bool readingColliderData = false;
                 while ((currentLine = input.ReadLine()) != null)
                 {
@@ -380,6 +382,7 @@ namespace SwiftSands
                     {
                         height = Convert.ToInt32(currentLine.Substring(currentLine.IndexOf("=") + 1));
                         groundLayer = new int[width, height];
+                        ground2Layer = new int[width, height];
                         colliderLayer = new int[width, height];
                     }
                     if (currentLine.Contains("tilewidth"))
@@ -404,6 +407,10 @@ namespace SwiftSands
                     {
                         layerType = "Ground";
                     }
+                    if (currentLine.Contains("type=TwoGround"))
+                    {
+                        layerType = "Ground2";
+                    }
                     if (currentLine.Contains("type=Collider"))
                     {
                         layerType = "Collider";
@@ -414,6 +421,10 @@ namespace SwiftSands
                         if (layerType.Equals("Ground"))
                         {
                             readingGroundData = true;
+                        }
+                        if (layerType.Equals("Ground2"))
+                        {
+                            readingGround2Data = true;
                         }
                         if (layerType.Equals("Collider"))
                         {
@@ -441,6 +452,26 @@ namespace SwiftSands
                             readingGroundData = false;
                         }
                     }
+                    if (readingGround2Data)
+                    {
+                        if (dataIndex < height)
+                        {
+                            if (!currentLine.Contains("="))
+                            {
+                                string[] tempArray = currentLine.Split(',');
+                                for (int i = 0; i < width; i++)
+                                {
+                                    ground2Layer[i, dataIndex] = Convert.ToInt32(tempArray[i]);
+                                }
+                                dataIndex++;
+                            }
+                        }
+                        else
+                        {
+                            dataIndex = 0;
+                            readingGround2Data = false;
+                        }
+                    }
                     //In collider data block
                     if (readingColliderData)
                     {
@@ -463,8 +494,8 @@ namespace SwiftSands
                         }
                     }
                 }
-            }
-            loadingMap = new Map(width, height, tilewidth, tileheight, groundLayer, colliderLayer, tilesetname);
+            }     
+            loadingMap = new Map(width, height, tilewidth, tileheight, groundLayer, ground2Layer, colliderLayer, tilesetname);
             loadingMap.LoadTileset(game);
             return loadingMap;
         }

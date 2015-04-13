@@ -19,8 +19,10 @@ namespace SwiftSands
         int height;
         int tilewidth;
         int tileheight;
+        int tiles;
         string tilesetName;
         int[,] groundLayer;
+        int[,] groundLayer2;
         int[,] colliderLayer;
         Color[,] colorLayer;
         Texture2D tileset;
@@ -63,6 +65,27 @@ namespace SwiftSands
                 tileset = value;
             }
         }
+
+        public Map(int pWidth, int pHeight, int pTileWidth, int pTileHeight, int[,] groundTiles, int[,] ground2Tiles, int[,] colliderTiles, string tilesetname)
+        {
+            width = pWidth;
+            height = pHeight;
+            tilewidth = pTileWidth;
+            tileheight = pTileHeight;
+            groundLayer = groundTiles;
+            groundLayer2 = ground2Tiles;
+            colliderLayer = colliderTiles;
+            colorLayer = new Color[width, height];
+            for (int i = 0; i < width; i++)
+            {
+                for (int c = 0; c < height; c++)
+                {
+                    colorLayer[i, c] = Color.White;
+                }
+            }
+            this.tilesetName = tilesetname;
+        }
+
 
         public Map(int pWidth, int pHeight, int pTileWidth, int pTileHeight, int[,] groundTiles, int[,] colliderTiles, string tilesetname)
         {
@@ -120,6 +143,7 @@ namespace SwiftSands
         public void LoadTileset(Game1 game)
         {
             tileset = game.Content.Load<Texture2D>("Tilesets/"+tilesetName);
+            tiles = tileset.Width / TileWidth;
         }
 
         public void TintTile(Vector2 tilePos, Color col)
@@ -149,11 +173,15 @@ namespace SwiftSands
                 {
                     if (groundLayer[r, c] - 1 > 0)
                     {
-                        spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((groundLayer[r, c] - 1) % (8) * tilewidth), (((groundLayer[r, c] - 1) / 8) * tileheight), tilewidth, tileheight), ColorLayer[r,c]);
+                        spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((groundLayer[r, c] - 1) % (tiles) * tilewidth), (((groundLayer[r, c] - 1) / tiles) * tileheight), tilewidth, tileheight), ColorLayer[r,c]);
+                    }
+                    if (groundLayer2[r, c] - 1 > 0)
+                    {
+                        spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((groundLayer2[r, c] - 1) % (tiles) * tilewidth), (((groundLayer[r, c] - 1) / tiles) * tileheight), tilewidth, tileheight), ColorLayer[r, c]);
                     }
                     if (colliderLayer[r, c] - 1 > 0)
                     {
-                        spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((colliderLayer[r, c] - 1) % (8) * tilewidth), (((colliderLayer[r, c] - 1) / 8) * tileheight), tilewidth, tileheight), ColorLayer[r, c]);
+                        spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((colliderLayer[r, c] - 1) % (tiles) * tilewidth), (((colliderLayer[r, c] - 1) / tiles) * tileheight), tilewidth, tileheight), ColorLayer[r, c]);
                     }
                 }
             }

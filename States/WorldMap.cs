@@ -27,7 +27,7 @@ namespace SwiftSands
 
         public override void OnEnter()
         {
-            map = LoadManager.LoadMap("desert.txt");
+            map = LoadManager.LoadMap("overworld.txt");
             tintedTiles = new bool[map.Width, Map.Height];
             StateCamera.RightCameraBound = map.Width * map.TileWidth;
             StateCamera.BottomCameraBound = map.Height * map.TileHeight;
