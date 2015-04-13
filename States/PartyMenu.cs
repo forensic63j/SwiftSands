@@ -23,6 +23,7 @@ namespace SwiftSands
 		private MouseState mState;
 		private MouseState mPrevious;
 
+		private int buttonWidth;
 		private int selectedPlayer;
 		#endregion
 
@@ -44,7 +45,7 @@ namespace SwiftSands
 		{
 			this.font = font;
 			base.StateCamera.InputEnabled = false;
-			int buttonWidth = 120;
+			buttonWidth = 120;
 			int centering = (port.Width - buttonWidth) / 2;
 			buttonSprite = sprite;
 			partyButtons = new Button[6];
@@ -59,7 +60,7 @@ namespace SwiftSands
 				{
 					characterName = "<empty>";
 				}
-				partyButtons[i] = new Button(characterName,font,sprite,new Rectangle(centering,40 * i + 20,buttonWidth,30),true);
+				partyButtons[i] = new Button(characterName,font,sprite,new Rectangle(5,40 * i + 20,buttonWidth,30),true);
 			}
 			partyButtons[0].OnClick = Player0;
 			partyButtons[1].OnClick = Player1;
@@ -132,15 +133,17 @@ namespace SwiftSands
 			{
 				partyButtons[i].Draw(spriteBatch);
 			}
-			spriteBatch.DrawString(font,"Player stats: ",new Vector2(5,260),Color.Black);
+			spriteBatch.DrawString(font,"Player stats: ",new Vector2(buttonWidth + 20,20),Color.Black);
 			if(Party.PartyList[selectedPlayer] != null)
 			{
 				Player cPlayer = Party.PartyList[selectedPlayer];
-				String nameString = "Name: " + cPlayer.Name + "   Level: " + cPlayer.Level;
-				spriteBatch.DrawString(font,nameString,new Vector2(5,280),Color.Black);
-				String healthString = "Health: " + cPlayer.Health + "\\" + cPlayer.MaxHealth + "   Mana: " + cPlayer.Mana;
-				spriteBatch.DrawString(font,healthString,new Vector2(5,300),Color.Black);
-				//spriteBatch.Draw(buttonSprite, new Rectangle(mState.X, mState.Y, 5, 5), Color.Black);
+				String nameString = "Name: " + cPlayer.Name + "   Level: " + cPlayer.Level + " (XP to next level: " + cPlayer.ExpNeeded + ")";
+				spriteBatch.DrawString(font,nameString,new Vector2(buttonWidth+30,42),Color.Black);
+				String healthString = "Health: " + cPlayer.Health + "\\" + cPlayer.MaxHealth + "   Deaths: " + cPlayer.NumDeaths + "   Mana: " + cPlayer.Mana;
+				spriteBatch.DrawString(font,healthString,new Vector2(buttonWidth + 30,64),Color.Black);
+				String stats = "Spd: " + cPlayer.Speed + "   Str: " + cPlayer.Strength + "   Acc: " + cPlayer.Accuracy + "   Move: " + cPlayer.MovementRange;
+				spriteBatch.DrawString(font,stats,new Vector2(buttonWidth + 30,86),Color.Black);
+				
 				base.Draw(time,spriteBatch);
 			} else
 			{
