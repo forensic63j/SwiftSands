@@ -27,6 +27,8 @@ namespace SwiftSands
 		MainMenu mainMenu;
 		OptionsMenu options;
 		PauseMenu pause;
+        InventoryMenu inventoryMenu;
+        PartyMenu partyMenu;
 
 		/**/
 		Combat combat;/**/
@@ -161,6 +163,8 @@ namespace SwiftSands
 			mainMenu = new MainMenu(font,buttonSprite,this,viewport);
 			options = new OptionsMenu(font,buttonSprite,this,viewport);
 			pause = new PauseMenu(font,buttonSprite,this,viewport);
+            inventoryMenu = new InventoryMenu(font, buttonSprite, this, viewport);
+            partyMenu = new PartyMenu(font, buttonSprite, this, viewport);
 
 			/**/List<Enemy> enemies = new List<Enemy>();
 			enemies.Add(characterList["enemy"] as Enemy);
@@ -242,7 +246,7 @@ namespace SwiftSands
 		private void Load()
 		{
 			LoadManager.LoadSavefile("Save1.data",inventory,itemList,taskList);
-			StateManager.OpenState(combat);//Changed temporalily for testing purposeses.
+			StateManager.OpenState(partyMenu);//Changed temporalily for testing purposeses.
 		}
 
 		/// <summary>
