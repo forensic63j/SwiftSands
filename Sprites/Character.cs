@@ -346,12 +346,12 @@ namespace SwiftSands
             {
                 validTiles[x, y] = true;
                 //checks adjacent
-                if (move > 1)
+                if (move >= 1)
                 {
                     //top
                     if (currentmap.InBounds(x - 1, y - 1)/* && !validTiles[x - 1, y - 1]*/)
                     {
-                        ValidMovements(ref validTiles, x - 1, y - 1, move - 1);
+                        //ValidMovements(ref validTiles, x - 1, y - 1, move - 1);    //Can't move diagonally
                     }
                     if (currentmap.InBounds(x, y - 1)/* && !validTiles[x, y - 1]*/)
                     {
@@ -359,7 +359,7 @@ namespace SwiftSands
                     }
                     if (currentmap.InBounds(x + 1, y - 1)/* && !validTiles[x + 1, y - 1]*/)
                     {
-                        ValidMovements(ref validTiles, x + 1, y - 1, move - 1);
+                        //ValidMovements(ref validTiles, x + 1, y - 1, move - 1);
                     }
 
                     //middle
@@ -375,7 +375,7 @@ namespace SwiftSands
                     //bottom
                     if (currentmap.InBounds(x - 1, y + 1)/* && !validTiles[x - 1, y + 1]*/)
                     {
-                        ValidMovements(ref validTiles, x - 1, y + 1, move - 1);
+                        //ValidMovements(ref validTiles, x - 1, y + 1, move - 1);
                     }
                     if (currentmap.InBounds(x, y + 1)/* && !validTiles[x, y + 1]*/)
                     {
@@ -383,7 +383,7 @@ namespace SwiftSands
                     }
                     if (currentmap.InBounds(x + 1, y + 1)/* && !validTiles[x + 1, y + 1]*/)
                     {
-                        ValidMovements(ref validTiles, x + 1, y + 1, move - 1);
+                        //ValidMovements(ref validTiles, x + 1, y + 1, move - 1);
                     }
                 }
             }

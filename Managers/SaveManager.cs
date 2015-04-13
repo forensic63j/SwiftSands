@@ -81,6 +81,7 @@ namespace SwiftSands
 							//Healing and damage
 							output.Write(item.Healing);
 							output.Write(item.Damage);
+                            output.Write(item.Range);
 
 							//Rectangle
 							Rectangle position = item.Position;

@@ -1,4 +1,4 @@
-﻿//John Palermo
+﻿//John Palermo and Clayton Scavone
 
 using System;
 using System.Collections.Generic;
@@ -23,11 +23,12 @@ namespace SwiftSands
 		private ItemType type;
 		private int healing;
 		private int damage;
+        private int range;
 		private String description;
 		private ItemType itemType;
         private bool collected; //Whether or not the item has been collected
 
-		public Item(ItemType i, int h, int d, String de, bool col, Texture2D texture, Rectangle pos, bool active, 
+		public Item(ItemType i, int h, int d, int range, String de, bool col, Texture2D texture, Rectangle pos, bool active, 
 			bool field, String name):base(texture, pos, active, name)
 		{
 			type = i;
@@ -35,6 +36,7 @@ namespace SwiftSands
 			damage = d;
 			description = de;
             collected = col;
+            this.range = range;
 		}
 
         #region Properties
@@ -49,6 +51,17 @@ namespace SwiftSands
 				type = value;
 			}
 		}
+        public int Range
+        {
+            get
+            {
+                return range;
+            }
+            set
+            {
+                range = value;
+            }
+        }
 		public int Healing
 		{
 			get

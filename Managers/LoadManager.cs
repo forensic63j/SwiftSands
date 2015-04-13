@@ -1,4 +1,4 @@
-﻿//Brian Sandon and Clayton Scavone (LoadMap, LoadSprite)
+﻿//Brian Sandon and Clayton Scavone (LoadMap, LoadSprite, Various other and fixes)
 
 using System;
 using System.Collections.Generic;
@@ -79,9 +79,10 @@ namespace SwiftSands
 						//Healing and damage
 						int healing = int.Parse(itemStats[3]);
 						int damage = int.Parse(itemStats[4]);
+                        int range = int.Parse(itemStats[5]);
 
 						//sprite fields
-						String textureFile = itemStats[5];
+						String textureFile = itemStats[6];
 						//Texture
 						Texture2D sprite = null;
 						using(Stream imgStream = File.OpenRead("Content\\ItemSprites\\" + textureFile))
@@ -89,20 +90,20 @@ namespace SwiftSands
 							sprite = Texture2D.FromStream(game.GraphicsDevice,imgStream);
 						}
 						//rectangle
-						int x = int.Parse(itemStats[6]);
-						int y = int.Parse(itemStats[7]);
-						int width = int.Parse(itemStats[8]);
-						int height = int.Parse(itemStats[9]);
+						int x = int.Parse(itemStats[7]);
+						int y = int.Parse(itemStats[8]);
+						int width = int.Parse(itemStats[9]);
+						int height = int.Parse(itemStats[10]);
 						Rectangle position = new Rectangle(x,y,width,height);
 
 						//active/on screen
-						bool collected = bool.Parse(itemStats[10]);
-						bool active = bool.Parse(itemStats[11]);
-						bool onScreen = bool.Parse(itemStats[12]);
+						bool collected = bool.Parse(itemStats[11]);
+						bool active = bool.Parse(itemStats[12]);
+						bool onScreen = bool.Parse(itemStats[13]);
 
 
 						//Item creation
-						Item tempItem = new Item(type,healing,damage,description,collected,sprite,position,active,onScreen,name);
+						Item tempItem = new Item(type,healing,damage, range, description,collected,sprite,position,active,onScreen,name);
 						itemList.Add(name,tempItem);
 					}
 				}
@@ -315,6 +316,7 @@ namespace SwiftSands
 							//Healing and damage
 							int healing = input.ReadInt32();
 							int damage = input.ReadInt32();
+                            int range = input.ReadInt32();
 
 							//Sprite
 							Texture2D sprite = GetItemSprite(name,itemList);
@@ -332,7 +334,7 @@ namespace SwiftSands
 							bool onScreen = input.ReadBoolean();
 
 							//Add to inventory
-							Item tempItem = new Item(type,healing,damage,description,collected,sprite,position,active,onScreen,name);
+							Item tempItem = new Item(type,healing,damage,range,description,collected,sprite,position,active,onScreen,name);
 							inventory.AddItem(tempItem);
 						}
 						#endregion

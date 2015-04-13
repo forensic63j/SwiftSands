@@ -130,6 +130,17 @@ namespace SwiftSands
             }
         }
 
+        public void RemoveTints()
+        {
+            for (int i = 0; i < width; i++)
+            {
+                for (int c = 0; c < height; c++)
+                {
+                    colorLayer[i, c] = Color.White;
+                }
+            }
+        }
+
         public void Draw(GameTime time, SpriteBatch spriteBatch)
         {
             for (int r = 0; r < width; r++)

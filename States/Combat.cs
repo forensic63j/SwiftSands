@@ -20,10 +20,10 @@ namespace SwiftSands
 		//Turns
 		int currentTurn;
 		List<Character> combatants;
-		bool moveLeft;
+		int movesLeft;
 		bool actionLeft;
 		bool targeting;
-
+        bool[,] validTiles; 
 		//GUI
 		SpriteFont font;
 		Button attack;
@@ -41,7 +41,6 @@ namespace SwiftSands
 		/// </summary>
 		public Combat(Game1 game, Viewport port,List<Enemy> enemies,SpriteFont font,Texture2D buttonSprite) : base(game, port) {
 			currentTurn = 0;
-			moveLeft = true;
 			actionLeft = true;
 			targeting = false;
 
@@ -100,7 +99,7 @@ namespace SwiftSands
 			endTurn.OnClick = EndTurn;
 
 			rng = new Random();
-
+            movesLeft = combatants[currentTurn].MovementRange;
 			combatTime = 0;
 		}
 
@@ -132,7 +131,7 @@ namespace SwiftSands
 			Rectangle cWorldPosition = combatants[currentTurn].Position;
 			Rectangle cLocalPosition = base.Map.ConvertPosition(combatants[currentTurn].Position,StateCamera);
 			Vector2 pVector = base.Map.ConvertPosition(Vector2.Transform(new Vector2(cWorldPosition.X,cWorldPosition.Y),StateCamera.Transform),StateCamera);
-			bool[,] validTiles = new bool[Map.ColliderLayer.GetLength(0), Map.ColliderLayer.GetLength(1)];
+			validTiles = new bool[Map.ColliderLayer.GetLength(0), Map.ColliderLayer.GetLength(1)];
 			validTiles.Initialize();
 			if(combatants[currentTurn] is Player)
 			{
@@ -143,37 +142,60 @@ namespace SwiftSands
 
 				if(targeting)
 				{
-					cPlayer.Selected = false;
+					//cPlayer.Selected = false;
+                    Map.RemoveTints();
 					attack.Clickable = true;
-					ValidTargets(ref validTiles,cLocalPosition.X,cLocalPosition.Y,2);
+					ValidTargets(ref validTiles, cLocalPosition.X,cLocalPosition.Y, cPlayer.EquipItem.Range);
+                    for (int j = 0; j < validTiles.GetLength(0); j++)
+                    {
+                        for (int k = 0; k < validTiles.GetLength(0); k++)
+                        {
+
+                            Vector2 tintVector = /*Vector2.Transform(*/new Vector2(j, k)/*,StateCamera.Transform)*/;
+                            if (validTiles[j, k])
+                            {
+                                base.Map.TintTile(tintVector, Color.LightGreen);
+                            }
+                            else
+                            {
+                                base.Map.TintTile(tintVector, Color.White);
+                            }
+                        }
+                    }
 					if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
 					{
-						Point mousePoint = StateManager.MState.Position;
-						Rectangle tileVector = this.Map.ConvertPosition(new Rectangle(mousePoint.X,mousePoint.Y,0,0),this.StateCamera);
-						if(validTiles[tileVector.X,tileVector.Y])
+                        Vector2 tileVector = StateManager.TileMousePosition;
+                        if (validTiles[(int)tileVector.X, (int)tileVector.Y])
 						{
 							ItemType pItemType = cPlayer.EquipItem.Type;
 							if(pItemType == ItemType.Gun ||pItemType == ItemType.Melee)
 							{
-								cPlayer.Attack(cPlayer.EquipItem,TileOccupent(tileVector.X,tileVector.Y));
+                                cPlayer.Attack(cPlayer.EquipItem, TileOccupent((int)tileVector.X, (int)tileVector.Y));
+                                Console.WriteLine(cPlayer.Name + " attacked " + TileOccupent((int)tileVector.X, (int)tileVector.Y).Name);
 							} else if(pItemType == ItemType.HealingSpell || pItemType == ItemType.AttackSpell)
 							{
-								cPlayer.Cast(cPlayer.EquipItem,TileOccupent(tileVector.X,tileVector.Y));
+                                cPlayer.Cast(cPlayer.EquipItem, TileOccupent((int)tileVector.X, (int)tileVector.Y));
+                                Console.WriteLine(cPlayer.Name + " healed " + TileOccupent((int)tileVector.X, (int)tileVector.Y).Name);
 							}
 							actionLeft = false;
 							targeting = false;
+                            Map.RemoveTints();
 						}
 					}
-				} else
+                    if (StateManager.MState.RightButton == ButtonState.Pressed && StateManager.MPrevious.RightButton == ButtonState.Released)
+                    {
+                        targeting = false;
+                    }
+				} 
+                else //If players turn and not targeting 
 				{
 					attack.Clickable = actionLeft;
-					combatants[currentTurn].ValidMovements(ref validTiles,(int)pVector.X,(int)pVector.Y,combatants[currentTurn].MovementRange);
+					combatants[currentTurn].ValidMovements(ref validTiles,(int)pVector.X,(int)pVector.Y, movesLeft);
 					if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
 					{
-						Vector2 mousePoint = StateManager.WorldMousePosition;
-						Vector2 tileVector = this.Map.ConvertPosition(new Vector2(mousePoint.X,mousePoint.Y),this.StateCamera);
-                        Party.CheckForPlayers(this.Map, StateManager.WorldMousePosition);
-                        if (moveLeft)
+						Vector2 tileVector = StateManager.TileMousePosition;
+                        Party.CheckForPlayers(this.Map);
+                        if (movesLeft > 0)
                         {
                             if (validTiles[(int)tileVector.X, (int)tileVector.Y])
                             {
@@ -181,7 +203,7 @@ namespace SwiftSands
                                 {
                                     if (combatants[currentTurn].Move(StateManager.TileMousePosition))
                                     {
-                                        moveLeft = false;
+                                        movesLeft--;
                                     }
                                 }
                             }
@@ -189,31 +211,36 @@ namespace SwiftSands
 					}
 				}
 				#endregion
+                if (combatants[currentTurn].Selected == true)
+                {
+                    for (int j = 0; j < validTiles.GetLength(0); j++)
+                    {
+                        for (int k = 0; k < validTiles.GetLength(0); k++)
+                        {
 
-				for(int j = 0; j < validTiles.GetLength(0); j++)
-				{
-					for(int k = 0; k < validTiles.GetLength(0); k++)
-					{
-						
-						Vector2 tintVector = /*Vector2.Transform(*/new Vector2(j,k)/*,StateCamera.Transform)*/;
-						if(validTiles[j,k])
-						{
-							base.Map.TintTile(tintVector,Color.LightGreen);      
-						} else
-						{
-							base.Map.TintTile(tintVector,Color.White);
-						}
-					}
-				}
-			} else
+                            Vector2 tintVector = /*Vector2.Transform(*/new Vector2(j, k)/*,StateCamera.Transform)*/;
+                            if (validTiles[j, k])
+                            {
+                                base.Map.TintTile(tintVector, Color.LightGreen);
+                            }
+                            else
+                            {
+                                base.Map.TintTile(tintVector, Color.White);
+                            }
+                        }
+                    }
+                }
+			} 
+            else //Enemies turn
 			{
-				combatTime += time.TotalGameTime.Milliseconds;
+				
+                combatTime += time.TotalGameTime.Milliseconds;
 				if(combatTime >= 100){
 					combatTime = 0;
 					attack.IsActive = false;
 					endTurn.IsActive = false;
 					Enemy cEnemy = combatants[currentTurn] as Enemy;
-					if(actionLeft && moveLeft)
+					if(actionLeft && (movesLeft > 0))
 					{
 						targeting = (rng.Next(0,3) == 0);
 					}
@@ -249,7 +276,8 @@ namespace SwiftSands
 								}
                                 actionLeft = false;
 							    targeting = false;
-							} else
+							} 
+                            else
 							{
 								if(target is Player)
 								{
@@ -265,16 +293,18 @@ namespace SwiftSands
 								}
 							}
                             }
-						} else
+						} 
+                        else
 						{
 							targeting = false;
 						}
 						
-					} else
+					} 
+                    else  // If not targeting
 					{
-						if(moveLeft)
+						if(movesLeft > 0)
 						{
-                            combatants[currentTurn].ValidMovements(ref validTiles, cLocalPosition.X, cLocalPosition.Y, 5);
+                            combatants[currentTurn].ValidMovements(ref validTiles, cLocalPosition.X, cLocalPosition.Y, movesLeft);
 							int x = 0;
 							int y = 0;
 							do
@@ -284,13 +314,36 @@ namespace SwiftSands
 							} while(!validTiles[x,y]);
 							Vector2 moveVector = new Vector2(x,y);
 							combatants[currentTurn].Move(moveVector);
-							moveLeft = false;
-							targeting = true;
+                            movesLeft--;
+							//targeting = true;
 						}
+                        else
+                        {
+                            targeting = true;
+                        }
 					}
+                    if (!((movesLeft > 0) || actionLeft))
+                    {
+                        if (combatants[currentTurn] is Player)
+                        {
+                            combatants[currentTurn].Selected = false;
+                            Map.RemoveTints();
+                        }
+                        if (currentTurn < combatants.Count - 1)
+                        {
+                            currentTurn++;
+                        }
+                        else
+                        {
+                            currentTurn = 0;
+                        }
+                        targeting = false;
+                        movesLeft = combatants[currentTurn].MovementRange;
+                        actionLeft = true;
+                    }
 				}
 			/*
-				moveLeft = false;
+				movesLeft = false;
 				actionLeft = false; */
 			}
 			
@@ -301,7 +354,7 @@ namespace SwiftSands
 			bool casualty = false;
 			while(i < combatants.Count)
 			{
-				if(!combatants[i].Alive)
+				if(!combatants[i].Alive) 
 				{
 					casualty = true;
 					if(combatants[i] is Player)
@@ -330,22 +383,6 @@ namespace SwiftSands
                 return;
 			}
 
-			if(!(moveLeft || actionLeft))
-			{
-				if(combatants[currentTurn] is Player)
-				{
-					combatants[currentTurn].Selected = false;
-				}
-				if(currentTurn < combatants.Count - 1)
-				{
-					currentTurn++;
-				} else
-				{
-					currentTurn = 0;
-				}
-				moveLeft = true;
-				actionLeft = true;
-			}
 			base.Update(time);
         }
 
@@ -417,6 +454,7 @@ namespace SwiftSands
 			if(targeting)
 			{
 				targeting = false;
+                Map.RemoveTints();
 			} else
 			{
 				targeting = true;
@@ -428,8 +466,19 @@ namespace SwiftSands
 		/// </summary>
 		public void EndTurn()
 		{
+            Party.UnselectPlayer();
+            Map.RemoveTints();
+            validTiles = new bool[Map.ColliderLayer.GetLength(0), Map.ColliderLayer.GetLength(1)];
+            movesLeft = 0;
 			actionLeft = false;
-			moveLeft = false;
+            if (currentTurn < combatants.Count - 1)
+            {
+                currentTurn++;
+            }
+            else
+            {
+                currentTurn = 0;
+            }
 		}
 		#endregion
 
@@ -458,7 +507,7 @@ namespace SwiftSands
 					//top
 					if(base.Map.InBounds(x - 1,y - 1)/* && !validTiles[x - 1,y - 1]*/)
 					{
-						ValidTargets(ref validTiles,x - 1,y - 1,range - 1);
+						//ValidTargets(ref validTiles,x - 1,y - 1,range - 1);
 					}
 					if(base.Map.InBounds(x,y - 1)/* && !validTiles[x,y - 1]*/)
 					{
@@ -466,7 +515,7 @@ namespace SwiftSands
 					}
 					if(base.Map.InBounds(x + 1,y - 1)/* && !validTiles[x + 1,y - 1]*/)
 					{
-						ValidTargets(ref validTiles,x + 1,y - 1,range - 1);
+						//ValidTargets(ref validTiles,x + 1,y - 1,range - 1);
 					}
 
 					//middle
@@ -490,7 +539,7 @@ namespace SwiftSands
 					}
 					if(base.Map.InBounds(x + 1,y + 1)/* && !validTiles[x + 1,y + 1]*/)
 					{
-						ValidTargets(ref validTiles,x + 1,y + 1,range - 1);
+						//ValidTargets(ref validTiles,x + 1,y + 1,range - 1);
 					}
 
 				}

@@ -101,9 +101,10 @@ namespace SwiftSands
 			partyList.Clear();
 		}
 
-        static public bool CheckForPlayers(Map map, Vector2 pos) {
+        static public bool CheckForPlayers(Map map) {
             foreach (Player p in PartyList)
             {
+                Console.Out.WriteLine("Player is located at " + p.Position.X + " " + p.Position.Y + "; Mouse clicked at " + StateManager.WorldMousePosition);
                 if (new Rectangle((int)p.Position.X, (int)p.Position.Y, 32, 32).Contains(StateManager.WorldMousePosition))
                 {
                     if (SelectedPlayer != null)

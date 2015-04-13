@@ -96,12 +96,10 @@ namespace SwiftSands
                 {
                     if (Map.ColorLayer[(int)StateManager.TileMousePosition.X, (int)StateManager.TileMousePosition.Y] == Color.LightGreen)
                     {
-                        Console.Out.WriteLine("LIGHT GREEN! SET TO TEAL");
                         Map.TintTile(StateManager.TileMousePosition, new Color(38, 205, 255));
                     }
                     else if (Map.ColorLayer[(int)StateManager.TileMousePosition.X, (int)StateManager.TileMousePosition.Y] == new Color(38, 205, 255))
                     {
-                        Console.Out.WriteLine("TEAL! KEEP TEAL!");
                         Map.TintTile(StateManager.TileMousePosition, new Color(38, 205, 255));
                     }
                     else
@@ -123,7 +121,7 @@ namespace SwiftSands
 			{
                 if (Party.SelectedPlayer == null)
                 {
-                    Party.CheckForPlayers(map, StateManager.WorldMousePosition);
+                    Party.CheckForPlayers(map);
                 }
                 else
                 {
@@ -134,6 +132,7 @@ namespace SwiftSands
             if (StateManager.MState.RightButton == ButtonState.Pressed && StateManager.MPrevious.RightButton == ButtonState.Released)
             {
                 Party.UnselectPlayer();
+                Map.RemoveTints();
             } 
 
 

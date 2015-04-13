@@ -134,7 +134,7 @@ namespace SwiftSands
             base.Draw(time, spriteBatch);
         }
 
-        public override void RollForCombat()
+        public void RollForCombat()
         {
 
         }
