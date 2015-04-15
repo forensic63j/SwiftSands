@@ -14,6 +14,7 @@ namespace SwiftSands
 		#region fields
 		static private List<Player> partyList;
         static private Player selectedPlayer;
+        static private Vector2 worldPosition;
 		#endregion
 
         static Party()
@@ -34,6 +35,46 @@ namespace SwiftSands
         {
             get { return selectedPlayer; }
             set { selectedPlayer = value; }
+        }
+
+        static public Vector2 WorldPostion
+        {
+            get { return worldPosition; }
+            set { worldPosition = value; }
+        }
+
+        static public Vector2 WorldTilePostion
+        {
+            get
+            {
+                Map currentmap = new Map(0, 0, 0, 0, "error");
+                if (StateManager.CurrentState is LocalMap)
+                {
+                    LocalMap localmap = StateManager.CurrentState as LocalMap;
+                    currentmap = localmap.Map;
+                }
+                if (StateManager.CurrentState is WorldMap)
+                {
+                    WorldMap localmap = StateManager.CurrentState as WorldMap;
+                    currentmap = localmap.Map;
+                }
+                return new Vector2((float)Math.Floor(WorldPostion.X / currentmap.TileWidth), (float)Math.Floor(WorldPostion.Y / currentmap.TileHeight));
+            }
+            set
+            {
+                Map currentmap = new Map(0, 0, 0, 0, "error");
+                if (StateManager.CurrentState is LocalMap)
+                {
+                    LocalMap localmap = StateManager.CurrentState as LocalMap;
+                    currentmap = localmap.Map;
+                }
+                if (StateManager.CurrentState is WorldMap)
+                {
+                    WorldMap localmap = StateManager.CurrentState as WorldMap;
+                    currentmap = localmap.Map;
+                }
+                WorldPostion = new Vector2((float)Math.Floor(value.X / currentmap.TileWidth), (float)Math.Floor(value.Y / currentmap.TileHeight));
+            }
         }
 
 		/*Unused indexer
@@ -155,6 +196,37 @@ namespace SwiftSands
         static public void DrawMainCharacterOnMap(SpriteBatch spriteBatch)
         {
              partyList[0].Draw(spriteBatch);
+        }
+
+        static public bool Move(Vector2 newTile)
+        {
+            Map currentmap = new Map(0, 0, 0, 0, "error");
+            if (StateManager.CurrentState is LocalMap)
+            {
+                LocalMap localmap = StateManager.CurrentState as LocalMap;
+                currentmap = localmap.Map;
+            }
+            if (StateManager.CurrentState is WorldMap)
+            {
+                WorldMap localmap = StateManager.CurrentState as WorldMap;
+                currentmap = localmap.Map;
+            }
+            Player p = partyList[0];
+            if (p.Selected)
+            {
+                Vector2 startTile = p.TilePosition;
+                double distance = Math.Sqrt(Math.Pow((startTile.X - newTile.X), 2) + Math.Pow((startTile.Y - newTile.Y), 2));
+                if (distance == 1)
+                {
+                    if (!currentmap.TileCollide((int)newTile.X, (int)newTile.Y))
+                    {
+                        p.TilePosition = newTile;
+                        WorldTilePostion = newTile;
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 		#endregion
 	}

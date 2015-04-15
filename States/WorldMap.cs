@@ -29,6 +29,7 @@ namespace SwiftSands
         {
             map = LoadManager.LoadMap("overworld.txt");
             tintedTiles = new bool[map.Width, Map.Height];
+            Party.PartyList[0].TilePosition = Party.WorldTilePostion;
             StateCamera.RightCameraBound = map.Width * map.TileWidth;
             StateCamera.BottomCameraBound = map.Height * map.TileHeight;
             StateCamera.LeftCameraBound = 0;
@@ -106,9 +107,9 @@ namespace SwiftSands
                 }
                 else
                 {
-                    if ((Party.SelectedPlayer as Character).Move(StateManager.TileMousePosition))
+                    if (Party.Move(StateManager.TileMousePosition))
                     {
-                        
+                           
                     }
                 }
             }
