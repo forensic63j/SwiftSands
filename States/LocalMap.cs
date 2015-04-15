@@ -20,6 +20,7 @@ namespace SwiftSands
 		Map map;
 		Texture2D buttonSprite;
         bool[,] tintedTiles;
+        Random rand = new Random();
 
 		#region Properties
 		/// <summary>
@@ -52,6 +53,7 @@ namespace SwiftSands
             StateCamera.LeftCameraBound = 0;
             StateCamera.TopCameraBound = 0;
             buttonSprite = LoadManager.LoadSprite("GUI\\button-sprite.png");
+            Party.PartyList[0].TilePosition = new Vector2(rand.Next(), rand.Next(map.Height, map.Width));
             base.OnEnter();
         }
 

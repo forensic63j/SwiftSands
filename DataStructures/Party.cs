@@ -237,6 +237,7 @@ namespace SwiftSands
                     if (!currentmap.TileCollide((int)newTile.X, (int)newTile.Y))
                     {
                         p.TilePosition = newTile;
+                        WorldTilePostion = newTile; 
                         return true;
                     }
                 }
