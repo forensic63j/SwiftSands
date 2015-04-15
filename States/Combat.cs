@@ -26,6 +26,7 @@ namespace SwiftSands
         bool[,] validTiles; 
 		//GUI
 		SpriteFont font;
+        Texture2D buttonSprite;
 		Button attack;
 		Button endTurn;
 
@@ -39,7 +40,7 @@ namespace SwiftSands
 		/// <summary>
 		/// The main constructor for combat.
 		/// </summary>
-		public Combat(Game1 game, Viewport port,List<Enemy> enemies,SpriteFont font,Texture2D buttonSprite) : base(game, port) {
+		public Combat(Game1 game, Viewport port,List<Enemy> enemies) : base(game, port) {
 			currentTurn = 0;
 			actionLeft = true;
 			targeting = false;
@@ -91,7 +92,8 @@ namespace SwiftSands
 				}
 			}
 
-			this.font = font;
+			this.font = StateManager.CurrentState.StateGame.Font;
+            this.buttonSprite = StateManager.CurrentState.StateGame.ButtonSprite;
 			attack = new Button("Attack",font,buttonSprite,new Rectangle(5,port.Height-75,100,30),true);
 			endTurn = new Button("End Turn",font,buttonSprite,new Rectangle(5,port.Height - 35,100,30),true);
 

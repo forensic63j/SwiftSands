@@ -22,6 +22,11 @@ namespace SwiftSands
             get { return camera; }
         }
 
+        public Viewport ViewPort
+        {
+            get { return viewPort; }
+        }
+
         public Game1 StateGame
         {
             get { return game; }

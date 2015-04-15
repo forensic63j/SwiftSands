@@ -18,6 +18,7 @@ namespace SwiftSands
         Map map;
         public WorldMap(Game1 game, Viewport port) : base(game, port) { }
         bool[,] tintedTiles;
+        Random rand = new Random();
        
 
          public Map Map
@@ -109,7 +110,13 @@ namespace SwiftSands
                 {
                     if (Party.Move(StateManager.TileMousePosition))
                     {
-                           
+                        if (Roll(0.05f))
+                        {
+                            List<Enemy> enList = new List<Enemy>();
+                            enList.Add(base.StateGame.CharacterList["enemy"] as Enemy);
+                            Combat newCombat = new Combat(base.StateGame, base.ViewPort, enList);
+                            StateManager.OpenState(newCombat);
+                        }
                     }
                 }
             }
@@ -135,9 +142,24 @@ namespace SwiftSands
             base.Draw(time, spriteBatch);
         }
 
-        public void RollForCombat()
+        public bool Roll(float chance)
         {
 
+            if (chance > 1)
+            {
+                chance = 1;
+            }
+            if (chance < 0)
+            {
+                chance = 0;
+            }
+            float testVal = (float)rand.Next(0, 101) / 100f;
+            Console.Out.WriteLine("Rolled a " + testVal + " with a chance of " + chance);
+            if (testVal < chance)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

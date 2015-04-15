@@ -104,6 +104,16 @@ namespace SwiftSands
 		{
 			get { return characterList; }
 		}
+
+        public SpriteFont Font
+        {
+            get { return font; }
+        }
+
+        public Texture2D ButtonSprite
+        {
+            get { return buttonSprite; }
+        }
         #endregion
 
         public Game1()
@@ -167,7 +177,7 @@ namespace SwiftSands
 
 			/**/List<Enemy> enemies = new List<Enemy>();
 			enemies.Add(characterList["enemy"] as Enemy);
-			combat = new Combat(this,viewport,enemies,font,buttonSprite);/**/
+			combat = new Combat(this,viewport,enemies);/**/
 
 			//Buttons:
 			//Main Menu Buttons
