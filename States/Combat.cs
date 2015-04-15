@@ -92,8 +92,8 @@ namespace SwiftSands
 				}
 			}
 
-			this.font = StateManager.CurrentState.StateGame.Font;
-            this.buttonSprite = StateManager.CurrentState.StateGame.ButtonSprite;
+			this.font = base.StateGame.Font;
+            this.buttonSprite = base.StateGame.ButtonSprite;
 			attack = new Button("Attack",font,buttonSprite,new Rectangle(5,port.Height-75,100,30),true);
 			endTurn = new Button("End Turn",font,buttonSprite,new Rectangle(5,port.Height - 35,100,30),true);
 
