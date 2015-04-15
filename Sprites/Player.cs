@@ -154,10 +154,10 @@ namespace SwiftSands
                 }
             }
         }
-        public void Interact(Dictionary<String, Character> characters, Dictionary<String, Item> items)
+        public bool Interact(Dictionary<String, Character> characters, Dictionary<String, Item> items)
         {
             Vector2 currentPos = TilePosition;
-            foreach(KeyValuePair<String, Character> character in characters)
+            foreach (KeyValuePair<String, Character> character in characters)
             {
                 Character ch = character.Value;
                 if (ch.IsActive)
@@ -167,6 +167,7 @@ namespace SwiftSands
                     if (distance == 1)
                     {
                         Converse(ch);
+                        return true;
                     }
                 }
             }
@@ -180,19 +181,36 @@ namespace SwiftSands
                     if (distance == 1)
                     {
                         PickUpItem(it);
+                        return true;
                     }
                 }
             }
+            return false;
         }
         public void PickUpItem(Item item)
         {
             Inventory.Items.Add(item);
-            TextBox textBox = new TextBox(null, new Rectangle(0, 384, 800, 96), true, ("You have picked up " + item.Name), null);
-            
+            TextBox textBox = new TextBox(StateManager.CurrentState.StateGame.ButtonSprite, new Rectangle(0, 384, 800, 96), true, ("You have picked up " + item.Name), StateManager.CurrentState.StateGame.Font);
+            while (textBox.IsActive)
+            {
+                KeyboardState ks = Keyboard.GetState();
+                if (ks.GetPressedKeys().Length > 0)
+                {
+                    textBox.IsActive = false;
+                }
+            }
         }
         public void Converse(Character character)
         {
-            TextBox textBox = new TextBox(null, new Rectangle(0, 384, 800, 96), true, character.Conversation, null);
+            TextBox textBox = new TextBox(StateManager.CurrentState.StateGame.ButtonSprite, new Rectangle(0, 384, 800, 96), true, character.Conversation, StateManager.CurrentState.StateGame.Font);
+            while (textBox.IsActive)
+            {
+                KeyboardState ks = Keyboard.GetState();
+                if (ks.GetPressedKeys().Length > 0)
+                {
+                    textBox.IsActive = false;
+                }
+            }
         }
         #endregion
     }

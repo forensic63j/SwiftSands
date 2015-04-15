@@ -27,7 +27,7 @@ namespace SwiftSands
 		MainMenu mainMenu;
 		OptionsMenu options;
 		PauseMenu pause;
-        InventoryMenu inventoryMenu;
+        InventoryMenu iMenu;
         PartyMenu partyMenu;
 
 		/**/
@@ -79,6 +79,14 @@ namespace SwiftSands
         internal OptionsMenu Options
         {
             get { return options; }
+        }
+
+        /// <summary>
+        /// Gets inventory menu.
+        /// </summary>
+        internal InventoryMenu IMenu
+        {
+            get { return iMenu; }
         }
 
         /// <summary>
@@ -163,7 +171,7 @@ namespace SwiftSands
 			mainMenu = new MainMenu(font,buttonSprite,this,viewport);
 			options = new OptionsMenu(font,buttonSprite,this,viewport);
 			pause = new PauseMenu(font,buttonSprite,this,viewport);
-            inventoryMenu = new InventoryMenu(font, buttonSprite, this, viewport);
+            iMenu = new InventoryMenu(font, buttonSprite, this, viewport, spriteBatch);
 
 			/**/List<Enemy> enemies = new List<Enemy>();
 			enemies.Add(characterList["enemy"] as Enemy);

@@ -16,13 +16,19 @@ namespace SwiftSands
         private SpriteFont font;
         Texture2D texture;
         private MouseState mState;
+        private List<Button> buttons;
+        private List<Button> members;
+        private SpriteBatch spriteBatch;
 
-        public InventoryMenu(SpriteFont font, Texture2D sprite, Game1 game, Viewport port)
+        public InventoryMenu(SpriteFont font, Texture2D sprite, Game1 game, Viewport port, SpriteBatch batch)
             : base(game, port)
         {
             this.font = font;
             this.texture = sprite;
             base.StateCamera.InputEnabled = false;
+            buttons = new List<Button>();
+            members = new List<Button>();
+            spriteBatch = batch;
         }
 
         public override void Update(GameTime time)
@@ -30,15 +36,63 @@ namespace SwiftSands
             mState = Mouse.GetState();
             StateManager.KState = Keyboard.GetState();
 
+            if (mState.LeftButton == ButtonState.Pressed)
+            {
+                Point p = mState.Position;
+                if (members.Count == 0)
+                {
+                    for (int i = 0; i < buttons.Count; i++)
+                    {
+                        Button button = buttons[i];
+                        if (button.Position.Contains(p))
+                        {
+                            for (int j = 0; j < Party.Count; j++)
+                            {
+                                Button b = new Button(Party.PartyList[j].Name, font, texture, new Rectangle(p.X + 50, p.Y + (30 * j), 50, 30), true);
+                                spriteBatch.Begin();
+                                b.Draw(spriteBatch);
+                                spriteBatch.End();
+                                members.Add(b);
+                            }
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < members.Count; i++)
+                    {
+                        Button button = members[i];
+                        if (button.Position.Contains(p))
+                        {
+                            Point p1 = new Point(members[0].Position.X, members[0].Position.Y);
+                            for (int j = 0; j < buttons.Count; j++)
+                            {
+                                if (buttons[j].Position.Contains(p1))
+                                {
+                                    if (Inventory.Items[j].Type != ItemType.Evidence)
+                                        Party.PartyList[i].EquipItem = Inventory.Items[j];
+                                    break;
+                                }
+                            }
+                            members.Clear();
+                            break;
+                        }
+                    }
+                }
+            }
+
             base.Update(time);
         }
 
-        public override void DrawScreen(GameTime time, SpriteBatch spriteBatch)
+        public override void DrawScreen(GameTime time, SpriteBatch batch)
         {
             spriteBatch.DrawString(font, "Inventory:", new Vector2(350, 0), Color.Brown);
             for (int i = 0; i < Inventory.Items.Count; i++)
             {
                 Button button = new Button(Inventory.Items[i].Name, font, texture, new Rectangle(0, 30 * (i + 1), 800, 30), true);
+                button.Draw(spriteBatch);
+                buttons.Add(button);
             }
         }
     }
