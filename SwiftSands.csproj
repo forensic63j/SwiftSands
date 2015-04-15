@@ -57,6 +57,7 @@
     <Compile Include="States\LocalMap.cs" />
     <Compile Include="States\MainMenu.cs" />
     <Compile Include="States\OptionsMenu.cs" />
+    <Compile Include="States\PartyMenu.cs" />
     <Compile Include="States\PauseMenu.cs" />
     <Compile Include="States\State.cs" />
     <Compile Include="States\WorldMap.cs" />
