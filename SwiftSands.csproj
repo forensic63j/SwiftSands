@@ -55,7 +55,6 @@
     <Compile Include="DataStructures\Camera.cs" />
     <Compile Include="States\InventoryMenu.cs" />
     <Compile Include="States\LocalMap.cs" />
-    <Compile Include="States\PartyMenu.cs" />
     <Compile Include="States\MainMenu.cs" />
     <Compile Include="States\OptionsMenu.cs" />
     <Compile Include="States\PauseMenu.cs" />

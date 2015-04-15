@@ -62,35 +62,3 @@ C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug
 C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\bin\Windows\Debug\SharpDX.Direct3D9.xml
 C:\Users\John\Documents\Visual Studio 2013\Projects\SwiftSands\obj\x86\Debug\SwiftSands.csprojResolveAssemblyReference.cache
 C:\Users\Brian\Documents\GitHub\SwiftSands\obj\x86\Debug\SwiftSands.csprojResolveAssemblyReference.cache
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\obj\x86\Debug\SwiftSands.exe
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\Content\GUI\button-sprite.png
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\Content\CharacterSprites\character-sprite.png
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\Content\Data\GameEntities\Characters.txt
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\Content\Data\GameEntities\Item.txt
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\Content\Data\Tasks.txt
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\Content\ItemSprites\item-sprite.png
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\Content\GUI\menuFont.xnb
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SwiftSands.exe
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SwiftSands.pdb
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\MonoGame.Framework.dll
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.MediaFoundation.dll
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.dll
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.XAudio2.dll
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.Direct3D11.dll
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.DXGI.dll
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.Direct2D1.dll
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\Lidgren.Network.dll
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.XInput.dll
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.RawInput.dll
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.Direct3D9.dll
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.MediaFoundation.xml
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.xml
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.XAudio2.xml
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.Direct3D11.xml
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.DXGI.xml
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.Direct2D1.xml
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.XInput.xml
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.RawInput.xml
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\bin\Windows\Debug\SharpDX.Direct3D9.xml
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\obj\x86\Debug\SwiftSands.csprojResolveAssemblyReference.cache
-D:\Users\bxs9775.MAIN\Documents\GDAPS 2\project\GitHub\obj\x86\Debug\SwiftSands.pdb
