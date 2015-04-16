@@ -70,7 +70,7 @@ namespace SwiftSands
                         {
                             for (int b = 0; b < Party.PartyList.Count; b++)
                             {
-                                Button button = new Button(Party.PartyList[b].Name, font, texture, new Rectangle(p.X, p.Y + (30 * (b + 1)), 50, 30), true);
+                                Button button = new Button(Party.PartyList[b].Name, font, texture, new Rectangle(p.X, p.Y + (30 * b), 50, 30), true);
                                 members.Add(button);
                             }
                         }
