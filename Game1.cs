@@ -42,7 +42,6 @@ namespace SwiftSands
 		Dictionary<String,Character> characterList;
 		Dictionary<String,Item> itemList;
 		List<Task> taskList;
-		Inventory inventory;
 
 		//GUI
         Texture2D buttonSprite;
@@ -96,6 +95,12 @@ namespace SwiftSands
         {
             get { return localMap; }
         }
+
+
+        internal InventoryMenu InventoryMenu
+        {
+            get { return inventoryMenu; }
+        }
 		
 		/// <summary>
 		/// Gets the character list.
@@ -141,7 +146,6 @@ namespace SwiftSands
 			characterList = new Dictionary<String,Character>();
 			itemList = new Dictionary<String,Item>();
 			taskList = new List<Task>();
-			inventory = new Inventory();
 
 			font = null;
 			buttonSprite = null;
@@ -254,7 +258,7 @@ namespace SwiftSands
 		/// </summary>
 		private void Load()
 		{
-			LoadManager.LoadSavefile("Save1.data",inventory,itemList,taskList);
+			LoadManager.LoadSavefile("Save1.data",itemList,taskList);
 			StateManager.OpenState(combat);//Changed temporalily for testing purposeses.
 		}
 

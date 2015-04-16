@@ -7,7 +7,7 @@ using System.Text;
 
 namespace SwiftSands
 {
-    class Inventory
+    static class Inventory
     {
         #region Fields
         static private List<Item> items;
@@ -28,36 +28,31 @@ namespace SwiftSands
                 return items.Count;
             }
         }
-        public Item this[int index]
-        {
-            get
-            {
-                if (index > 0 && index < items.Count)
-                {
-                    return items[index];
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
         #endregion
 
         #region Methods/Constructor
-        public Inventory()
+        static Inventory()
         {
             items = new List<Item>();
         }
-        public void AddItem(Item item)
+        static public void AddItem(Item item)
         {
             items.Add(item);
         }
-        public void RemoveItem(Item item)
+        static public void RemoveItem(Item item)
         {
             items.Remove(item);
         }
-        public void Clear()
+        static public Item FindItem(String s)
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].Name == s)
+                    return items[i];
+            }
+            return null;
+        }
+        static public void Clear()
         {
             items.Clear();
         }

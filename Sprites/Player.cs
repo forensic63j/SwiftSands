@@ -154,7 +154,7 @@ namespace SwiftSands
                 }
             }
         }
-        public void Interact(Dictionary<String, Character> characters, Dictionary<String, Item> items)
+        public bool Interact(Dictionary<String, Character> characters, Dictionary<String, Item> items)
         {
             Vector2 currentPos = TilePosition;
             foreach(KeyValuePair<String, Character> character in characters)
@@ -167,6 +167,7 @@ namespace SwiftSands
                     if (distance == 1)
                     {
                         Converse(ch);
+                        return true;
                     }
                 }
             }
@@ -180,9 +181,11 @@ namespace SwiftSands
                     if (distance == 1)
                     {
                         PickUpItem(it);
+                        return true;
                     }
                 }
             }
+            return false;
         }
         public void PickUpItem(Item item)
         {
