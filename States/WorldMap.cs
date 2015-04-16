@@ -110,7 +110,7 @@ namespace SwiftSands
                 {
                     if (Party.Move(StateManager.TileMousePosition))
                     {
-                        if (Roll(0.05f))
+                        if (Roll(0.5f))
                         {
                             List<Enemy> enList = new List<Enemy>();
                             enList.Add(base.StateGame.CharacterList["enemy"] as Enemy);

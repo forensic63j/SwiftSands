@@ -112,6 +112,11 @@ namespace SwiftSands
                 StateManager.CloseState();
             }
             base.OnEnter();
+            Party.PartyList[0].TilePosition = new Vector2(rng.Next(0, base.Map.Width/3), rng.Next(0, base.Map.Height/3));
+            while (base.Map.TileCollide(new Vector2(-Party.PartyList[0].Position.X, -Party.PartyList[0].Position.Y))){
+                Party.PartyList[0].TilePosition = new Vector2(rng.Next(0, base.Map.Width/3), rng.Next(0, base.Map.Height/3));
+            }
+                this.StateCamera.Position = new Vector2(-Party.PartyList[0].Position.X, -Party.PartyList[0].Position.Y);
         }
 
         public override void OnExit()
@@ -558,7 +563,7 @@ namespace SwiftSands
 		{
 			foreach(Character c in combatants)
 			{
-				Rectangle cPosition = this.Map.ConvertPosition(c.Position,this.StateCamera);
+                Vector2 cPosition = c.TilePosition;
 				if(cPosition.X == x && cPosition.Y == y)
 				{
 					return c;
