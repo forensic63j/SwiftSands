@@ -96,9 +96,15 @@ namespace SwiftSands
             get { return localMap; }
         }
 
+<<<<<<< HEAD
 		/// <summary>
 		/// Gets inventory menu.
 		/// </summary>
+=======
+        /// <summary>
+        /// Gets the inventory menu
+        /// </summary>
+>>>>>>> origin/master
         internal InventoryMenu InventoryMenu
         {
             get { return inventoryMenu; }
@@ -128,6 +134,11 @@ namespace SwiftSands
         public Texture2D ButtonSprite
         {
             get { return buttonSprite; }
+        }
+
+        public SpriteBatch SpriteBatch
+        {
+            get { return spriteBatch; }
         }
         #endregion
 
