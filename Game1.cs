@@ -96,11 +96,21 @@ namespace SwiftSands
             get { return localMap; }
         }
 
-
+		/// <summary>
+		/// Gets inventory menu.
+		/// </summary>
         internal InventoryMenu InventoryMenu
         {
             get { return inventoryMenu; }
         }
+
+		/// <summary>
+		/// Gets party menu.
+		/// </summary>
+		internal PartyMenu PartyMenu
+		{
+			get { return partyMenu; }
+		}
 		
 		/// <summary>
 		/// Gets the character list.
@@ -177,7 +187,9 @@ namespace SwiftSands
 			mainMenu = new MainMenu(font,buttonSprite,this,viewport);
 			options = new OptionsMenu(font,buttonSprite,this,viewport);
 			pause = new PauseMenu(font,buttonSprite,this,viewport);
-            inventoryMenu = new InventoryMenu(font, buttonSprite, this, viewport);
+			
+			inventoryMenu = new InventoryMenu(font, buttonSprite, this, viewport);
+			partyMenu = new PartyMenu(font,buttonSprite,this,viewport);
 
 			/**/List<Enemy> enemies = new List<Enemy>();
 			enemies.Add(characterList["enemy"] as Enemy);

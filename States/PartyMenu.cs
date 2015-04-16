@@ -104,6 +104,15 @@ namespace SwiftSands
 			mState = Mouse.GetState();
 			StateManager.KState = Keyboard.GetState();
 
+			/*if(StateManager.KState.IsKeyDown(Keys.P) && StateManager.KPrevious.IsKeyUp(Keys.P))
+			{
+				StateManager.CloseState();
+			}*/
+			if(StateManager.KState.IsKeyDown(Keys.Escape) && StateManager.KPrevious.IsKeyUp(Keys.Escape))
+			{
+				StateManager.OpenState(StateGame.WorldMap);
+			}
+
 			for(int i = 0; i < 6; i++)
 			{
 				if(Party.PartyList.Count > i)

@@ -46,53 +46,7 @@ namespace SwiftSands
 			targeting = false;
 
 			combatants = new List<Character>();
-
-			List<Player> players = Party.PartyList;
-			foreach(Player player in players)
-			{ //Not sure if this is a good way to do this.
-				if(combatants.Count == 0)
-				{
-					combatants.Add(player);
-				} else
-				{
-					int i = 0;
-					while(i < combatants.Count && combatants[i].Speed > player.Speed)
-					{
-						i++;
-					}
-					if(i == combatants.Count)
-					{
-						combatants.Add(player);
-					} else
-					{
-						combatants.Insert(i,player);
-					}
-				}
-			}
-
-			foreach(Enemy enemy in enemies)
-			{ //Not sure if this is a good way to do this.
-                enemy.Alive = true; 
-                enemy.Health = enemy.MaxHealth;
-				if(combatants.Count == 0)
-				{
-					combatants.Add(enemy);
-				} else
-				{
-					int i = 0;
-					while(i < combatants.Count && combatants[i].Speed > enemy.Speed)
-					{
-						i++;
-					}
-					if(i == combatants.Count)
-					{
-						combatants.Add(enemy);
-					} else
-					{
-						combatants.Insert(i,enemy);
-					}
-				}
-			}
+			ResetCombatents(enemies);
 
 			this.font = base.StateGame.Font;
             this.buttonSprite = base.StateGame.ButtonSprite;
@@ -109,7 +63,8 @@ namespace SwiftSands
 
         public override void OnEnter()
         {
-            if ((!CombatentsInclude<Player>() || !CombatentsInclude<Enemy>()))
+			
+			if ((!CombatentsInclude<Player>() || !CombatentsInclude<Enemy>()))
             {
                 StateManager.CloseState();
             }
@@ -325,8 +280,8 @@ namespace SwiftSands
 								y = rng.Next(0,validTiles.GetLength(1));
 							} while(!validTiles[x,y]);
 							Vector2 moveVector = new Vector2(x,y);
-							combatants[currentTurn].Move(moveVector);
-                            movesLeft--;
+							int distenceMoved = combatants[currentTurn].Move(moveVector);
+                            movesLeft -= distenceMoved;
 							//targeting = true;
 						}
                         else
@@ -594,5 +549,62 @@ namespace SwiftSands
             return true;
         }
 		#endregion
+
+		/// <summary>
+		/// Resets combat.
+		/// </summary>
+		/// <param name="enemies">Enemies that the player fights.</param>
+		public void ResetCombatents(List<Enemy> enemies)
+		{
+			combatants.Clear();
+
+			List<Player> players = Party.PartyList;
+			foreach(Player player in players)
+			{ //Not sure if this is a good way to do this.
+				if(combatants.Count == 0)
+				{
+					combatants.Add(player);
+				} else
+				{
+					int i = 0;
+					while(i < combatants.Count && combatants[i].Speed > player.Speed)
+					{
+						i++;
+					}
+					if(i == combatants.Count)
+					{
+						combatants.Add(player);
+					} else
+					{
+						combatants.Insert(i,player);
+					}
+				}
+			}
+
+			foreach(Enemy enemy in enemies)
+			{ //Not sure if this is a good way to do this.
+				enemy.Alive = true;
+				enemy.Health = enemy.MaxHealth;
+				if(combatants.Count == 0)
+				{
+					combatants.Add(enemy);
+				} else
+				{
+					int i = 0;
+					while(i < combatants.Count && combatants[i].Speed > enemy.Speed)
+					{
+						i++;
+					}
+					if(i == combatants.Count)
+					{
+						combatants.Add(enemy);
+					} else
+					{
+						combatants.Insert(i,enemy);
+					}
+				}
+			}
+
+		}
 	}
 }
