@@ -389,9 +389,10 @@ namespace SwiftSands
             }
         }
 
-		public bool Move(Vector2 newTile)
+		public int Move(Vector2 newTile)
 		{
             Map currentmap = new Map(0,0,0,0,"error");
+            int intDistance = 0;
             if(StateManager.CurrentState is LocalMap){
                 LocalMap localmap = StateManager.CurrentState as LocalMap;
                            currentmap = localmap.Map;
@@ -403,17 +404,21 @@ namespace SwiftSands
 			if(Selected)
 			{
 				Vector2 startTile = TilePosition;
-				double distance = Math.Sqrt(Math.Pow((startTile.X - newTile.X),2) + Math.Pow((startTile.Y - newTile.Y),2));
-				if(distance == 1)
+				//double distance = Math.Ceiling(Math.Sqrt(Math.Pow((startTile.X - newTile.X),2) + Math.Pow((startTile.Y - newTile.Y),2)));
+                float distance = Math.Abs(startTile.X - newTile.X) + Math.Abs(startTile.Y - newTile.Y);
+                intDistance = (int)distance;
+                Console.WriteLine("Distance: " + intDistance + " MovementRange: " + movementRange);
+                if (intDistance <= movementRange)
 				{
                     if (!currentmap.TileCollide((int)newTile.X, (int)newTile.Y)) 
                     {
 					    TilePosition = newTile;
-                        return true;
+                        return intDistance;
                     }
 				}
 			}
-            return false;
+            intDistance = 0;
+            return intDistance;
 		}
     }
         #endregion

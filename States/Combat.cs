@@ -212,9 +212,10 @@ namespace SwiftSands
                             {
                                 if (TileOccupent((int)tileVector.X, (int)tileVector.Y) == null)
                                 {
-                                    if (combatants[currentTurn].Move(StateManager.TileMousePosition))
+                                    int distanceMoved = combatants[currentTurn].Move(StateManager.TileMousePosition); 
+                                    if (distanceMoved > 0)
                                     {
-                                        movesLeft--;
+                                        movesLeft = movesLeft - distanceMoved;
                                     }
                                 }
                             }
