@@ -96,15 +96,12 @@ namespace SwiftSands
             get { return localMap; }
         }
 
-<<<<<<< HEAD
 		/// <summary>
 		/// Gets inventory menu.
 		/// </summary>
-=======
         /// <summary>
         /// Gets the inventory menu
         /// </summary>
->>>>>>> origin/master
         internal InventoryMenu InventoryMenu
         {
             get { return inventoryMenu; }
@@ -192,6 +189,7 @@ namespace SwiftSands
 
 
 			Party.Add(this.CharacterList["player"].ToPlayer()); //For testing.
+            Inventory.AddItem(new Item(ItemType.AttackSpell, 0, 15, 2, "A basic fire spell", true, null, new Rectangle(), false, false, "Fire Spell"));
 
 			//Menus
             font = this.Content.Load<SpriteFont>("GUI/menuFont");

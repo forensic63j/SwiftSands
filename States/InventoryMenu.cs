@@ -57,6 +57,7 @@ namespace SwiftSands
                         if (members[i].Position.Contains(p))
                         {
                             Party.PartyList[i].EquipItem = item;
+                            members.Clear();
                             break;
                         }
                     }
@@ -69,7 +70,7 @@ namespace SwiftSands
                         {
                             for (int b = 0; b < Party.PartyList.Count; b++)
                             {
-                                Button button = new Button(Party.PartyList[b].Name, font, texture, new Rectangle(p.X, p.Y + (30 * b), 50, 30), true);
+                                Button button = new Button(Party.PartyList[b].Name, font, texture, new Rectangle(p.X, p.Y + (30 * (b + 1)), 50, 30), true);
                                 members.Add(button);
                             }
                         }
@@ -87,7 +88,7 @@ namespace SwiftSands
             {
                 Button button = new Button(Inventory.Items[i].Name, font, texture, new Rectangle(0, 30 * (i + 1), 800, 30), true);
                 spriteBatch.Draw(texture, button.Position, Color.White);
-                spriteBatch.DrawString(font, button.Name, new Vector2(0.0f, (float)button.Position.Y), Color.Black);
+                spriteBatch.DrawString(font, button.Name, new Vector2(350.0f, (float)button.Position.Y), Color.Black);
                 buttons.Add(button);
             }
             if (members.Count > 0)

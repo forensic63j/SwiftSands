@@ -29,6 +29,7 @@ namespace SwiftSands
         private Item equipItem;
         #endregion
 
+        #region Constructors
         public Character(bool canJoin, Texture2D texture, Rectangle pos, bool active, String name)
             : base(texture, pos, active, name)
         {
@@ -102,9 +103,10 @@ namespace SwiftSands
             this.conversation = conversation;
             equipItem = null;
 		}
-		
+        #endregion
+
         #region Properties
-		public int MaxHealth
+        public int MaxHealth
 		{
 			get
 			{
