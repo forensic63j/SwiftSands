@@ -30,7 +30,7 @@ namespace SwiftSands
         {
             map = LoadManager.LoadMap("overworld.txt");
             tintedTiles = new bool[map.Width, Map.Height];
-            Party.PartyList[0].TilePosition = Party.WorldTilePostion;
+            Party.PartyList[0].TilePosition = Party.WorldTilePosition;
             StateCamera.RightCameraBound = map.Width * map.TileWidth;
             StateCamera.BottomCameraBound = map.Height * map.TileHeight;
             StateCamera.LeftCameraBound = 0;
@@ -110,7 +110,7 @@ namespace SwiftSands
                 {
                     if (Party.Move(StateManager.TileMousePosition))
                     {
-                        if (Roll(0.5f))
+                        if (Roll(0.25f))
                         {
                             List<Enemy> enList = new List<Enemy>();
                             enList.Add(base.StateGame.CharacterList["enemy"] as Enemy);

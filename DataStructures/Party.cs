@@ -15,6 +15,7 @@ namespace SwiftSands
 		static private List<Player> partyList;
         static private Player selectedPlayer;
         static private Vector2 worldPosition;
+        static private Vector2 worldTilePosition;
 		#endregion
 
         static Party()
@@ -37,43 +38,28 @@ namespace SwiftSands
             set { selectedPlayer = value; }
         }
 
-        static public Vector2 WorldPostion
+        static public Player MainCharacter
+        {
+            get { return partyList[0]; }
+            //set { selectedPlayer = value; }
+        }
+
+        static public Vector2 WorldPosition
         {
             get { return worldPosition; }
             set { worldPosition = value; }
         }
 
-        static public Vector2 WorldTilePostion
+        static public Vector2 WorldTilePosition
         {
             get
             {
-                Map currentmap = new Map(0, 0, 0, 0, "error");
-                if (StateManager.CurrentState is LocalMap)
-                {
-                    LocalMap localmap = StateManager.CurrentState as LocalMap;
-                    currentmap = localmap.Map;
-                }
-                if (StateManager.CurrentState is WorldMap)
-                {
-                    WorldMap localmap = StateManager.CurrentState as WorldMap;
-                    currentmap = localmap.Map;
-                }
-                return new Vector2((float)Math.Floor(WorldPostion.X / currentmap.TileWidth), (float)Math.Floor(WorldPostion.Y / currentmap.TileHeight));
+                return worldTilePosition;
             }
             set
-            {
-                Map currentmap = new Map(0, 0, 0, 0, "error");
-                if (StateManager.CurrentState is LocalMap)
-                {
-                    LocalMap localmap = StateManager.CurrentState as LocalMap;
-                    currentmap = localmap.Map;
-                }
-                if (StateManager.CurrentState is WorldMap)
-                {
-                    WorldMap localmap = StateManager.CurrentState as WorldMap;
-                    currentmap = localmap.Map;
-                }
-                WorldPostion = new Vector2((float)Math.Floor(value.X / currentmap.TileWidth), (float)Math.Floor(value.Y / currentmap.TileHeight));
+            {       
+                worldTilePosition = value;
+                worldPosition = new Vector2(worldTilePosition.X * 32, worldTilePosition.Y * 32);
             }
         }
 
@@ -163,7 +149,8 @@ namespace SwiftSands
         static public bool CheckForMainCharacter(Map map, Vector2 pos)
         {
             Player p = partyList[0];
-            if (new Rectangle((int)p.Position.X, (int)p.Position.Y, 32, 32).Contains(StateManager.WorldMousePosition))
+            Console.Out.WriteLine(WorldPosition);
+            if (new Rectangle((int)WorldPosition.X, (int)WorldPosition.Y, 32, 32).Contains(StateManager.WorldMousePosition))
             {
                 if (SelectedPlayer != null)
                 {
@@ -195,11 +182,11 @@ namespace SwiftSands
 
         static public void DrawMainCharacterOnMap(SpriteBatch spriteBatch)
         {
-             partyList[0].Draw(spriteBatch);
+            partyList[0].Draw(spriteBatch);
         }
 
         static public bool Move(Vector2 newTile)
-        {
+        {          
             Map currentmap = new Map(0, 0, 0, 0, "error");
             if (StateManager.CurrentState is LocalMap)
             {
@@ -212,16 +199,20 @@ namespace SwiftSands
                 currentmap = localmap.Map;
             }
             Player p = partyList[0];
+            p.TilePosition = WorldTilePosition;
             if (p.Selected)
             {
-                Vector2 startTile = p.TilePosition;
+                Vector2 startTile = WorldTilePosition;
                 double distance = Math.Sqrt(Math.Pow((startTile.X - newTile.X), 2) + Math.Pow((startTile.Y - newTile.Y), 2));
                 if (distance == 1)
                 {
                     if (!currentmap.TileCollide((int)newTile.X, (int)newTile.Y))
                     {
+                        Console.Out.WriteLine(newTile);
                         p.TilePosition = newTile;
-                        WorldTilePostion = newTile;
+                        WorldTilePosition = newTile;
+                        Console.Out.WriteLine(WorldTilePosition);
+                        Console.Out.WriteLine(WorldPosition);
                         return true;
                     }
                 }

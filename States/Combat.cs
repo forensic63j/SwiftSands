@@ -72,6 +72,8 @@ namespace SwiftSands
 
 			foreach(Enemy enemy in enemies)
 			{ //Not sure if this is a good way to do this.
+                enemy.Alive = true; 
+                enemy.Health = enemy.MaxHealth;
 				if(combatants.Count == 0)
 				{
 					combatants.Add(enemy);
@@ -113,7 +115,8 @@ namespace SwiftSands
             }
             base.OnEnter();
             Party.PartyList[0].TilePosition = new Vector2(rng.Next(0, base.Map.Width/3), rng.Next(0, base.Map.Height/3));
-            while (base.Map.TileCollide(new Vector2(-Party.PartyList[0].Position.X, -Party.PartyList[0].Position.Y))){
+            while (base.Map.TileCollide(Party.PartyList[0].TilePosition))
+            {
                 Party.PartyList[0].TilePosition = new Vector2(rng.Next(0, base.Map.Width/3), rng.Next(0, base.Map.Height/3));
             }
                 this.StateCamera.Position = new Vector2(-Party.PartyList[0].Position.X, -Party.PartyList[0].Position.Y);
@@ -202,6 +205,7 @@ namespace SwiftSands
 					{
 						Vector2 tileVector = StateManager.TileMousePosition;
                         Party.CheckForPlayers(this.Map);
+                        //Console.Out.WriteLine("Moves Left: " + movesLeft + " Tile Validity: " + validTiles[(int)tileVector.X, (int)tileVector.Y] + " Tile Occupied: " + TileOccupent((int)tileVector.X, (int)tileVector.Y));
                         if (movesLeft > 0)
                         {
                             if (validTiles[(int)tileVector.X, (int)tileVector.Y])
@@ -386,6 +390,7 @@ namespace SwiftSands
 			}
 
 			if(casualty && (!CombatentsInclude<Player>() || !CombatentsInclude<Enemy>())){
+                Party.MainCharacter.TilePosition = Party.WorldTilePosition;
 				StateManager.CloseState();
                 return;
 			}
