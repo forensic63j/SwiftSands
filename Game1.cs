@@ -123,6 +123,14 @@ namespace SwiftSands
 			get { return characterList; }
 		}
 
+        /// <summary>
+        /// Gets the item list.
+        /// </summary>
+        internal Dictionary<String, Item> ItemList
+        {
+            get { return itemList; }
+        }
+
         public SpriteFont Font
         {
             get { return font; }
@@ -190,7 +198,6 @@ namespace SwiftSands
             //Testing
 			Party.Add(this.CharacterList["player"].ToPlayer());
             Inventory.AddItem(new Item(ItemType.AttackSpell, 0, 15, 2, "A basic fire spell", true, null, new Rectangle(), false, false, "Fire Spell"));
-            itemList.Add("Ice Spell", new Item(ItemType.AttackSpell, 0, 18, 2, "A basic ice spell", false, null, new Rectangle(94, 64, 32, 32), true, true, "Ice Spell"));
 
 			//Menus
             font = this.Content.Load<SpriteFont>("GUI/menuFont");
