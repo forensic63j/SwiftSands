@@ -21,6 +21,7 @@ namespace SwiftSands
 		Texture2D buttonSprite;
         bool[,] tintedTiles;
         Random rand = new Random();
+        internal Character selectedCharacter; 
 
 		#region Properties
 		/// <summary>
@@ -30,6 +31,26 @@ namespace SwiftSands
 		{
 			get { return buttonSprite; }
 		}
+
+        public Character SelectedCharacter
+        {
+            get
+            {
+                return selectedCharacter;
+            }
+            set
+            {
+                if (selectedCharacter != null)
+                {
+                    selectedCharacter.Selected = false;
+                }
+                selectedCharacter = value;
+                if (selectedCharacter != null)
+                {
+                    selectedCharacter.Selected = true;
+                }
+            }
+        }
 
 		/// <summary>
 		/// Gets the map.
@@ -125,19 +146,19 @@ namespace SwiftSands
 			//For testing:
 			if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released && !(this is Combat))
 			{
-                if (Party.SelectedPlayer == null)
+                if (SelectedCharacter == null)
                 {
-                    Party.CheckForPlayers(map);
+                    SelectedCharacter = Party.CheckForPlayers();
                 }
                 else
                 {
-                    (Party.SelectedPlayer as Character).Move(StateManager.TileMousePosition);
+                    SelectedCharacter.Move(StateManager.TileMousePosition);
                 }
 			}
 
             if (StateManager.MState.RightButton == ButtonState.Pressed && StateManager.MPrevious.RightButton == ButtonState.Released)
             {
-                Party.UnselectPlayer();
+                SelectedCharacter = null;
                 Map.RemoveTints();
             } 
 

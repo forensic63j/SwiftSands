@@ -316,7 +316,7 @@ namespace SwiftSands
         {
             if (selected)
             {
-                base.Draw(spriteBatch, new Color(255, 150, 150));
+                base.Draw(spriteBatch, new Color(255, 165, 165));
             }
             else
             {

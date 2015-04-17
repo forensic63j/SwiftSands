@@ -23,7 +23,8 @@ namespace SwiftSands
 		int movesLeft;
 		bool actionLeft;
 		bool targeting;
-        bool[,] validTiles; 
+        bool[,] validTiles;
+
 		//GUI
 		SpriteFont font;
         Texture2D buttonSprite;
@@ -35,6 +36,7 @@ namespace SwiftSands
 
 		int combatTime;
 		#endregion
+
 
 		#region main methods
 		/// <summary>
@@ -77,6 +79,7 @@ namespace SwiftSands
                     Party.PartyList[i].TilePosition = new Vector2(rng.Next(0, base.Map.Width / 3), rng.Next(0, base.Map.Height / 3));
                 }
             }
+            SelectedCharacter = combatants[currentTurn];
         }
 
         public override void OnExit()
@@ -161,7 +164,11 @@ namespace SwiftSands
 					if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
 					{
 						Vector2 tileVector = StateManager.TileMousePosition;
-                        Party.CheckForPlayers(this.Map);
+                        if (SelectedCharacter == null || Party.CheckForPlayers() != null)
+                        {
+                            Map.RemoveTints();
+                            SelectedCharacter = Party.CheckForPlayers();
+                        }
                         //Console.Out.WriteLine("Moves Left: " + movesLeft + " Tile Validity: " + validTiles[(int)tileVector.X, (int)tileVector.Y] + " Tile Occupied: " + TileOccupent((int)tileVector.X, (int)tileVector.Y));
                         if (base.Map.InBounds((int)tileVector.X, (int)tileVector.Y))
                         {
@@ -183,7 +190,15 @@ namespace SwiftSands
 					}
 				}
 				#endregion
-                if (combatants[currentTurn].Selected == true)
+                if (SelectedCharacter != null)
+                {
+                    Console.Out.WriteLine("Current turn: " + combatants[currentTurn].Name + " SelectedChar: " + SelectedCharacter.Name);
+                }
+                else
+                {
+                    Console.Out.WriteLine("Current turn: " + combatants[currentTurn].Name + " SelectedChar: " + "NULL");
+                }
+                if (combatants[currentTurn] == SelectedCharacter)
                 {
                     for (int j = 0; j < validTiles.GetLength(0); j++)
                     {
@@ -424,7 +439,7 @@ namespace SwiftSands
 		/// </summary>
 		public void EndTurn()
 		{
-            combatants[currentTurn].Selected = false;
+            SelectedCharacter = null;
             Map.RemoveTints();
             validTiles = new bool[Map.ColliderLayer.GetLength(0), Map.ColliderLayer.GetLength(1)];
             movesLeft = 0;
@@ -437,7 +452,8 @@ namespace SwiftSands
             {
                 currentTurn = 0;
             }
-            combatants[currentTurn].Selected = true;
+            actionLeft = true;
+            SelectedCharacter = combatants[currentTurn];
             movesLeft = combatants[currentTurn].MovementRange;
             this.StateCamera.Position = new Vector2(-combatants[currentTurn].Position.X, -combatants[currentTurn].Position.Y);
 		}
