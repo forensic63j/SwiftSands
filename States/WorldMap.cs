@@ -122,6 +122,8 @@ namespace SwiftSands
                     {
                         if (Roll(0.25f))
                         {
+                            Party.SelectedPlayer.Selected = false;
+                            Party.SelectedPlayer = null;
                             List<Enemy> enList = new List<Enemy>();
                             enList.Add(base.StateGame.CharacterList["enemy"] as Enemy);
                             Combat newCombat = new Combat(base.StateGame, base.ViewPort, enList);

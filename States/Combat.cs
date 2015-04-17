@@ -298,7 +298,7 @@ namespace SwiftSands
 							{
 								x = rng.Next(0,validTiles.GetLength(0));
 								y = rng.Next(0,validTiles.GetLength(1));
-							} while(!validTiles[x,y]);
+							} while(!validTiles[x,y] && Map.InBounds(x,y) && !Map.TileCollide(x,y));
 							Vector2 moveVector = new Vector2(x,y);
 							int distanceMoved = combatants[currentTurn].Move(moveVector);
                             movesLeft -= distanceMoved;
@@ -455,7 +455,7 @@ namespace SwiftSands
             actionLeft = true;
             SelectedCharacter = combatants[currentTurn];
             movesLeft = combatants[currentTurn].MovementRange;
-            this.StateCamera.Position = new Vector2(-combatants[currentTurn].Position.X, -combatants[currentTurn].Position.Y);
+            //this.StateCamera.Position = new Vector2(-combatants[currentTurn].Position.X, -combatants[currentTurn].Position.Y);
 		}
 		#endregion
 
