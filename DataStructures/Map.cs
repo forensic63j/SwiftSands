@@ -236,9 +236,13 @@ namespace SwiftSands
 
         public Boolean TileCollide(int x, int y)
         {
-            if (colliderLayer[x, y] > 0)
+            if (InBounds(x, y))
             {
-                return true;
+                if (colliderLayer[x, y] > 0)
+                {
+                    return true;
+                }
+                else return false;
             }
             else return false;
         }

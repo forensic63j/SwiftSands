@@ -16,15 +16,11 @@ namespace SwiftSands
     class WorldMap : State
     {
         Map map;
+        public WorldMap(Game1 game, Viewport port) : base(game, port) { }
         bool[,] tintedTiles;
         Random rand = new Random();
-        Viewport port;
-        Game game;
-        
-        public WorldMap(Game1 game, Viewport port) : base(game, port) 
-        {
-        }
        
+
          public Map Map
          {
              get { return map; }
@@ -35,6 +31,7 @@ namespace SwiftSands
             map = LoadManager.LoadMap("overworld.txt");
             Party.PartyList[0].TilePosition = Party.WorldTilePostion;
             tintedTiles = new bool[map.Width, Map.Height];
+            Party.PartyList[0].TilePosition = Party.WorldTilePosition;
             StateCamera.RightCameraBound = map.Width * map.TileWidth;
             StateCamera.BottomCameraBound = map.Height * map.TileHeight;
             StateCamera.LeftCameraBound = 0;
@@ -61,6 +58,16 @@ namespace SwiftSands
                     StateManager.OpenState(StateGame.Pause);
                 }
             }
+
+            if (StateManager.KState.IsKeyDown(Keys.I) && StateManager.KPrevious.IsKeyUp(Keys.I))
+            {
+                StateManager.OpenState(StateGame.InventoryMenu);
+            }
+
+			if(StateManager.KState.IsKeyDown(Keys.P) && StateManager.KPrevious.IsKeyUp(Keys.P))
+			{
+				StateManager.OpenState(StateGame.PartyMenu);
+			}
 
             for (int r = 0; r < Map.Width; r++)
             {
@@ -108,14 +115,16 @@ namespace SwiftSands
             {
                 if (Party.SelectedPlayer == null)
                 {
-                    Party.CheckForParty(map, StateManager.WorldMousePosition);
+                    Party.CheckForMainCharacter(map, StateManager.WorldMousePosition);
                 }
                 else
                 {
                     if (Party.Move(StateManager.TileMousePosition))
                     {
-                        if (Roll(0.05f))
+                        if (Roll(0.25f))
                         {
+                            Party.SelectedPlayer.Selected = false;
+                            Party.SelectedPlayer = null;
                             List<Enemy> enList = new List<Enemy>();
                             enList.Add(base.StateGame.CharacterList["enemy"] as Enemy);
                             Combat newCombat = new Combat(base.StateGame, base.ViewPort, enList);
@@ -148,6 +157,7 @@ namespace SwiftSands
 
         public bool Roll(float chance)
         {
+
             if (chance > 1)
             {
                 chance = 1;

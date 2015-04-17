@@ -38,7 +38,7 @@ namespace SwiftSands
             }
         }
 
-        public void Draw(GameTime time, SpriteBatch batch)
+        public override void Draw(SpriteBatch batch)
         {
             if (IsActive)
             {

@@ -28,14 +28,14 @@ namespace SwiftSands
 		private ItemType itemType;
         private bool collected; //Whether or not the item has been collected
 
-		public Item(ItemType i, int h, int d, int range, String de, bool col, Texture2D texture, Rectangle pos, bool active, 
+		public Item(ItemType itemType, int healing, int damage, int range, String desc, bool collected, Texture2D texture, Rectangle pos, bool active, 
 			bool field, String name):base(texture, pos, active, name)
 		{
-			type = i;
-			healing = h;
-			damage = d;
-			description = de;
-            collected = col;
+			type = itemType;
+			this.healing = healing;
+			this.damage = damage;
+			description = desc;
+            this.collected = collected;
             this.range = range;
 		}
 

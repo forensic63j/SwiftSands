@@ -15,7 +15,6 @@ namespace SwiftSands
     {
         private SpriteFont font;
         Texture2D texture;
-        private MouseState mState;
         private List<Button> buttons;
         private List<Button> members;
 
@@ -31,46 +30,47 @@ namespace SwiftSands
 
         public override void Update(GameTime time)
         {
-            mState = Mouse.GetState();
-            StateManager.KState = Keyboard.GetState();
-
-            if (mState.LeftButton == ButtonState.Pressed)
+            Item item = null;
+            if (StateManager.KState.IsKeyDown(Keys.Escape) && StateManager.KPrevious.IsKeyUp(Keys.Escape))
             {
-                Point p = mState.Position;
-                if (members.Count == 0)
+                StateManager.OpenState(StateGame.WorldMap);
+            }
+            if (StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
+            {
+                Point p = StateManager.MState.Position;
+                if (members.Count > 0)
                 {
-                    for (int i = 0; i < buttons.Count; i++)
+                    Point p2 = new Point(members[0].Position.X, members[0].Position.Y);
+                    for (int x = 0; x < buttons.Count; x++)
                     {
-                        Button button = buttons[i];
-                        if (button.Position.Contains(p))
+                        if (buttons[x].Position.Contains(p2))
                         {
-                            for (int j = 0; j < Party.Count; j++)
-                            {
-                                Button b = new Button(Party.PartyList[j].Name, font, texture, new Rectangle(p.X + (50 * j), p.Y + (30 * j), 50, 30), true);
-                                members.Add(b);
-                            }
+                            String s = buttons[x].Name;
+                            item = Inventory.FindItem(s);
+                            break;
+                        }
+                    }
+                    for (int i = 0; i < members.Count; i++)
+                    {
+                        if (members[i].Position.Contains(p))
+                        {
+                            Party.PartyList[i].EquipItem = item;
+                            members.Clear();
                             break;
                         }
                     }
                 }
                 else
                 {
-                    for (int i = 0; i < members.Count; i++)
+                    for (int a = 0; a < buttons.Count; a++)
                     {
-                        Button button = members[i];
-                        if (button.Position.Contains(p))
+                        if (buttons[a].Position.Contains(p))
                         {
-                            Point p1 = new Point(members[0].Position.X, members[0].Position.Y);
-                            for (int j = 0; j < buttons.Count; j++)
+                            for (int b = 0; b < Party.PartyList.Count; b++)
                             {
-                                if (buttons[j].Position.Contains(p1))
-                                {
-                                    Party.PartyList[i].EquipItem = Inventory.Items[j];
-                                    break;
-                                }
+                                Button button = new Button(Party.PartyList[b].Name, font, texture, new Rectangle(p.X, p.Y + (30 * b), 50, 30), true);
+                                members.Add(button);
                             }
-                            members.Clear();
-                            break;
                         }
                     }
                 }
@@ -85,7 +85,17 @@ namespace SwiftSands
             for (int i = 0; i < Inventory.Items.Count; i++)
             {
                 Button button = new Button(Inventory.Items[i].Name, font, texture, new Rectangle(0, 30 * (i + 1), 800, 30), true);
+                spriteBatch.Draw(texture, button.Position, Color.White);
+                spriteBatch.DrawString(font, button.Name, new Vector2(350.0f, (float)button.Position.Y), Color.Black);
                 buttons.Add(button);
+            }
+            if (members.Count > 0)
+            {
+                for (int x = 0; x < members.Count; x++)
+                {
+                    spriteBatch.Draw(texture, members[x].Position, Color.White);
+                    spriteBatch.DrawString(font, members[x].Name, new Vector2(members[x].Position.X, members[x].Position.Y), Color.Black);
+                }
             }
         }
     }

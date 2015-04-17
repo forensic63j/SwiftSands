@@ -211,7 +211,7 @@ namespace SwiftSands
         /// Loads a savefile.
         /// </summary>
         /// <param name="filename">The name of the file to load.</param>
-		static public void LoadSavefile(String filename,Inventory inventory,Dictionary<String,Item> itemList,List<Task> taskList)
+		static public void LoadSavefile(String filename,Dictionary<String,Item> itemList,List<Task> taskList)
 		{
 			#region texture
 			Texture2D[] sprites = null;
@@ -302,7 +302,7 @@ namespace SwiftSands
 						#endregion	
 
 						#region inventory
-						inventory.Clear();
+						Inventory.Clear();
 
 						int numItems = input.ReadInt32();
 						for(int i = 0; i < numItems; i++)
@@ -335,7 +335,7 @@ namespace SwiftSands
 
 							//Add to inventory
 							Item tempItem = new Item(type,healing,damage,range,description,collected,sprite,position,active,onScreen,name);
-							inventory.AddItem(tempItem);
+							Inventory.AddItem(tempItem);
 						}
 						#endregion
 					}

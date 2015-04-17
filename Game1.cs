@@ -27,8 +27,8 @@ namespace SwiftSands
 		MainMenu mainMenu;
 		OptionsMenu options;
 		PauseMenu pause;
-        InventoryMenu iMenu;
-		PartyMenu pMenu;
+        InventoryMenu inventoryMenu;
+        PartyMenu partyMenu;
 
 		/**/
 		Combat combat;/**/
@@ -42,7 +42,6 @@ namespace SwiftSands
 		Dictionary<String,Character> characterList;
 		Dictionary<String,Item> itemList;
 		List<Task> taskList;
-		Inventory inventory;
 
 		//GUI
         Texture2D buttonSprite;
@@ -82,14 +81,6 @@ namespace SwiftSands
         }
 
         /// <summary>
-        /// Gets Inventory Menu
-        /// </summary>
-        internal InventoryMenu IMenu
-        {
-            get { return iMenu; }
-        }
-
-        /// <summary>
         /// Gets world map.
         /// </summary>
         internal WorldMap WorldMap
@@ -104,6 +95,25 @@ namespace SwiftSands
         {
             get { return localMap; }
         }
+
+		/// <summary>
+		/// Gets inventory menu.
+		/// </summary>
+        /// <summary>
+        /// Gets the inventory menu
+        /// </summary>
+        internal InventoryMenu InventoryMenu
+        {
+            get { return inventoryMenu; }
+        }
+
+		/// <summary>
+		/// Gets party menu.
+		/// </summary>
+		internal PartyMenu PartyMenu
+		{
+			get { return partyMenu; }
+		}
 		
 		/// <summary>
 		/// Gets the character list.
@@ -113,6 +123,14 @@ namespace SwiftSands
 			get { return characterList; }
 		}
 
+        /// <summary>
+        /// Gets the item list.
+        /// </summary>
+        internal Dictionary<String, Item> ItemList
+        {
+            get { return itemList; }
+        }
+
         public SpriteFont Font
         {
             get { return font; }
@@ -121,6 +139,11 @@ namespace SwiftSands
         public Texture2D ButtonSprite
         {
             get { return buttonSprite; }
+        }
+
+        public SpriteBatch SpriteBatch
+        {
+            get { return spriteBatch; }
         }
         #endregion
 
@@ -149,8 +172,6 @@ namespace SwiftSands
 			characterList = new Dictionary<String,Character>();
 			itemList = new Dictionary<String,Item>();
 			taskList = new List<Task>();
-			inventory = new Inventory();
-            inventory.AddItem(new Item(ItemType.AttackSpell, 0, 15, 2, "A basic fire spell", true, null, new Rectangle(), false, false, "Fire Spell"));
 
 			font = null;
 			buttonSprite = null;
@@ -174,16 +195,20 @@ namespace SwiftSands
 
 			LoadManager.LoadContent(ref characterList, ref itemList,ref buttonSprite, ref font);
 
-
-			Party.Add(this.characterList["player"].ToPlayer()); //For testing.
+            //Testing
+			Party.Add(this.CharacterList["Clayton"].ToPlayer());
+            Party.Add(this.CharacterList["John"].ToPlayer());
+            Party.Add(this.CharacterList["Brian"].ToPlayer());
+            Inventory.AddItem(new Item(ItemType.AttackSpell, 0, 15, 2, "A basic fire spell", true, null, new Rectangle(), false, false, "Fire Spell"));
 
 			//Menus
             font = this.Content.Load<SpriteFont>("GUI/menuFont");
 			mainMenu = new MainMenu(font,buttonSprite,this,viewport);
 			options = new OptionsMenu(font,buttonSprite,this,viewport);
 			pause = new PauseMenu(font,buttonSprite,this,viewport);
-            iMenu = new InventoryMenu(font, buttonSprite, this, viewport);
-			pMenu = new PartyMenu(font,buttonSprite,this,viewport);
+			
+			inventoryMenu = new InventoryMenu(font, buttonSprite, this, viewport);
+			partyMenu = new PartyMenu(font,buttonSprite,this,viewport);
 
 			/**/List<Enemy> enemies = new List<Enemy>();
 			enemies.Add(characterList["enemy"] as Enemy);
@@ -209,6 +234,7 @@ namespace SwiftSands
 			pause.Quit.OnClick = Exit;
 
 			StateManager.OpenState(mainMenu);
+            
         }
 
         /// <summary>
@@ -263,8 +289,8 @@ namespace SwiftSands
 		/// </summary>
 		private void Load()
 		{
-			LoadManager.LoadSavefile("Save1.data",inventory,itemList,taskList);
-			StateManager.OpenState(pMenu);//Changed temporalily for testing purposeses.
+			LoadManager.LoadSavefile("Save1.data",itemList,taskList);
+			StateManager.OpenState(combat);//Changed temporalily for testing purposeses.
 		}
 
 		/// <summary>

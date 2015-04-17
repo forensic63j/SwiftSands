@@ -23,9 +23,11 @@ namespace SwiftSands
 		int movesLeft;
 		bool actionLeft;
 		bool targeting;
-        bool[,] validTiles; 
+        bool[,] validTiles;
+
 		//GUI
 		SpriteFont font;
+        Texture2D buttonSprite;
 		Button attack;
 		Button endTurn;
 
@@ -34,6 +36,7 @@ namespace SwiftSands
 
 		int combatTime;
 		#endregion
+
 
 		#region main methods
 		/// <summary>
@@ -45,55 +48,12 @@ namespace SwiftSands
 			targeting = false;
 
 			combatants = new List<Character>();
-
-			List<Player> players = Party.PartyList;
-			foreach(Player player in players)
-			{ //Not sure if this is a good way to do this.
-				if(combatants.Count == 0)
-				{
-					combatants.Add(player);
-				} else
-				{
-					int i = 0;
-					while(i < combatants.Count && combatants[i].Speed > player.Speed)
-					{
-						i++;
-					}
-					if(i == combatants.Count)
-					{
-						combatants.Add(player);
-					} else
-					{
-						combatants.Insert(i,player);
-					}
-				}
-			}
-
-			foreach(Enemy enemy in enemies)
-			{ //Not sure if this is a good way to do this.
-				if(combatants.Count == 0)
-				{
-					combatants.Add(enemy);
-				} else
-				{
-					int i = 0;
-					while(i < combatants.Count && combatants[i].Speed > enemy.Speed)
-					{
-						i++;
-					}
-					if(i == combatants.Count)
-					{
-						combatants.Add(enemy);
-					} else
-					{
-						combatants.Insert(i,enemy);
-					}
-				}
-			}
+			ResetCombatents(enemies);
 
 			this.font = base.StateGame.Font;
-			attack = new Button("Attack", base.StateGame.Font, base.StateGame.ButtonSprite, new Rectangle(5,port.Height-75,100,30),true);
-			endTurn = new Button("End Turn", base.StateGame.Font, base.StateGame.ButtonSprite, new Rectangle(5,port.Height - 35,100,30),true);
+            this.buttonSprite = base.StateGame.ButtonSprite;
+			attack = new Button("Attack",font,buttonSprite,new Rectangle(5,port.Height-75,100,30),true);
+			endTurn = new Button("End Turn",font,buttonSprite,new Rectangle(5,port.Height - 35,100,30),true);
 
 			attack.OnClick = Attack;
 			endTurn.OnClick = EndTurn;
@@ -105,11 +65,21 @@ namespace SwiftSands
 
         public override void OnEnter()
         {
-            if ((!CombatentsInclude<Player>() || !CombatentsInclude<Enemy>()))
+			
+			if ((!CombatentsInclude<Player>() || !CombatentsInclude<Enemy>()))
             {
                 StateManager.CloseState();
             }
             base.OnEnter();
+            for (int i = 0; i < Party.PartyList.Count; i++)
+            {
+                Party.PartyList[i].TilePosition = new Vector2(rng.Next(0, base.Map.Width / 3), rng.Next(0, base.Map.Height / 3));
+                while (base.Map.TileCollide(Party.PartyList[i].TilePosition))
+                {
+                    Party.PartyList[i].TilePosition = new Vector2(rng.Next(0, base.Map.Width / 3), rng.Next(0, base.Map.Height / 3));
+                }
+            }
+            SelectedCharacter = combatants[currentTurn];
         }
 
         public override void OnExit()
@@ -194,16 +164,25 @@ namespace SwiftSands
 					if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
 					{
 						Vector2 tileVector = StateManager.TileMousePosition;
-                        Party.CheckForPlayers(this.Map);
-                        if (movesLeft > 0)
+                        if (SelectedCharacter == null || Party.CheckForPlayers() != null)
                         {
-                            if (validTiles[(int)tileVector.X, (int)tileVector.Y])
+                            Map.RemoveTints();
+                            SelectedCharacter = Party.CheckForPlayers();
+                        }
+                        //Console.Out.WriteLine("Moves Left: " + movesLeft + " Tile Validity: " + validTiles[(int)tileVector.X, (int)tileVector.Y] + " Tile Occupied: " + TileOccupent((int)tileVector.X, (int)tileVector.Y));
+                        if (base.Map.InBounds((int)tileVector.X, (int)tileVector.Y))
+                        {
+                            if (movesLeft > 0)
                             {
-                                if (TileOccupent((int)tileVector.X, (int)tileVector.Y) == null)
+                                if (validTiles[(int)tileVector.X, (int)tileVector.Y])
                                 {
-                                    if (combatants[currentTurn].Move(StateManager.TileMousePosition))
+                                    if (TileOccupent((int)tileVector.X, (int)tileVector.Y) == null)
                                     {
-                                        movesLeft--;
+                                        int distanceMoved = combatants[currentTurn].Move(StateManager.TileMousePosition);
+                                        if (distanceMoved > 0)
+                                        {
+                                            movesLeft = movesLeft - distanceMoved;
+                                        }
                                     }
                                 }
                             }
@@ -211,7 +190,15 @@ namespace SwiftSands
 					}
 				}
 				#endregion
-                if (combatants[currentTurn].Selected == true)
+                if (SelectedCharacter != null)
+                {
+                    Console.Out.WriteLine("Current turn: " + combatants[currentTurn].Name + " SelectedChar: " + SelectedCharacter.Name);
+                }
+                else
+                {
+                    Console.Out.WriteLine("Current turn: " + combatants[currentTurn].Name + " SelectedChar: " + "NULL");
+                }
+                if (combatants[currentTurn] == SelectedCharacter)
                 {
                     for (int j = 0; j < validTiles.GetLength(0); j++)
                     {
@@ -311,10 +298,10 @@ namespace SwiftSands
 							{
 								x = rng.Next(0,validTiles.GetLength(0));
 								y = rng.Next(0,validTiles.GetLength(1));
-							} while(!validTiles[x,y]);
+							} while(!validTiles[x,y] && Map.InBounds(x,y) && !Map.TileCollide(x,y));
 							Vector2 moveVector = new Vector2(x,y);
-							combatants[currentTurn].Move(moveVector);
-                            movesLeft--;
+							int distanceMoved = combatants[currentTurn].Move(moveVector);
+                            movesLeft -= distanceMoved;
 							//targeting = true;
 						}
                         else
@@ -324,22 +311,7 @@ namespace SwiftSands
 					}
                     if (!((movesLeft > 0) || actionLeft))
                     {
-                        if (combatants[currentTurn] is Player)
-                        {
-                            combatants[currentTurn].Selected = false;
-                            Map.RemoveTints();
-                        }
-                        if (currentTurn < combatants.Count - 1)
-                        {
-                            currentTurn++;
-                        }
-                        else
-                        {
-                            currentTurn = 0;
-                        }
-                        targeting = false;
-                        movesLeft = combatants[currentTurn].MovementRange;
-                        actionLeft = true;
+                        EndTurn();
                     }
 				}
 			/*
@@ -379,6 +351,7 @@ namespace SwiftSands
 			}
 
 			if(casualty && (!CombatentsInclude<Player>() || !CombatentsInclude<Enemy>())){
+                Party.MainCharacter.TilePosition = Party.WorldTilePosition;
 				StateManager.CloseState();
                 return;
 			}
@@ -466,7 +439,7 @@ namespace SwiftSands
 		/// </summary>
 		public void EndTurn()
 		{
-            Party.UnselectPlayer();
+            SelectedCharacter = null;
             Map.RemoveTints();
             validTiles = new bool[Map.ColliderLayer.GetLength(0), Map.ColliderLayer.GetLength(1)];
             movesLeft = 0;
@@ -479,6 +452,10 @@ namespace SwiftSands
             {
                 currentTurn = 0;
             }
+            actionLeft = true;
+            SelectedCharacter = combatants[currentTurn];
+            movesLeft = combatants[currentTurn].MovementRange;
+            //this.StateCamera.Position = new Vector2(-combatants[currentTurn].Position.X, -combatants[currentTurn].Position.Y);
 		}
 		#endregion
 
@@ -556,7 +533,7 @@ namespace SwiftSands
 		{
 			foreach(Character c in combatants)
 			{
-				Rectangle cPosition = this.Map.ConvertPosition(c.Position,this.StateCamera);
+                Vector2 cPosition = c.TilePosition;
 				if(cPosition.X == x && cPosition.Y == y)
 				{
 					return c;
@@ -581,5 +558,62 @@ namespace SwiftSands
             return true;
         }
 		#endregion
+
+		/// <summary>
+		/// Resets combat.
+		/// </summary>
+		/// <param name="enemies">Enemies that the player fights.</param>
+		public void ResetCombatents(List<Enemy> enemies)
+		{
+			combatants.Clear();
+
+			List<Player> players = Party.PartyList;
+			foreach(Player player in players)
+			{ //Not sure if this is a good way to do this.
+				if(combatants.Count == 0)
+				{
+					combatants.Add(player);
+				} else
+				{
+					int i = 0;
+					while(i < combatants.Count && combatants[i].Speed > player.Speed)
+					{
+						i++;
+					}
+					if(i == combatants.Count)
+					{
+						combatants.Add(player);
+					} else
+					{
+						combatants.Insert(i,player);
+					}
+				}
+			}
+
+			foreach(Enemy enemy in enemies)
+			{ //Not sure if this is a good way to do this.
+				enemy.Alive = true;
+				enemy.Health = enemy.MaxHealth;
+				if(combatants.Count == 0)
+				{
+					combatants.Add(enemy);
+				} else
+				{
+					int i = 0;
+					while(i < combatants.Count && combatants[i].Speed > enemy.Speed)
+					{
+						i++;
+					}
+					if(i == combatants.Count)
+					{
+						combatants.Add(enemy);
+					} else
+					{
+						combatants.Insert(i,enemy);
+					}
+				}
+			}
+
+		}
 	}
 }
