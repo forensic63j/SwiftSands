@@ -24,6 +24,7 @@ namespace SwiftSands
 		bool actionLeft;
 		bool targeting;
         bool[,] validTiles;
+        List<Enemy> enemyList;
 
 		//GUI
 		SpriteFont font;
@@ -37,6 +38,10 @@ namespace SwiftSands
 		int combatTime;
 		#endregion
 
+        public List<Enemy> EnemyList{
+            get{return enemyList;}
+            set{enemyList =value;}
+        }
 
 		#region main methods
 		/// <summary>
@@ -46,7 +51,7 @@ namespace SwiftSands
 			currentTurn = 0;
 			actionLeft = true;
 			targeting = false;
-
+            EnemyList = enemies;
 			combatants = new List<Character>();
 			ResetCombatents(enemies);
 
@@ -90,6 +95,19 @@ namespace SwiftSands
         public override void OnDestroy()
         {
             base.OnExit();
+        }
+
+        public Character CheckForEnemies()
+        {
+            foreach (Character c in EnemyList)
+            {
+                //Console.Out.WriteLine("Player is located at " + p.Position.X + " " + p.Position.Y + "; Mouse clicked at " + StateManager.WorldMousePosition);
+                if (new Rectangle((int)c.Position.X, (int)c.Position.Y, 32, 32).Contains(StateManager.WorldMousePosition))
+                {
+                    return c;
+                }
+            }
+            return null;
         }
 
 		/// <summary>
@@ -149,7 +167,7 @@ namespace SwiftSands
 							}
 							actionLeft = false;
 							targeting = false;
-                            Map.RemoveTints();
+                            Map.RemoveTints();            
 						}
 					}
                     if (StateManager.MState.RightButton == ButtonState.Pressed && StateManager.MPrevious.RightButton == ButtonState.Released)
@@ -168,6 +186,11 @@ namespace SwiftSands
                         {
                             Map.RemoveTints();
                             SelectedCharacter = Party.CheckForPlayers();
+                        }
+                        if (CheckForEnemies() != null)
+                        {
+                            Map.RemoveTints();
+                            SelectedCharacter = CheckForEnemies();
                         }
                         //Console.Out.WriteLine("Moves Left: " + movesLeft + " Tile Validity: " + validTiles[(int)tileVector.X, (int)tileVector.Y] + " Tile Occupied: " + TileOccupent((int)tileVector.X, (int)tileVector.Y));
                         if (base.Map.InBounds((int)tileVector.X, (int)tileVector.Y))
@@ -190,14 +213,6 @@ namespace SwiftSands
 					}
 				}
 				#endregion
-                if (SelectedCharacter != null)
-                {
-                    Console.Out.WriteLine("Current turn: " + combatants[currentTurn].Name + " SelectedChar: " + SelectedCharacter.Name);
-                }
-                else
-                {
-                    Console.Out.WriteLine("Current turn: " + combatants[currentTurn].Name + " SelectedChar: " + "NULL");
-                }
                 if (combatants[currentTurn] == SelectedCharacter)
                 {
                     for (int j = 0; j < validTiles.GetLength(0); j++)
@@ -244,7 +259,7 @@ namespace SwiftSands
                                 actionLeft = false;
 							    targeting = false;
                             }else{
-                                
+                               
 							int x = 0;
 							int y = 0;
 							do
@@ -292,6 +307,8 @@ namespace SwiftSands
 						if(movesLeft > 0)
 						{
                             combatants[currentTurn].ValidMovements(ref validTiles, cLocalPosition.X, cLocalPosition.Y, movesLeft);
+                                                        //Screw it implement A* later
+                                /*
 							int x = 0;
 							int y = 0;
 							do
@@ -302,6 +319,8 @@ namespace SwiftSands
 							Vector2 moveVector = new Vector2(x,y);
 							int distanceMoved = combatants[currentTurn].Move(moveVector);
                             movesLeft -= distanceMoved;
+                                 * */
+                            movesLeft = 0;
 							//targeting = true;
 						}
                         else
@@ -376,10 +395,21 @@ namespace SwiftSands
 				{
 					//Console.WriteLine(c.Name);
 					c.Draw(spriteBatch);
-					cName = "Name: " + c.Name;
+					cName = c.Name;
 					spriteBatch.DrawString(font,cName,new Vector2(c.Position.X,c.Position.Y+c.Position.Height + 2),Color.Black);
-					cHealth = "Health: " + c.Health;
-					spriteBatch.DrawString(font,cHealth,new Vector2(c.Position.X,c.Position.Y + c.Position.Height + 16),Color.Black);
+                    if (c.Selected == true)
+                    {
+                        cHealth = c.Health + "/" + c.MaxHealth;
+                        spriteBatch.DrawString(font, cHealth, new Vector2(c.Position.X, c.Position.Y + c.Position.Height + 16), Color.Black);
+                        if (combatants[currentTurn] == SelectedCharacter)
+                        {
+                            spriteBatch.DrawString(font, movesLeft + "", new Vector2(c.Position.X, c.Position.Y + c.Position.Height + 30), Color.Black);
+                        }
+                        else
+                        {
+                            spriteBatch.DrawString(font, 0 + "", new Vector2(c.Position.X, c.Position.Y + c.Position.Height + 30), Color.Black);
+                        }
+                    }
 				}
 			}
         }
