@@ -196,7 +196,9 @@ namespace SwiftSands
 			LoadManager.LoadContent(ref characterList, ref itemList,ref buttonSprite, ref font);
 
             //Testing
-			Party.Add(this.CharacterList["player"].ToPlayer());
+			Party.Add(this.CharacterList["Clayton"].ToPlayer());
+            Party.Add(this.CharacterList["John"].ToPlayer());
+            Party.Add(this.CharacterList["Brian"].ToPlayer());
             Inventory.AddItem(new Item(ItemType.AttackSpell, 0, 15, 2, "A basic fire spell", true, null, new Rectangle(), false, false, "Fire Spell"));
 
 			//Menus

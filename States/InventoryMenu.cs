@@ -15,7 +15,6 @@ namespace SwiftSands
     {
         private SpriteFont font;
         Texture2D texture;
-        private MouseState mState;
         private List<Button> buttons;
         private List<Button> members;
 
@@ -31,15 +30,14 @@ namespace SwiftSands
 
         public override void Update(GameTime time)
         {
-            mState = Mouse.GetState();
             Item item = null;
             if (StateManager.KState.IsKeyDown(Keys.Escape) && StateManager.KPrevious.IsKeyUp(Keys.Escape))
             {
                 StateManager.OpenState(StateGame.WorldMap);
             }
-            if (mState.LeftButton == ButtonState.Pressed)
+            if (StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
             {
-                Point p = mState.Position;
+                Point p = StateManager.MState.Position;
                 if (members.Count > 0)
                 {
                     Point p2 = new Point(members[0].Position.X, members[0].Position.Y);
