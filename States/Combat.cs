@@ -234,8 +234,8 @@ namespace SwiftSands
                 }
 			} 
             else //Enemies turn
-			{
-				
+            {
+                #region enemy
                 combatTime += time.TotalGameTime.Milliseconds;
 				if(combatTime >= 100){
 					combatTime = 0;
@@ -308,7 +308,7 @@ namespace SwiftSands
 						{
                             combatants[currentTurn].ValidMovements(ref validTiles, cLocalPosition.X, cLocalPosition.Y, movesLeft);
                                                         //Screw it implement A* later
-                                /*
+                            
 							int x = 0;
 							int y = 0;
 							do
@@ -319,8 +319,8 @@ namespace SwiftSands
 							Vector2 moveVector = new Vector2(x,y);
 							int distanceMoved = combatants[currentTurn].Move(moveVector);
                             movesLeft -= distanceMoved;
-                                 * */
-                            movesLeft = 0;
+                           
+                           // movesLeft = 0;
 							//targeting = true;
 						}
                         else
@@ -333,10 +333,11 @@ namespace SwiftSands
                         EndTurn();
                     }
 				}
-			/*
-				movesLeft = false;
-				actionLeft = false; */
-			}
+                /*
+                    movesLeft = false;
+                    actionLeft = false; */
+                #endregion
+            }
 			
 			attack.Update();
 			endTurn.Update();
@@ -387,9 +388,12 @@ namespace SwiftSands
         {
 			base.DrawWorld(time, spriteBatch);
 
+            String turnDetails = "Current turn: " + combatants[currentTurn].Name;
+            spriteBatch.DrawString(font, turnDetails, new Vector2(5, 5), Color.Black);
+
 			String cName;
 			String cHealth;
-			foreach(Character c in combatants)
+			foreach(Character c in combatants) 
 			{
 				if(c.Alive)
 				{
