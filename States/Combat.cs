@@ -24,6 +24,7 @@ namespace SwiftSands
 		bool actionLeft;
 		bool targeting;
         bool[,] validTiles;
+        bool[,] targetingRange;
         List<Enemy> enemyList;
 
 		//GUI
@@ -65,13 +66,13 @@ namespace SwiftSands
 
 			rng = new Random();
             movesLeft = combatants[currentTurn].MovementRange;
-			combatTime = 0;
+            combatTime = 0;
+
 		}
 
         public override void OnEnter()
         {
-			
-			if ((!CombatentsInclude<Player>() || !CombatentsInclude<Enemy>()))
+            if ((!CombatentsInclude<Player>() || !CombatentsInclude<Enemy>()))
             {
                 StateManager.CloseState();
             }
@@ -119,8 +120,14 @@ namespace SwiftSands
 			Rectangle cWorldPosition = combatants[currentTurn].Position;
 			Rectangle cLocalPosition = base.Map.ConvertPosition(combatants[currentTurn].Position,StateCamera);
 			Vector2 pVector = base.Map.ConvertPosition(Vector2.Transform(new Vector2(cWorldPosition.X,cWorldPosition.Y),StateCamera.Transform),StateCamera);
-			validTiles = new bool[Map.ColliderLayer.GetLength(0), Map.ColliderLayer.GetLength(1)];
-			validTiles.Initialize();
+
+
+            validTiles = new bool[Map.ColliderLayer.GetLength(0), Map.ColliderLayer.GetLength(1)];
+            targetingRange = new bool[Map.ColliderLayer.GetLength(0), Map.ColliderLayer.GetLength(1)];
+            
+            validTiles.Initialize();
+            targetingRange.Initialize();
+
 			if(combatants[currentTurn] is Player)
 			{
 				#region player
@@ -133,7 +140,7 @@ namespace SwiftSands
 					//cPlayer.Selected = false;
                     Map.RemoveTints();
 					attack.Clickable = true;
-					ValidTargets(ref validTiles, cLocalPosition.X,cLocalPosition.Y, cPlayer.EquipItem.Range);
+					ValidTargets(ref validTiles, ref targetingRange, cLocalPosition.X,cLocalPosition.Y, cPlayer.EquipItem.Range);
                     for (int j = 0; j < validTiles.GetLength(0); j++)
                     {
                         for (int k = 0; k < validTiles.GetLength(0); k++)
@@ -221,13 +228,14 @@ namespace SwiftSands
                         {
 
                             Vector2 tintVector = /*Vector2.Transform(*/new Vector2(j, k)/*,StateCamera.Transform)*/;
+
                             if (validTiles[j, k])
                             {
                                 base.Map.TintTile(tintVector, Color.LightGreen);
                             }
-                            else
+                            else if (targetingRange[j, k])
                             {
-                                base.Map.TintTile(tintVector, Color.White);
+                                base.Map.TintTile(tintVector, Color.LightBlue);
                             }
                         }
                     }
@@ -250,7 +258,7 @@ namespace SwiftSands
 					{
 						if(actionLeft)
 						{
-							ValidTargets(ref validTiles,cLocalPosition.X,cLocalPosition.Y,2);
+                            ValidTargets(ref validTiles, ref targetingRange, cLocalPosition.X, cLocalPosition.Y, 2);
 
                             Item enemyItem = cEnemy.EquipItem;
 
@@ -502,12 +510,13 @@ namespace SwiftSands
 		/// <param name="x">Current x.</param>
 		/// <param name="y">Current y.</param>
 		/// <param name="range">The range from this point the player can shoot.</param>
-		public void ValidTargets(ref bool[,] validTiles,int x,int y,int range)
+		public void ValidTargets(ref bool[,] validTiles, ref bool[,] targetingRange,int x,int y,int range)
 		{
 			//Console.WriteLine("Coordinate: (" + x + "," + y + ")");
 			if(base.Map.InBounds(x,y))
 			{
-				if(TileOccupent(x,y) != null)
+                targetingRange[x, y] = true;
+                if(TileOccupent(x,y) != null)
 				{
 					validTiles[x,y] = true;
 				}
@@ -518,39 +527,39 @@ namespace SwiftSands
 					//top
 					if(base.Map.InBounds(x - 1,y - 1)/* && !validTiles[x - 1,y - 1]*/)
 					{
-						//ValidTargets(ref validTiles,x - 1,y - 1,range - 1);
+                        //ValidTargets(ref validTiles, ref targetingRange,x - 1,y - 1,range - 1);
 					}
 					if(base.Map.InBounds(x,y - 1)/* && !validTiles[x,y - 1]*/)
 					{
-						ValidTargets(ref validTiles,x,y - 1,range - 1);
+                        ValidTargets(ref validTiles, ref targetingRange, x, y - 1, range - 1);
 					}
 					if(base.Map.InBounds(x + 1,y - 1)/* && !validTiles[x + 1,y - 1]*/)
 					{
-						//ValidTargets(ref validTiles,x + 1,y - 1,range - 1);
+                        //ValidTargets(ref validTiles, ref targetingRange,x + 1,y - 1,range - 1);
 					}
 
 					//middle
 					if(base.Map.InBounds(x - 1,y)/* && !validTiles[x - 1,y]*/)
 					{
-						ValidTargets(ref validTiles,x - 1,y,range - 1);
+                        ValidTargets(ref validTiles, ref targetingRange, x - 1, y, range - 1);
 					}
 					if(base.Map.InBounds(x + 1,y)/* && !validTiles[x + 1,y]*/)
 					{
-						ValidTargets(ref validTiles,x + 1,y,range - 1);
+                        ValidTargets(ref validTiles, ref targetingRange, x + 1, y, range - 1);
 					}
 
 					//bottom
 					if(base.Map.InBounds(x - 1,y + 1)/* && !validTiles[x - 1,y + 1]*/)
 					{
-						ValidTargets(ref validTiles,x - 1,y + 1,range - 1);
+                        //ValidTargets(ref validTiles, ref targetingRange, x - 1, y + 1, range - 1);
 					}
 					if(base.Map.InBounds(x,y + 1)/* && !validTiles[x,y + 1]*/)
 					{
-						ValidTargets(ref validTiles,x,y + 1,range - 1);
+                        ValidTargets(ref validTiles, ref targetingRange, x, y + 1, range - 1);
 					}
 					if(base.Map.InBounds(x + 1,y + 1)/* && !validTiles[x + 1,y + 1]*/)
 					{
-						//ValidTargets(ref validTiles,x + 1,y + 1,range - 1);
+                        //ValidTargets(ref validTiles, ref targetingRange,x + 1,y + 1,range - 1);
 					}
 
 				}
