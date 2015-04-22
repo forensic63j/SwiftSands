@@ -33,7 +33,7 @@ namespace SwiftSands
             Item item = null;
             if (StateManager.KState.IsKeyDown(Keys.Escape) && StateManager.KPrevious.IsKeyUp(Keys.Escape))
             {
-                StateManager.OpenState(StateGame.WorldMap);
+                StateManager.CloseState();
             }
             if (StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
             {
@@ -86,7 +86,8 @@ namespace SwiftSands
             {
                 Button button = new Button(Inventory.Items[i].Name, font, texture, new Rectangle(0, 30 * (i + 1), 800, 30), true);
                 spriteBatch.Draw(texture, button.Position, Color.White);
-                spriteBatch.DrawString(font, button.Name, new Vector2(350.0f, (float)button.Position.Y), Color.Black);
+                spriteBatch.DrawString(font, button.Name + ", Damage: " + Inventory.Items[i].Damage + ", Range: " + Inventory.Items[i].Range, 
+                    new Vector2(200.0f, (float)button.Position.Y), Color.Black);
                 buttons.Add(button);
             }
             if (members.Count > 0)
