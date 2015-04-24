@@ -146,10 +146,10 @@ namespace SwiftSands
 				spriteBatch.DrawString(font,nameString,new Vector2(buttonWidth+30,42),Color.Black);
 				String healthString = "Health: " + cPlayer.Health + "\\" + cPlayer.MaxHealth + "   Deaths: " + cPlayer.NumDeaths + "   Mana: " + cPlayer.Mana;
 				spriteBatch.DrawString(font,healthString,new Vector2(buttonWidth + 30,64),Color.Black);
-                String stats = "Item: " + cPlayer.EquipItem.Name;
+                String stats = "Item: " + cPlayer.EquipItem.Name + "    Item type: " + cPlayer.EquipItem.Type;
                 spriteBatch.DrawString(font, stats, new Vector2(buttonWidth + 30, 86), Color.Black);
 				stats = "Spd: " + cPlayer.Speed + "   Str: " + cPlayer.Strength + "   Acc: " + cPlayer.Accuracy + "   Move: " + cPlayer.MovementRange;
-				spriteBatch.DrawString(font,stats,new Vector2(buttonWidth + 30,86),Color.Black);
+				spriteBatch.DrawString(font,stats,new Vector2(buttonWidth + 30,108),Color.Black);
 				
 				base.Draw(time,spriteBatch);
 			} else
