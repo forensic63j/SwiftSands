@@ -120,6 +120,19 @@ namespace SwiftSands
             return partyList.Remove(partymember);
         }
 
+        /// <summary>
+        /// Finds a player with entered name, returns null if no player has that name
+        /// </summary>
+        static public Player FindPlayer(String name)
+        {
+            for (int i = 0; i < PartyList.Count; i++)
+            {
+                if (PartyList[i].Name == name)
+                    return PartyList[i];
+            }
+            return null;
+        }
+
 		/// <summary>
 		/// Clears party.
 		/// </summary>

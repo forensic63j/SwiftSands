@@ -139,18 +139,35 @@ namespace SwiftSands
         /// <summary>
         /// Checks for the completion of tasks
         /// </summary>
-        /// <param name="manager">The list of tasks available</param>
-        /// <param name="enemy">The enemy defeated (null if task is not a hunt task)</param>
-        /// <param name="item">The item collected (null if task is not a collection task)</param>
-        /// <param name="character">The character talked to (null if task is not a conversation task)</param>
-        /// <param name="party">The current party</param>
-        public void CheckTasks(TaskType type, Sprite sprite)
+        public void UpdateTasks(Sprite sprite)
         {
-            if (TaskManager.Count > 0)
+            for (int i = 0; i < TaskManager.Count; i++)
             {
-                for (int i = 0; i < TaskManager.Count; i++)
+                Task task = TaskManager.Tasks[i];
+                TaskType type = task.Type;
+                if (type == TaskType.Hunt)
                 {
-                    TaskManager.Tasks[i].UpdateTasks(type, sprite);
+                    Enemy e = (Enemy)sprite;
+                    if (e.Name == task.Target && !e.Alive)
+                    {
+                        task.EndTask();
+                    }
+                }
+                else if (type == TaskType.CollectItem)
+                {
+                    Item item = (Item)sprite;
+                    if (item.Name == task.Target && item.Collected)
+                    {
+                        task.EndTask();
+                    }
+                }
+                else if (type == TaskType.Converse)
+                {
+                    Character c = (Character)sprite;
+                    if (c.Name == task.Target)
+                    {
+                        task.EndTask();
+                    }
                 }
             }
         }

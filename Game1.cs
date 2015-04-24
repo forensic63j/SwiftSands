@@ -29,6 +29,7 @@ namespace SwiftSands
 		PauseMenu pause;
         InventoryMenu inventoryMenu;
         PartyMenu partyMenu;
+        TaskMenu taskMenu;
 
 		/**/
 		Combat combat;/**/
@@ -114,6 +115,14 @@ namespace SwiftSands
 		{
 			get { return partyMenu; }
 		}
+
+        /// <summary>
+        /// Gets task menu
+        /// </summary>
+        internal TaskMenu TaskMenu
+        {
+            get { return taskMenu; }
+        }
 		
 		/// <summary>
 		/// Gets the character list.
@@ -209,6 +218,7 @@ namespace SwiftSands
 			
 			inventoryMenu = new InventoryMenu(font, buttonSprite, this, viewport);
 			partyMenu = new PartyMenu(font,buttonSprite,this,viewport);
+            taskMenu = new TaskMenu(font, buttonSprite, this, viewport);
 
 			/**/List<Enemy> enemies = new List<Enemy>();
 			enemies.Add(characterList["enemy"] as Enemy);
