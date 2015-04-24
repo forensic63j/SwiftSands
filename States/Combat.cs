@@ -117,11 +117,14 @@ namespace SwiftSands
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime time)
         {
+			if(StateManager.KState.IsKeyDown(Keys.P) && StateManager.KPrevious.IsKeyUp(Keys.P))
+			{
+				StateManager.OpenState(StateGame.PartyMenu);
+			}
             
-            Rectangle cWorldPosition = combatants[currentTurn].Position;
+			Rectangle cWorldPosition = combatants[currentTurn].Position;
 			Rectangle cLocalPosition = base.Map.ConvertPosition(combatants[currentTurn].Position,StateCamera);
 			Vector2 pVector = base.Map.ConvertPosition(Vector2.Transform(new Vector2(cWorldPosition.X,cWorldPosition.Y),StateCamera.Transform),StateCamera);
-
 
             validTiles = new bool[Map.ColliderLayer.GetLength(0), Map.ColliderLayer.GetLength(1)];
             targetingRange = new bool[Map.ColliderLayer.GetLength(0), Map.ColliderLayer.GetLength(1)];
@@ -205,7 +208,7 @@ namespace SwiftSands
                         //Console.Out.WriteLine("Moves Left: " + movesLeft + " Tile Validity: " + validTiles[(int)tileVector.X, (int)tileVector.Y] + " Tile Occupied: " + TileOccupent((int)tileVector.X, (int)tileVector.Y));
                         if (base.Map.InBounds((int)tileVector.X, (int)tileVector.Y))
                         {
-                            if (movesLeft > 0)
+                            if (movesLeft > 1)
                             {
                                 if (validTiles[(int)tileVector.X, (int)tileVector.Y])
                                 {
@@ -270,12 +273,12 @@ namespace SwiftSands
             {
                 #region enemy
                 combatTime += time.TotalGameTime.Milliseconds;
-				if(combatTime >= 10){
+				if(combatTime >= 1){
 					combatTime = 0;
 					attack.IsActive = false;
 					endTurn.IsActive = false;
 					Enemy cEnemy = combatants[currentTurn] as Enemy;
-					if(actionLeft && (movesLeft > 0))
+					if(actionLeft && (movesLeft > 1))
 					{
 						targeting = (rng.Next(0,3) == 0);
 					}
@@ -339,7 +342,7 @@ namespace SwiftSands
 					{
 						if(movesLeft > 0)
 						{
-                            combatants[currentTurn].ValidMovements(ref validTiles, combatants, cLocalPosition.X, cLocalPosition.Y, movesLeft);
+                            combatants[currentTurn].ValidMovements(ref validTiles, combatants, (int)pVector.X,(int)pVector.Y, movesLeft);
                                                         //Screw it implement A* later
                             
 							int x = 0;
@@ -391,6 +394,17 @@ namespace SwiftSands
 			
 			attack.Update();
 			endTurn.Update();
+			if(combatants[currentTurn] is Player)
+			{
+				if(StateManager.KState.IsKeyDown(Keys.Space) && StateManager.KPrevious.IsKeyUp(Keys.Space))
+				{
+					Attack();
+				}
+				if(StateManager.KState.IsKeyDown(Keys.Enter) && StateManager.KPrevious.IsKeyUp(Keys.Enter))
+				{
+					EndTurn();
+				}
+			}
 
 			int i = 0;
 			bool casualty = false;
