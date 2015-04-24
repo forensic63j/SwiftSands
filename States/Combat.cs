@@ -117,11 +117,6 @@ namespace SwiftSands
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime time)
         {
-			if(StateManager.KState.IsKeyDown(Keys.P) && StateManager.KPrevious.IsKeyUp(Keys.P))
-			{
-				StateManager.OpenState(StateGame.PartyMenu);
-			}
-            
 			Rectangle cWorldPosition = combatants[currentTurn].Position;
 			Rectangle cLocalPosition = base.Map.ConvertPosition(combatants[currentTurn].Position,StateCamera);
 			Vector2 pVector = base.Map.ConvertPosition(Vector2.Transform(new Vector2(cWorldPosition.X,cWorldPosition.Y),StateCamera.Transform),StateCamera);

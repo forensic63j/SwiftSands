@@ -66,7 +66,9 @@ namespace SwiftSands
 			volume = new Button("Volume",font,sprite,new Rectangle(centering,20,buttonWidth,30),true);
 			resolution = new Button("Resolution",font,sprite,new Rectangle(centering,60,buttonWidth,30),true);
 			back = new Button("Back",font,sprite,new Rectangle(centering,100,buttonWidth,30),true);
-			
+
+			volume.Clickable = false;
+			resolution.Clickable = false;
 		}
 
 		#region methods
