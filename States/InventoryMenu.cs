@@ -69,7 +69,7 @@ namespace SwiftSands
                         {
                             String s = Inventory.EquippedPlayer(item);
                             if (s != "None")
-                                Party.FindPlayer(s).EquipItem = new Item(ItemType.Melee, 0, 5, 1, "Fists", true, null, new Rectangle(), false, false, "Fist");
+                                Party.FindPlayer(s).EquipItem = Party.FindPlayer(s).DefaultItem;
                             Party.PartyList[i].EquipItem = item;
                             members.Clear();
                             break;
@@ -101,10 +101,16 @@ namespace SwiftSands
             spriteBatch.DrawString(font, "Inventory:", new Vector2(350, 0), Color.Brown);
             for (int i = 0; i < Inventory.Items.Count; i++)
             {
-                String s = Inventory.EquippedPlayer(Inventory.Items[i]);
-                Button button = new Button(Inventory.Items[i].Name, font, texture, new Rectangle(0, 30 * (i + 1), 800, 30), true);
+                Item temp = Inventory.Items[i];
+                String s = Inventory.EquippedPlayer(temp);
+                Button button = new Button(temp.Name, font, texture, new Rectangle(0, 30 * (i + 1), 800, 30), true);
                 spriteBatch.Draw(texture, button.Position, Color.White);
-                spriteBatch.DrawString(font, button.Name + ", Damage: " + Inventory.Items[i].Damage + ", Range: " + Inventory.Items[i].Range + ", Equipped: " + s, 
+                String damOrHeal = "";
+                if (temp.Type == ItemType.HealingSpell)
+                    damOrHeal = "Heal: " + temp.Healing;
+                else if (temp.Type != ItemType.Evidence)
+                    damOrHeal = "Damage: " + temp.Damage;
+                spriteBatch.DrawString(font, button.Name + " " + damOrHeal + ", Range: " + temp.Range + ", Equipped: " + s, 
                     new Vector2(200.0f, (float)button.Position.Y), Color.Black);
                 buttons.Add(button);
             }

@@ -150,6 +150,7 @@ namespace SwiftSands
             // TODO: Add your drawing code here  
             map.Draw(time, spriteBatch);
             Party.DrawMainCharacterOnMap(spriteBatch);
+            StateManager.CurrentState.StateGame.ItemList["Ice Spell"].Draw(spriteBatch); //Testing
             base.Draw(time, spriteBatch);
         }
 

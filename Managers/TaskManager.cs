@@ -44,6 +44,13 @@ namespace SwiftSands
         {
             tasks.Remove(task);
         }
+        static public Task FindTask(String name)
+        {
+            for (int i = 0; i < tasks.Count; i++)
+                if (tasks[i].Description == name)
+                    return tasks[i];
+            return null;
+        }
         static public void Clear()
         {
             tasks.Clear();

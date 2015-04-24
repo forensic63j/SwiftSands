@@ -25,7 +25,6 @@ namespace SwiftSands
 		private int damage;
         private int range;
 		private String description;
-		private ItemType itemType;
         private bool collected; //Whether or not the item has been collected
 
 		public Item(ItemType itemType, int healing, int damage, int range, String desc, bool collected, Texture2D texture, Rectangle pos, bool active, 
@@ -108,5 +107,11 @@ namespace SwiftSands
         }
         #endregion
 
+        public bool OnTile(Vector2 tilePosition)
+        {
+            if (this.TilePosition == tilePosition)
+                return true;
+            return false;
         }
+    }
 }

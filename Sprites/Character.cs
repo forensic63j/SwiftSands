@@ -12,6 +12,8 @@ namespace SwiftSands
 	class Character:Sprite
     {
         #region Fields
+        protected Item _defaultItem = new Item(ItemType.Melee, 0, 5, 1, "Fists", true, null, new Rectangle(), false, false, "Fist");
+
         private int maxHealth = 0;
 		private int health = 0;
         private int mana = 0;
@@ -44,7 +46,7 @@ namespace SwiftSands
             CanJoin = canJoin;
             this.active = active;
             alive = true;
-            equipItem = null;
+            equipItem = _defaultItem;
         }
 
         public Character(int max, int health, int mana, int speed, int strength, int accuracy, int moverange, int level, bool canJoin,
@@ -263,6 +265,10 @@ namespace SwiftSands
                 conversation = value;
             }
         }
+        public Item DefaultItem
+        {
+            get { return _defaultItem; }
+        }
         #endregion
 
         #region Methods
@@ -410,7 +416,14 @@ namespace SwiftSands
             return null;
         }
 
-		public int Move(Vector2 newTile)
+        public bool OnTile(Vector2 tile)
+        {
+            if (this.TilePosition == tile)
+                return true;
+            return false;
+        }
+
+		public virtual int Move(Vector2 newTile)
 		{
             Map currentmap = new Map(0,0,0,0,"error");
             int intDistance = 0;

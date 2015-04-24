@@ -16,6 +16,7 @@ namespace SwiftSands
         private SpriteFont font;
         private Texture2D texture;
         private List<Button> tasks;
+        private Task selectedTask;
 
         public TaskMenu(SpriteFont font, Texture2D texture, Game1 game, Viewport port)
             : base(game, port)
@@ -23,6 +24,7 @@ namespace SwiftSands
             this.font = font;
             this.texture = texture;
             tasks = new List<Button>();
+            selectedTask = null;
         }
 
         public override void Update(GameTime time)
@@ -44,6 +46,20 @@ namespace SwiftSands
                 StateManager.OpenState(StateGame.InventoryMenu);
             }
 
+            if (StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
+            {
+                Point p = StateManager.MState.Position;
+                for (int i = 0; i < tasks.Count; i++)
+                {
+                    if (tasks[i].Position.Contains(p))
+                    {
+                        selectedTask = TaskManager.FindTask(tasks[i].Name);
+                        break;
+                    }
+                    selectedTask = null;
+                }
+            }
+
             base.Update(time);
         }
 
@@ -53,9 +69,15 @@ namespace SwiftSands
             for (int i = 0; i < TaskManager.Count; i++)
             {
                 Task t = TaskManager.Tasks[i];
-                Button button = new Button(t.Description, font, texture, new Rectangle(0, 60 * (i + 1), 800, 60), true);
-                spriteBatch.Draw(texture, button.Position, Color.White);
-                spriteBatch.DrawString(font, t.Description + "\nType: " + t.Type + ", Target: " + t.Target + ", Exp Reward: " + t.ExpReward,
+                Button button = new Button(t.Description, font, texture, new Rectangle(0, 75 * (i + 1) - 30, 800, 75), true);
+                Color color = Color.White;
+                if (t.Completed)
+                    color = Color.LightGreen;
+                if (selectedTask != null && t == selectedTask)
+                    color = Color.Bisque;
+                spriteBatch.Draw(texture, button.Position, color);
+                spriteBatch.DrawString(font, t.Description + ", Type: " + t.Type + "\nTarget: " + t.Target + ", Exp Reward: "
+                    + t.ExpReward + "\nCompleted: " + t.Completed,
                     new Vector2(200.0f, (float)button.Position.Y), Color.Black);
                 tasks.Add(button);
             }

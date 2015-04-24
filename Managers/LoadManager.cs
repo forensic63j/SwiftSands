@@ -41,6 +41,18 @@ namespace SwiftSands
             return tempsprite;
         }
 
+        //Testing
+        static public Texture2D LoadSprite(String contentFilePath, String spritename)
+        {
+            Texture2D tempsprite;
+            using (Stream imgStream = File.OpenRead("Content\\" + contentFilePath + spritename))
+            {
+                tempsprite = Texture2D.FromStream(game.GraphicsDevice, imgStream);
+                return tempsprite;
+            }
+            return tempsprite;
+        }
+
         /// <summary>
         /// Loads content.
         /// </summary>
@@ -105,6 +117,7 @@ namespace SwiftSands
 						//Item creation
 						Item tempItem = new Item(type,healing,damage, range, description,collected,sprite,position,active,onScreen,name);
 						itemList.Add(name,tempItem);
+                        Inventory.AddItem(tempItem);
 					}
 				}
 				#endregion

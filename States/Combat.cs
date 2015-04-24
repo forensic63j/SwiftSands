@@ -285,6 +285,7 @@ namespace SwiftSands
 
                             Item enemyItem = cEnemy.EquipItem;
 
+                            
                             bool targetsAllies = enemyItem.Type == ItemType.HealingSpell;
                             if(NoValidTargets(validTiles,targetsAllies)){
                                 actionLeft = false;

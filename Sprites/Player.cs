@@ -171,35 +171,34 @@ namespace SwiftSands
                 }
             }
         }
-        public bool Interact(Dictionary<String, Character> characters, Dictionary<String, Item> items)
+        public override int Move(Vector2 newTile)
+        {
+            Interact();
+            return base.Move(newTile);
+        }
+        public bool Interact()
         {
             Vector2 currentPos = TilePosition;
+            Dictionary<String, Character> characters = StateManager.CurrentState.StateGame.CharacterList;
+            Dictionary<String, Item> items = StateManager.CurrentState.StateGame.ItemList;
             foreach(KeyValuePair<String, Character> character in characters)
             {
                 Character ch = character.Value;
-                if (ch.IsActive)
+                if (ch.IsActive && ch.TilePosition == currentPos)
                 {
-                    Vector2 charPos = ch.TilePosition;
-                    double distance = Math.Sqrt(Math.Pow((currentPos.X - charPos.X), 2) + Math.Pow((currentPos.Y - charPos.Y), 2));
-                    if (distance == 1)
-                    {
-                        Converse(ch);
-                        return true;
-                    }
+                    Converse(ch);
+                    UpdateTasks(ch);
+                    return true;
                 }
             }
             foreach (KeyValuePair<String, Item> its in items)
             {
                 Item it = its.Value;
-                if (it.IsActive)
+                if (it.IsActive && it.TilePosition == currentPos)
                 {
-                    Vector2 itemPos = new Vector2(it.Position.X + it.Position.Width / 2, it.Position.Y + it.Position.Height / 2);
-                    double distance = Math.Sqrt(Math.Pow((currentPos.X - itemPos.X), 2) + Math.Pow((currentPos.Y - itemPos.Y), 2));
-                    if (distance == 1)
-                    {
-                        PickUpItem(it);
-                        return true;
-                    }
+                    PickUpItem(it);
+                    UpdateTasks(it);
+                    return true;
                 }
             }
             return false;
@@ -207,6 +206,7 @@ namespace SwiftSands
         public void PickUpItem(Item item)
         {
             Inventory.Items.Add(item);
+            item.IsActive = false;
             TextBox textBox = new TextBox(StateManager.CurrentState.StateGame.ButtonSprite, new Rectangle(0, 384, 800, 96), true, ("You have picked up " + item.Name), StateManager.CurrentState.StateGame.Font);
             textBox.Draw(StateManager.CurrentState.StateGame.SpriteBatch);
         }
