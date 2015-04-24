@@ -115,6 +115,12 @@ namespace SwiftSands
                 StateManager.OpenState(StateGame.InventoryMenu);
             }
 
+            if (StateManager.KState.IsKeyDown(Keys.T) && StateManager.KPrevious.IsKeyUp(Keys.T))
+            {
+                StateManager.CloseState();
+                StateManager.OpenState(StateGame.TaskMenu);
+            }
+
 			for(int i = 0; i < 6; i++)
 			{
 				if(Party.PartyList.Count > i)

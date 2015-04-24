@@ -42,6 +42,12 @@ namespace SwiftSands
                 StateManager.OpenState(StateGame.PartyMenu);
             }
 
+            if (StateManager.KState.IsKeyDown(Keys.T) && StateManager.KPrevious.IsKeyUp(Keys.T))
+            {
+                StateManager.CloseState();
+                StateManager.OpenState(StateGame.TaskMenu);
+            }
+
             if (StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
             {
                 Point p = StateManager.MState.Position;
@@ -61,6 +67,9 @@ namespace SwiftSands
                     {
                         if (members[i].Position.Contains(p))
                         {
+                            String s = Inventory.EquippedPlayer(item);
+                            if (s != "None")
+                                Party.FindPlayer(s).EquipItem = new Item(ItemType.Melee, 0, 5, 1, "Fists", true, null, new Rectangle(), false, false, "Fist");
                             Party.PartyList[i].EquipItem = item;
                             members.Clear();
                             break;
@@ -75,12 +84,13 @@ namespace SwiftSands
                         {
                             for (int b = 0; b < Party.PartyList.Count; b++)
                             {
-                                Button button = new Button(Party.PartyList[b].Name, font, texture, new Rectangle(p.X, p.Y + (30 * b), 50, 30), true);
+                                Button button = new Button(Party.PartyList[b].Name, font, texture, new Rectangle(p.X, p.Y + (30 * b), 70, 30), true);
                                 members.Add(button);
                             }
                         }
                     }
                 }
+                
             }
 
             base.Update(time);
@@ -91,9 +101,10 @@ namespace SwiftSands
             spriteBatch.DrawString(font, "Inventory:", new Vector2(350, 0), Color.Brown);
             for (int i = 0; i < Inventory.Items.Count; i++)
             {
+                String s = Inventory.EquippedPlayer(Inventory.Items[i]);
                 Button button = new Button(Inventory.Items[i].Name, font, texture, new Rectangle(0, 30 * (i + 1), 800, 30), true);
                 spriteBatch.Draw(texture, button.Position, Color.White);
-                spriteBatch.DrawString(font, button.Name + ", Damage: " + Inventory.Items[i].Damage + ", Range: " + Inventory.Items[i].Range, 
+                spriteBatch.DrawString(font, button.Name + ", Damage: " + Inventory.Items[i].Damage + ", Range: " + Inventory.Items[i].Range + ", Equipped: " + s, 
                     new Vector2(200.0f, (float)button.Position.Y), Color.Black);
                 buttons.Add(button);
             }

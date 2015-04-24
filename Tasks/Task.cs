@@ -81,33 +81,6 @@ namespace SwiftSands
                 Party.PartyList[i].Exp += this.ExpReward;
             }
         }
-        public void UpdateTasks(TaskType type, Sprite sprite)
-        {
-            if (type == TaskType.Hunt)
-            {
-                Enemy e = (Enemy)sprite;
-                if (e.Name == target && !e.Alive)
-                {
-                    EndTask();
-                }
-            }
-            else if (type == TaskType.CollectItem)
-            {
-                Item i = (Item)sprite;
-                if (i.Name == target && i.Collected)
-                {
-                    EndTask();
-                }
-            }
-            else if (type == TaskType.Converse)
-            {
-                Character c = (Character)sprite;
-                if (c.Name == target)
-                {
-                    EndTask();
-                }
-            }
-        }
         #endregion
     }
 }

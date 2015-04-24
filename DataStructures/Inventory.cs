@@ -52,6 +52,30 @@ namespace SwiftSands
             }
             return null;
         }
+        static public bool IsEquipped(Item item, out String s)
+        {
+            for (int i = 0; i < Party.PartyList.Count; i++)
+            {
+                if (Party.PartyList[i].EquipItem == item)
+                {
+                    s = Party.PartyList[i].Name;
+                    return true;
+                }
+            }
+            s = "None";
+            return false;
+        }
+        static public String EquippedPlayer(Item item)
+        {
+            for (int i = 0; i < Party.PartyList.Count; i++)
+            {
+                if (Party.PartyList[i].EquipItem == item)
+                {
+                    return Party.PartyList[i].Name;
+                }
+            }
+            return "None";
+        }
         static public void Clear()
         {
             items.Clear();
