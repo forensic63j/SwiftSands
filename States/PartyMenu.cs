@@ -162,16 +162,16 @@ namespace SwiftSands
                 if (cPlayer.EquipItem != null)
                 {
                     stats = "Item: " + cPlayer.EquipItem.Name + "    Item type: " + cPlayer.EquipItem.Type;
-                    spriteBatch.DrawString(font, stats, new Vector2(buttonWidth + 30, 86), Color.Black);
-                }
-				stats = "Spd: " + cPlayer.Speed + "   Str: " + cPlayer.Strength + "   Acc: " + cPlayer.Accuracy + "   Move: " + cPlayer.MovementRange;
+				}
+                spriteBatch.DrawString(font, stats, new Vector2(buttonWidth + 30, 86), Color.Black);
+                stats = "Spd: " + cPlayer.Speed + "   Str: " + cPlayer.Strength + "   Acc: " + cPlayer.Accuracy + "   Move: " + cPlayer.MovementRange;
 				spriteBatch.DrawString(font,stats,new Vector2(buttonWidth + 30,108),Color.Black);
 				
-				base.Draw(time,spriteBatch);
 			} else
 			{
 				spriteBatch.DrawString(font,"<No player selected>",new Vector2(5,255),Color.Black);
 			}
+			base.Draw(time,spriteBatch);
 		}
 		#endregion
 

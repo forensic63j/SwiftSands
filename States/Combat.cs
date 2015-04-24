@@ -481,10 +481,26 @@ namespace SwiftSands
 		/// <param name="spriteBatch"></param>
         public override void DrawScreen(GameTime time, SpriteBatch spriteBatch)
         {
+			Viewport port = this.StateGame.GraphicsDevice.Viewport;
 
             String turnDetails = "Current turn: " + combatants[currentTurn].Name;
             spriteBatch.DrawString(font, turnDetails, new Vector2(5, 5), Color.Black);
 
+			spriteBatch.Draw(StateGame.ButtonSprite,new Rectangle(128,port.Height - 74,400,70),Color.White);
+			if(this.SelectedCharacter != null)
+			{
+				Character cSelected = this.SelectedCharacter;
+				String info = "Name: " + cSelected.Name + "   Health: " + cSelected.Health + "\\" + cSelected.MaxHealth + "   Mana: " + cSelected.Mana;
+				spriteBatch.DrawString(font,info,new Vector2(140,port.Height-70),Color.Black);
+				info = "Item: (none)    Item type: N/A";
+				if(cSelected.EquipItem != null)
+				{
+					info = "Item: " + cSelected.EquipItem.Name + "    Item type: " + cSelected.EquipItem.Type;
+				}
+				spriteBatch.DrawString(font,info,new Vector2(140,port.Height - 52),Color.Black);
+				info = "Spd: " + cSelected.Speed + "   Str: " + cSelected.Strength + "   Acc: " + cSelected.Accuracy + "   Move: " + cSelected.MovementRange;
+				spriteBatch.DrawString(font,info,new Vector2(140,port.Height - 32),Color.Black);
+			}
             
             if (combatants[currentTurn] is Player)
             {
