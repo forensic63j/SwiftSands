@@ -290,7 +290,7 @@ namespace SwiftSands
 		private void Load()
 		{
 			LoadManager.LoadSavefile("Save1.data",itemList,taskList);
-			StateManager.OpenState(combat);//Changed temporalily for testing purposeses.
+			//StateManager.OpenState(combat);//Changed temporalily for testing purposeses.
 		}
 
 		/// <summary>

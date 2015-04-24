@@ -35,6 +35,13 @@ namespace SwiftSands
             {
                 StateManager.CloseState();
             }
+
+            if (StateManager.KState.IsKeyDown(Keys.P) && StateManager.KPrevious.IsKeyUp(Keys.P))
+            {
+                StateManager.CloseState();
+                StateManager.OpenState(StateGame.PartyMenu);
+            }
+
             if (StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
             {
                 Point p = StateManager.MState.Position;

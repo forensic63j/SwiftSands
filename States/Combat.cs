@@ -117,7 +117,8 @@ namespace SwiftSands
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime time)
         {
-			Rectangle cWorldPosition = combatants[currentTurn].Position;
+            
+            Rectangle cWorldPosition = combatants[currentTurn].Position;
 			Rectangle cLocalPosition = base.Map.ConvertPosition(combatants[currentTurn].Position,StateCamera);
 			Vector2 pVector = base.Map.ConvertPosition(Vector2.Transform(new Vector2(cWorldPosition.X,cWorldPosition.Y),StateCamera.Transform),StateCamera);
 
@@ -245,7 +246,7 @@ namespace SwiftSands
             {
                 #region enemy
                 combatTime += time.TotalGameTime.Milliseconds;
-				if(combatTime >= 100){
+				if(combatTime >= 1/*00*/){
 					combatTime = 0;
 					attack.IsActive = false;
 					endTurn.IsActive = false;
