@@ -246,7 +246,7 @@ namespace SwiftSands
             {
                 #region enemy
                 combatTime += time.TotalGameTime.Milliseconds;
-				if(combatTime >= 1/*00*/){
+				if(combatTime >= 10){
 					combatTime = 0;
 					attack.IsActive = false;
 					endTurn.IsActive = false;
@@ -345,6 +345,23 @@ namespace SwiftSands
                 /*
                     movesLeft = false;
                     actionLeft = false; */
+                for (int j = 0; j < validTiles.GetLength(0); j++)
+                {
+                    for (int k = 0; k < validTiles.GetLength(0); k++)
+                    {
+
+                        Vector2 tintVector = /*Vector2.Transform(*/new Vector2(j, k)/*,StateCamera.Transform)*/;
+
+                        if (validTiles[j, k])
+                        {
+                            base.Map.TintTile(tintVector, Color.LightGreen);
+                        }
+                        else if (targetingRange[j, k])
+                        {
+                            base.Map.TintTile(tintVector, Color.LightBlue);
+                        }
+                    }
+                }
                 #endregion
             }
 			
@@ -397,9 +414,6 @@ namespace SwiftSands
         {
 			base.DrawWorld(time, spriteBatch);
 
-            String turnDetails = "Current turn: " + combatants[currentTurn].Name;
-            spriteBatch.DrawString(font, turnDetails, new Vector2(5, 5), Color.Black);
-
 			String cName;
 			String cHealth;
 			foreach(Character c in combatants) 
@@ -434,6 +448,11 @@ namespace SwiftSands
 		/// <param name="spriteBatch"></param>
         public override void DrawScreen(GameTime time, SpriteBatch spriteBatch)
         {
+
+            String turnDetails = "Current turn: " + combatants[currentTurn].Name;
+            spriteBatch.DrawString(font, turnDetails, new Vector2(5, 5), Color.Black);
+
+            
             if (combatants[currentTurn] is Player)
             {
                 attack.Draw(spriteBatch);
