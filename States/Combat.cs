@@ -290,7 +290,7 @@ namespace SwiftSands
                             bool targetsAllies = enemyItem.Type == ItemType.HealingSpell;
                             if(NoValidTargets(validTiles,targetsAllies)){
                                 actionLeft = false;
-							    targeting = false;
+                                StopAttack();
                             }else{
                                
 							int x = 0;
@@ -310,7 +310,7 @@ namespace SwiftSands
 									cEnemy.Cast(enemyItem,target);
 								}
                                 actionLeft = false;
-							    targeting = false;
+                                StopAttack();
 							} 
                             else
 							{
@@ -324,14 +324,14 @@ namespace SwiftSands
 										cEnemy.Attack(enemyItem,target);
 									}
                                     actionLeft = false;
-							        targeting = false;
+                                    StopAttack();
 								}
 							}
                             }
 						} 
                         else
 						{
-							targeting = false;
+                            StopAttack();
 						}
 						
 					} 
