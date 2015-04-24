@@ -1,5 +1,1 @@
-player,false,100,100,100,2,1,100,9,7,3,character-sprite.png,pistol,0,0,23,28,true;
-enemy,false,100,100,100,2,1,100,7,7,3,character-sprite.png,pistol,36,36,23,28,true,10;
-John,False,100,100,100,15,1,75,25,25,5,character-sprite.png,pistol,0,0,23,28,true;
-Clayton,False,100,100,100,15,1,75,25,25,5,character-sprite.png,pistol,0,0,23,28,true;
-Brian,False,100,100,100,3,1,75,25,25,5,character-sprite.png,pistol,0,0,23,28,true;
+player,false,100,100,100,2,1,100,9,7,3,character-sprite.png,pistol,0,0,23,28,true;enemy,false,100,100,100,2,1,100,7,7,3,character-sprite.png,pistol,36,36,23,28,true,10;John,False,100,100,100,15,1,75,25,25,5,character-sprite.png,pistol,0,0,23,28,true;Clayton,False,100,100,100,15,1,75,25,25,5,character-sprite.png,pistol,0,0,23,28,true;Brian,False,100,100,100,3,1,75,25,25,5,character-sprite.png,pistol,0,0,23,28,true;
