@@ -141,13 +141,14 @@ namespace SwiftSands
 					//cPlayer.Selected = false;
                     Map.RemoveTints();
 					attack.Clickable = true;
-					ValidTargets(ref validTiles, ref targetingRange, cLocalPosition.X,cLocalPosition.Y, cPlayer.EquipItem.Range);
+                    ValidTargets(ref validTiles, ref targetingRange, (int)pVector.X, (int)pVector.Y, cPlayer.EquipItem.Range);
+                    /* OBSOLETE (i think)
                     for (int j = 0; j < validTiles.GetLength(0); j++)
                     {
                         for (int k = 0; k < validTiles.GetLength(0); k++)
                         {
 
-                            Vector2 tintVector = /*Vector2.Transform(*/new Vector2(j, k)/*,StateCamera.Transform)*/;
+                            Vector2 tintVector = /*Vector2.Transform(new Vector2(j, k)/*,StateCamera.Transform);
                             if (validTiles[j, k])
                             {
                                 base.Map.TintTile(tintVector, Color.LightGreen);
@@ -158,6 +159,7 @@ namespace SwiftSands
                             }
                         }
                     }
+                    */
 					if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
 					{
                         Vector2 tileVector = StateManager.TileMousePosition;
@@ -223,20 +225,42 @@ namespace SwiftSands
 				#endregion
                 if (combatants[currentTurn] == SelectedCharacter)
                 {
-                    for (int j = 0; j < validTiles.GetLength(0); j++)
+                    if (targeting)
                     {
-                        for (int k = 0; k < validTiles.GetLength(0); k++)
+                        for (int j = 0; j < validTiles.GetLength(0); j++)
                         {
-
-                            Vector2 tintVector = /*Vector2.Transform(*/new Vector2(j, k)/*,StateCamera.Transform)*/;
-
-                            if (validTiles[j, k])
+                            for (int k = 0; k < validTiles.GetLength(0); k++)
                             {
-                                base.Map.TintTile(tintVector, Color.LightGreen);
+
+                                Vector2 tintVector = /*Vector2.Transform(*/new Vector2(j, k)/*,StateCamera.Transform)*/;
+                                if (targetingRange[j, k])
+                                {
+                                    base.Map.TintTile(tintVector, Color.LightBlue);
+                                }
+                                else
+                                {
+                                    base.Map.TintTile(tintVector, Color.White);
+                                }
                             }
-                            else if (targetingRange[j, k])
+                        }
+                    }
+                    else
+                    {
+                        for (int j = 0; j < validTiles.GetLength(0); j++)
+                        {
+                            for (int k = 0; k < validTiles.GetLength(0); k++)
                             {
-                                base.Map.TintTile(tintVector, Color.LightBlue);
+
+                                Vector2 tintVector = /*Vector2.Transform(*/new Vector2(j, k)/*,StateCamera.Transform)*/;
+
+                                if (validTiles[j, k])
+                                {
+                                    base.Map.TintTile(tintVector, Color.LightGreen);
+                                }
+                                else
+                                {
+                                    base.Map.TintTile(tintVector, Color.White);
+                                }
                             }
                         }
                     }
@@ -259,7 +283,7 @@ namespace SwiftSands
 					{
 						if(actionLeft)
 						{
-                            ValidTargets(ref validTiles, ref targetingRange, cLocalPosition.X, cLocalPosition.Y, 2);
+                            ValidTargets(ref validTiles, ref targetingRange, (int)pVector.X,(int)pVector.Y, 2);
 
                             Item enemyItem = cEnemy.EquipItem;
 
@@ -536,7 +560,7 @@ namespace SwiftSands
 			if(base.Map.InBounds(x,y))
 			{
                 targetingRange[x, y] = true;
-                if(TileOccupent(x,y) != null)
+                if(TileOccupent(x,y) != null) //If tile not occupied by character
 				{
 					validTiles[x,y] = true;
 				}
