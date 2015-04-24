@@ -37,6 +37,7 @@ namespace SwiftSands
 		Random rng;
 
 		int combatTime;
+		TextBox infoPanel;
 		#endregion
 
         public List<Enemy> EnemyList{
@@ -68,6 +69,7 @@ namespace SwiftSands
             movesLeft = combatants[currentTurn].MovementRange;
             combatTime = 0;
 
+			infoPanel =  new TextBox(StateGame.ButtonSprite,new Rectangle(128,port.Height - 74,600,70),true,"(no information)",font);
 		}
 
         public override void OnEnter()
@@ -436,6 +438,20 @@ namespace SwiftSands
                 return;
 			}
 
+			if(this.SelectedCharacter != null)
+			{
+				Character cSelected = this.SelectedCharacter;
+				String info = cSelected.Name + ": Health-" + cSelected.Health + "\\" + cSelected.MaxHealth + " Mana-" + cSelected.Mana;
+				if(cSelected.EquipItem != null)
+				{
+					info += " Item-" + cSelected.EquipItem.Name;
+				}
+				infoPanel.Name = info;
+			} else
+			{
+				infoPanel.Name = "(no information)";
+			}
+
 			base.Update(time);
         }
 
@@ -486,12 +502,7 @@ namespace SwiftSands
 
             String turnDetails = "Current turn: " + combatants[currentTurn].Name;
             spriteBatch.DrawString(font, turnDetails, new Vector2(5, 5), Color.Black);
-			if(this.SelectedCharacter != null)
-			{
-				Character cSelected = this.SelectedCharacter;
-				String info = "Name: " + cSelected.Name + "   Health: " + cSelected.Health + "\\" + cSelected.MaxHealth + "   Mana: " + cSelected.Mana;
-				TextBox textbox = new TextBox(StateGame.ButtonSprite,new Rectangle(128,port.Height - 74,400,70),true,info,font);
-				textbox.Draw(spriteBatch);
+			infoPanel.Draw(spriteBatch);
 				/*spriteBatch.Draw(StateGame.ButtonSprite,new Rectangle(128,port.Height - 74,400,70),Color.White);
 				spriteBatch.DrawString(font,info,new Vector2(140,port.Height-70),Color.Black);
 				info = "Item: (none)    Item type: N/A";
@@ -502,7 +513,6 @@ namespace SwiftSands
 				spriteBatch.DrawString(font,info,new Vector2(140,port.Height - 52),Color.Black);
 				info = "Spd: " + cSelected.Speed + "   Str: " + cSelected.Strength + "   Acc: " + cSelected.Accuracy + "   Move: " + cSelected.MovementRange;
 				spriteBatch.DrawString(font,info,new Vector2(140,port.Height - 32),Color.Black);*/
-			}
  
 
             if (combatants[currentTurn] is Player)
