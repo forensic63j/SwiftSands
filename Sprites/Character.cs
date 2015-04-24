@@ -12,7 +12,7 @@ namespace SwiftSands
 	class Character:Sprite
     {
         #region Fields
-        protected Item _defaultItem = new Item(ItemType.Melee, 0, 5, 1, "Fists", true, null, new Rectangle(), false, false, "Fist");
+        static protected Item _defaultItem = new Item(ItemType.Melee, 0, 5, 1, "Fists", true, null, new Rectangle(), false, false, "Fist");
 
         private int maxHealth = 0;
 		private int health = 0;
@@ -265,7 +265,7 @@ namespace SwiftSands
                 conversation = value;
             }
         }
-        public Item DefaultItem
+        static public Item DefaultItem
         {
             get { return _defaultItem; }
         }
@@ -300,7 +300,7 @@ namespace SwiftSands
 				target.TakeDamage(spell.Damage);
 			}
 		}
-		public void TakeDamage(int damage)
+		public virtual void TakeDamage(int damage)
 		{
 			this.Health -= damage;
 			if(this.Health <= 0)

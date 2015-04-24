@@ -171,7 +171,7 @@ namespace SwiftSands
 							} else if(pItemType == ItemType.HealingSpell || pItemType == ItemType.AttackSpell)
 							{
                                 cPlayer.Cast(cPlayer.EquipItem, Character.TileOccupent(combatants, (int)tileVector.X, (int)tileVector.Y));
-                                Console.WriteLine(cPlayer.Name + " healed " + Character.TileOccupent(combatants, (int)tileVector.X, (int)tileVector.Y).Name);
+                                Console.WriteLine(cPlayer.Name + " cast a spell on " + Character.TileOccupent(combatants, (int)tileVector.X, (int)tileVector.Y).Name);
 							}
 							actionLeft = false;
                             StopAttack();

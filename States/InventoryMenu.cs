@@ -69,7 +69,7 @@ namespace SwiftSands
                         {
                             String s = Inventory.EquippedPlayer(item);
                             if (s != "None")
-                                Party.FindPlayer(s).EquipItem = Party.FindPlayer(s).DefaultItem;
+                                Party.FindPlayer(s).EquipItem = Character.DefaultItem;
                             Party.PartyList[i].EquipItem = item;
                             members.Clear();
                             break;

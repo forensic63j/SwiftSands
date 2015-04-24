@@ -21,7 +21,7 @@ namespace SwiftSands
 		private int exp;
 		private int deathsAllowed;
 		private int expNeeded;
-		List<int> stats;
+		Dictionary<String, int> stats;
         #endregion
 
         public Player(int maxHealth, int health, int mana, int speed, int strength, int accuracy, int moverange, int level, bool canJoin, int deaths, Texture2D texture,
@@ -32,13 +32,13 @@ namespace SwiftSands
             exp = 0;
             deathsAllowed = deaths;
             expNeeded = (int)(10 * Math.Pow(2, level - 1));
-            stats = new List<int>();
-            stats.Add(Health);
-            stats.Add(Mana);
-            stats.Add(Speed);
-            stats.Add(Strength);
-            stats.Add(Accuracy);
-            stats.Add(MovementRange);
+            stats = new Dictionary<String, int>();
+            stats.Add("Health", Health);
+            stats.Add("Mana", Mana);
+            stats.Add("Speed", Speed);
+            stats.Add("Strength", Strength);
+            stats.Add("Accuracy", Accuracy);
+            stats.Add("Range", MovementRange);
         }
 
         public Player(int maxHealth, int health, int mana, int speed, int strength, int accuracy, int moverange, int level, bool canJoin, int deaths, Texture2D texture,
@@ -49,13 +49,13 @@ namespace SwiftSands
 			exp = 0;
 			deathsAllowed = deaths;
 			expNeeded = (int)(10 * Math.Pow(2, level - 1));
-			stats = new List<int>();
-			stats.Add(Health);
-			stats.Add(Mana);
-			stats.Add(Speed);
-			stats.Add(Strength);
-			stats.Add(Accuracy);
-            stats.Add(MovementRange);
+            stats = new Dictionary<String, int>();
+            stats.Add("Health", Health);
+            stats.Add("Mana", Mana);
+            stats.Add("Speed", Speed);
+            stats.Add("Strength", Strength);
+            stats.Add("Accuracy", Accuracy);
+            stats.Add("Range", MovementRange);
 		}
 
         #region Properties
@@ -130,11 +130,30 @@ namespace SwiftSands
 			Random rand = new Random();
 			this.Level++;
 			exp -= expNeeded;
-			for(int i = 0; i < 5; i++)
+            expNeeded = (int)(10 * Math.Pow(2, Level));
+            TextBox textBox = new TextBox(StateManager.CurrentState.StateGame.ButtonSprite, new Rectangle(0, 384, 800, 96),
+                true, (this.Name + " has leveled up!"), StateManager.CurrentState.StateGame.Font);
+            textBox.Draw(StateManager.CurrentState.StateGame.SpriteBatch);
+            String s = "No stats";
+            String s1 = "";
+            Dictionary<String, int> temp = new Dictionary<string, int>();
+			foreach(KeyValuePair<String, int> stat in stats)
 			{
-				if(rand.Next(0, 100) >= 75) //75% chance for each stat to boost
-					stats[i]++;
+                String key = stat.Key;
+                int v = stat.Value;
+                if (rand.Next(0, 100) >= 75) //75% chance for each stat to boost
+                {
+                    v++;
+                    s1 += key + ", ";
+                }
+                temp.Add(key, v);
 			}
+            stats = temp;
+            if (s1 != "")
+                s = s1;
+            TextBox textBox1 = new TextBox(StateManager.CurrentState.StateGame.ButtonSprite, new Rectangle(0, 384, 800, 96),
+                true, (s + "got boosted!"), StateManager.CurrentState.StateGame.Font);
+            textBox1.Draw(StateManager.CurrentState.StateGame.SpriteBatch);
         }
         /// <summary>
         /// Checks for the completion of tasks
@@ -176,21 +195,11 @@ namespace SwiftSands
             Interact();
             return base.Move(newTile);
         }
-        public bool Interact()
+        public void Interact()
         {
             Vector2 currentPos = TilePosition;
             Dictionary<String, Character> characters = StateManager.CurrentState.StateGame.CharacterList;
             Dictionary<String, Item> items = StateManager.CurrentState.StateGame.ItemList;
-            foreach(KeyValuePair<String, Character> character in characters)
-            {
-                Character ch = character.Value;
-                if (ch.IsActive && ch.TilePosition == currentPos)
-                {
-                    Converse(ch);
-                    UpdateTasks(ch);
-                    return true;
-                }
-            }
             foreach (KeyValuePair<String, Item> its in items)
             {
                 Item it = its.Value;
@@ -198,10 +207,17 @@ namespace SwiftSands
                 {
                     PickUpItem(it);
                     UpdateTasks(it);
-                    return true;
                 }
             }
-            return false;
+            foreach(KeyValuePair<String, Character> character in characters)
+            {
+                Character ch = character.Value;
+                if (ch != this && ch.IsActive && ch.TilePosition == currentPos)
+                {
+                    Converse(ch);
+                    UpdateTasks(ch);
+                }
+            }
         }
         public void PickUpItem(Item item)
         {

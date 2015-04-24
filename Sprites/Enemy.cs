@@ -34,6 +34,13 @@ namespace SwiftSands
                 expAwarded = value;
             }
         }
+
+        public override void TakeDamage(int damage)
+        {
+            base.TakeDamage(damage);
+            if (!Alive)
+                Defeat();
+        }
 		
 		public void Defeat()
 		{

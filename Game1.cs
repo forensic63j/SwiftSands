@@ -228,6 +228,8 @@ namespace SwiftSands
 
 			/**/List<Enemy> enemies = new List<Enemy>();
 			enemies.Add(characterList["enemy"] as Enemy);
+            enemies[0].EquipItem = Character.DefaultItem;
+            enemies[0].ExpAwarded = 15;
 			combat = new Combat(this,viewport,enemies);/**/
 
 			//Buttons:
