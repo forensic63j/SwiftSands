@@ -344,7 +344,7 @@ namespace SwiftSands
                 WorldMap localmap = StateManager.CurrentState as WorldMap;
                 currentmap = localmap.Map;
             }
-            if (currentmap.InBounds(x, y) && currentmap.ColliderLayer[x, y] <= 0)
+			if(currentmap.InBounds(x,y) && currentmap.ColliderLayer[x,y] <= 0 && (TileOccupent(characters,x,y) == null || TileOccupent(characters,x,y) == this))
             {
                 validTiles[x, y] = true;
                 //checks adjacent
