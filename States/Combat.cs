@@ -141,13 +141,14 @@ namespace SwiftSands
 					//cPlayer.Selected = false;
                     Map.RemoveTints();
 					attack.Clickable = true;
-					ValidTargets(ref validTiles, ref targetingRange, cLocalPosition.X,cLocalPosition.Y, cPlayer.EquipItem.Range);
+					ValidTargets(ref validTiles, ref targetingRange, (int)pVector.X,(int)pVector.Y, cPlayer.EquipItem.Range);
+                    /* OBSOLETE (i think)
                     for (int j = 0; j < validTiles.GetLength(0); j++)
                     {
                         for (int k = 0; k < validTiles.GetLength(0); k++)
                         {
 
-                            Vector2 tintVector = /*Vector2.Transform(*/new Vector2(j, k)/*,StateCamera.Transform)*/;
+                            Vector2 tintVector = /*Vector2.Transform(new Vector2(j, k)/*,StateCamera.Transform);
                             if (validTiles[j, k])
                             {
                                 base.Map.TintTile(tintVector, Color.LightGreen);
@@ -158,6 +159,7 @@ namespace SwiftSands
                             }
                         }
                     }
+                    */
 					if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
 					{
                         Vector2 tileVector = StateManager.TileMousePosition;
@@ -174,13 +176,13 @@ namespace SwiftSands
                                 Console.WriteLine(cPlayer.Name + " healed " + Character.TileOccupent(combatants, (int)tileVector.X, (int)tileVector.Y).Name);
 							}
 							actionLeft = false;
-							targeting = false;
+                            StopAttack();
                             Map.RemoveTints();            
 						}
 					}
                     if (StateManager.MState.RightButton == ButtonState.Pressed && StateManager.MPrevious.RightButton == ButtonState.Released)
                     {
-                        targeting = false;
+                        StopAttack();
                     }
 				} 
                 else //If players turn and not targeting 
@@ -223,20 +225,42 @@ namespace SwiftSands
 				#endregion
                 if (combatants[currentTurn] == SelectedCharacter)
                 {
-                    for (int j = 0; j < validTiles.GetLength(0); j++)
+                    if (targeting)
                     {
-                        for (int k = 0; k < validTiles.GetLength(0); k++)
+                        for (int j = 0; j < validTiles.GetLength(0); j++)
                         {
-
-                            Vector2 tintVector = /*Vector2.Transform(*/new Vector2(j, k)/*,StateCamera.Transform)*/;
-
-                            if (validTiles[j, k])
+                            for (int k = 0; k < validTiles.GetLength(0); k++)
                             {
-                                base.Map.TintTile(tintVector, Color.LightGreen);
+
+                                Vector2 tintVector = /*Vector2.Transform(*/new Vector2(j, k)/*,StateCamera.Transform)*/;
+                                if (targetingRange[j, k])
+                                {
+                                    base.Map.TintTile(tintVector, Color.LightBlue);
+                                }
+                                else
+                                {
+                                    base.Map.TintTile(tintVector, Color.White);
+                                }
                             }
-                            else if (targetingRange[j, k])
+                        }
+                    }
+                    else
+                    {
+                        for (int j = 0; j < validTiles.GetLength(0); j++)
+                        {
+                            for (int k = 0; k < validTiles.GetLength(0); k++)
                             {
-                                base.Map.TintTile(tintVector, Color.LightBlue);
+
+                                Vector2 tintVector = /*Vector2.Transform(*/new Vector2(j, k)/*,StateCamera.Transform)*/;
+
+                                if (validTiles[j, k])
+                                {
+                                    base.Map.TintTile(tintVector, Color.LightGreen);
+                                }
+                                else
+                                {
+                                    base.Map.TintTile(tintVector, Color.White);
+                                }
                             }
                         }
                     }
@@ -259,14 +283,14 @@ namespace SwiftSands
 					{
 						if(actionLeft)
 						{
-                            ValidTargets(ref validTiles, ref targetingRange, cLocalPosition.X, cLocalPosition.Y, 2);
+                            ValidTargets(ref validTiles, ref targetingRange, (int)pVector.X,(int)pVector.Y, 2);
 
                             Item enemyItem = cEnemy.EquipItem;
 
                             bool targetsAllies = enemyItem.Type == ItemType.HealingSpell;
                             if(NoValidTargets(validTiles,targetsAllies)){
                                 actionLeft = false;
-							    targeting = false;
+                                StopAttack();
                             }else{
                                
 							int x = 0;
@@ -286,7 +310,7 @@ namespace SwiftSands
 									cEnemy.Cast(enemyItem,target);
 								}
                                 actionLeft = false;
-							    targeting = false;
+                                StopAttack();
 							} 
                             else
 							{
@@ -300,14 +324,14 @@ namespace SwiftSands
 										cEnemy.Attack(enemyItem,target);
 									}
                                     actionLeft = false;
-							        targeting = false;
+                                    StopAttack();
 								}
 							}
                             }
 						} 
                         else
 						{
-							targeting = false;
+                            StopAttack();
 						}
 						
 					} 
@@ -486,6 +510,7 @@ namespace SwiftSands
 		/// </summary>
 		public void Attack()
 		{
+            attack.Name = "Attacking";
 			if(targeting)
 			{
 				targeting = false;
@@ -495,6 +520,13 @@ namespace SwiftSands
 				targeting = true;
 			}
 		}
+
+        public void StopAttack()
+        {
+            attack.Name = "Attack";
+            targeting = false;
+            Map.RemoveTints();
+        }
 
 		/// <summary>
 		/// Ends the current player's turn.

@@ -60,6 +60,7 @@
     <Compile Include="States\PartyMenu.cs" />
     <Compile Include="States\PauseMenu.cs" />
     <Compile Include="States\State.cs" />
+    <Compile Include="States\TaskMenu.cs" />
     <Compile Include="States\WorldMap.cs" />
     <Compile Include="Tasks\Task.cs" />
     <Compile Include="Managers\TaskManager.cs" />
