@@ -104,13 +104,9 @@ namespace SwiftSands
 			mState = Mouse.GetState();
 			StateManager.KState = Keyboard.GetState();
 
-			/*if(StateManager.KState.IsKeyDown(Keys.P) && StateManager.KPrevious.IsKeyUp(Keys.P))
-			{
-				StateManager.CloseState();
-			}*/
 			if(StateManager.KState.IsKeyDown(Keys.Escape) && StateManager.KPrevious.IsKeyUp(Keys.Escape))
 			{
-				StateManager.OpenState(StateGame.WorldMap);
+				StateManager.CloseState();
 			}
 
 			for(int i = 0; i < 6; i++)
@@ -150,7 +146,9 @@ namespace SwiftSands
 				spriteBatch.DrawString(font,nameString,new Vector2(buttonWidth+30,42),Color.Black);
 				String healthString = "Health: " + cPlayer.Health + "\\" + cPlayer.MaxHealth + "   Deaths: " + cPlayer.NumDeaths + "   Mana: " + cPlayer.Mana;
 				spriteBatch.DrawString(font,healthString,new Vector2(buttonWidth + 30,64),Color.Black);
-				String stats = "Spd: " + cPlayer.Speed + "   Str: " + cPlayer.Strength + "   Acc: " + cPlayer.Accuracy + "   Move: " + cPlayer.MovementRange;
+                String stats = "Item: " + cPlayer.EquipItem.Name;
+                spriteBatch.DrawString(font, stats, new Vector2(buttonWidth + 30, 86), Color.Black);
+				stats = "Spd: " + cPlayer.Speed + "   Str: " + cPlayer.Strength + "   Acc: " + cPlayer.Accuracy + "   Move: " + cPlayer.MovementRange;
 				spriteBatch.DrawString(font,stats,new Vector2(buttonWidth + 30,86),Color.Black);
 				
 				base.Draw(time,spriteBatch);
