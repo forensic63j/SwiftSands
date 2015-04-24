@@ -166,12 +166,12 @@ namespace SwiftSands
 							ItemType pItemType = cPlayer.EquipItem.Type;
 							if(pItemType == ItemType.Gun ||pItemType == ItemType.Melee)
 							{
-                                cPlayer.Attack(cPlayer.EquipItem, TileOccupent((int)tileVector.X, (int)tileVector.Y));
-                                Console.WriteLine(cPlayer.Name + " attacked " + TileOccupent((int)tileVector.X, (int)tileVector.Y).Name);
+                                cPlayer.Attack(cPlayer.EquipItem, Character.TileOccupent(combatants,(int)tileVector.X, (int)tileVector.Y));
+                                Console.WriteLine(cPlayer.Name + " attacked " + Character.TileOccupent(combatants, (int)tileVector.X, (int)tileVector.Y).Name);
 							} else if(pItemType == ItemType.HealingSpell || pItemType == ItemType.AttackSpell)
 							{
-                                cPlayer.Cast(cPlayer.EquipItem, TileOccupent((int)tileVector.X, (int)tileVector.Y));
-                                Console.WriteLine(cPlayer.Name + " healed " + TileOccupent((int)tileVector.X, (int)tileVector.Y).Name);
+                                cPlayer.Cast(cPlayer.EquipItem, Character.TileOccupent(combatants, (int)tileVector.X, (int)tileVector.Y));
+                                Console.WriteLine(cPlayer.Name + " healed " + Character.TileOccupent(combatants, (int)tileVector.X, (int)tileVector.Y).Name);
 							}
 							actionLeft = false;
 							targeting = false;
@@ -186,7 +186,7 @@ namespace SwiftSands
                 else //If players turn and not targeting 
 				{
 					attack.Clickable = actionLeft;
-					combatants[currentTurn].ValidMovements(ref validTiles,(int)pVector.X,(int)pVector.Y, movesLeft);
+					combatants[currentTurn].ValidMovements(ref validTiles, combatants,(int)pVector.X,(int)pVector.Y, movesLeft);
 					if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
 					{
 						Vector2 tileVector = StateManager.TileMousePosition;
@@ -207,7 +207,7 @@ namespace SwiftSands
                             {
                                 if (validTiles[(int)tileVector.X, (int)tileVector.Y])
                                 {
-                                    if (TileOccupent((int)tileVector.X, (int)tileVector.Y) == null)
+                                    if (Character.TileOccupent(combatants, (int)tileVector.X, (int)tileVector.Y) == null)
                                     {
                                         int distanceMoved = combatants[currentTurn].Move(StateManager.TileMousePosition);
                                         if (distanceMoved > 0)
@@ -246,7 +246,7 @@ namespace SwiftSands
             {
                 #region enemy
                 combatTime += time.TotalGameTime.Milliseconds;
-				if(combatTime >= 1/*00*/){
+				if(combatTime >= 10){
 					combatTime = 0;
 					attack.IsActive = false;
 					endTurn.IsActive = false;
@@ -277,7 +277,7 @@ namespace SwiftSands
 								y = rng.Next(0,validTiles.GetLength(1));
 							} while(!validTiles[x,y]);
 
-							Character target = TileOccupent(x,y);
+                            Character target = Character.TileOccupent(combatants, x, y);
 							
 							if(targetsAllies)
 							{
@@ -315,7 +315,7 @@ namespace SwiftSands
 					{
 						if(movesLeft > 0)
 						{
-                            combatants[currentTurn].ValidMovements(ref validTiles, cLocalPosition.X, cLocalPosition.Y, movesLeft);
+                            combatants[currentTurn].ValidMovements(ref validTiles, combatants, cLocalPosition.X, cLocalPosition.Y, movesLeft);
                                                         //Screw it implement A* later
                             
 							int x = 0;
@@ -345,6 +345,23 @@ namespace SwiftSands
                 /*
                     movesLeft = false;
                     actionLeft = false; */
+                for (int j = 0; j < validTiles.GetLength(0); j++)
+                {
+                    for (int k = 0; k < validTiles.GetLength(0); k++)
+                    {
+
+                        Vector2 tintVector = /*Vector2.Transform(*/new Vector2(j, k)/*,StateCamera.Transform)*/;
+
+                        if (validTiles[j, k])
+                        {
+                            base.Map.TintTile(tintVector, Color.LightGreen);
+                        }
+                        else if (targetingRange[j, k])
+                        {
+                            base.Map.TintTile(tintVector, Color.LightBlue);
+                        }
+                    }
+                }
                 #endregion
             }
 			
@@ -397,9 +414,6 @@ namespace SwiftSands
         {
 			base.DrawWorld(time, spriteBatch);
 
-            String turnDetails = "Current turn: " + combatants[currentTurn].Name;
-            spriteBatch.DrawString(font, turnDetails, new Vector2(5, 5), Color.Black);
-
 			String cName;
 			String cHealth;
 			foreach(Character c in combatants) 
@@ -434,6 +448,11 @@ namespace SwiftSands
 		/// <param name="spriteBatch"></param>
         public override void DrawScreen(GameTime time, SpriteBatch spriteBatch)
         {
+
+            String turnDetails = "Current turn: " + combatants[currentTurn].Name;
+            spriteBatch.DrawString(font, turnDetails, new Vector2(5, 5), Color.Black);
+
+            
             if (combatants[currentTurn] is Player)
             {
                 attack.Draw(spriteBatch);
@@ -517,7 +536,7 @@ namespace SwiftSands
 			if(base.Map.InBounds(x,y))
 			{
                 targetingRange[x, y] = true;
-                if(TileOccupent(x,y) != null)
+                if (Character.TileOccupent(combatants, x, y) != null)
 				{
 					validTiles[x,y] = true;
 				}
@@ -567,24 +586,7 @@ namespace SwiftSands
 			}
 		}
 
-		/// <summary>
-		/// Finds the character at a certian tile.
-		/// </summary>
-		/// <param name="x">The tiles x.</param>
-		/// <param name="y">The tiles y.</param>
-		/// <returns>The character on that tile.</returns>
-		public Character TileOccupent(int x,int y)
-		{
-			foreach(Character c in combatants)
-			{
-                Vector2 cPosition = c.TilePosition;
-				if(cPosition.X == x && cPosition.Y == y)
-				{
-					return c;
-				}
-			}
-			return null;
-		}
+		
 
 
         public bool NoValidTargets(bool[,] validTiles, bool targetsAllies)
@@ -593,7 +595,7 @@ namespace SwiftSands
             {
                 for (int j = 0; j < validTiles.GetLength(1); j++)
                 {
-                    if (validTiles[i, j] && ((TileOccupent(i, j) is Player && !targetsAllies) || (TileOccupent(i, j) is Enemy && targetsAllies)))
+                    if (validTiles[i, j] && ((Character.TileOccupent(combatants, i, j) is Player && !targetsAllies) || (Character.TileOccupent(combatants, i, j) is Enemy && targetsAllies)))
                     {
                         return false;
                     }
