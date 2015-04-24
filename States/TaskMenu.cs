@@ -52,9 +52,10 @@ namespace SwiftSands
             spriteBatch.DrawString(font, "Task Menu", new Vector2(350, 0), Color.Brown);
             for (int i = 0; i < TaskManager.Count; i++)
             {
-                Button button = new Button(TaskManager.Tasks[i].Description, font, texture, new Rectangle(0, 30 * (i + 1), 800, 30), true);
+                Task t = TaskManager.Tasks[i];
+                Button button = new Button(t.Description, font, texture, new Rectangle(0, 60 * (i + 1), 800, 60), true);
                 spriteBatch.Draw(texture, button.Position, Color.White);
-                spriteBatch.DrawString(font, button.Name + ", Damage: " + Inventory.Items[i].Damage + ", Range: " + Inventory.Items[i].Range,
+                spriteBatch.DrawString(font, t.Description + "\nType: " + t.Type + ", Target: " + t.Target + ", Exp Reward: " + t.ExpReward,
                     new Vector2(200.0f, (float)button.Position.Y), Color.Black);
                 tasks.Add(button);
             }
