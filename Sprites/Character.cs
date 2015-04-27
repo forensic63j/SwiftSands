@@ -12,7 +12,7 @@ namespace SwiftSands
 	class Character:Sprite
     {
         #region Fields
-        static protected Item _defaultItem = new Item(ItemType.Melee, 0, 5, 1, "Fists", true, null, new Rectangle(), false, false, "Fist");
+        static protected Item _defaultItem = new Item(ItemType.Melee, 0, 5, 2, "Fists", true, null, new Rectangle(), false, false, "Fist");
 
         private int maxHealth = 0;
 		private int health = 0;
@@ -236,7 +236,14 @@ namespace SwiftSands
         {
             get
             {
-                return equipItem;
+                if (equipItem != null)
+                {
+                    return equipItem;
+                }
+                else
+                {
+                    return _defaultItem;
+                }
             }
             set
             {

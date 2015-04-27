@@ -162,9 +162,16 @@ namespace SwiftSands
 						//item
 						String itemName = characterStats[12];
 						Item charItem = null;
-						if(itemList.ContainsKey(itemName))
+                        if (itemList.ContainsKey(itemName) || itemList.ContainsKey(itemName.ToLower()))
 						{
-							charItem = itemList[itemName];
+                            if (itemList[itemName] != null)
+                            {
+                                charItem = itemList[itemName];
+                            }
+                            else if (itemList[itemName.ToLower()] != null)
+                            {
+                                charItem = itemList[itemName.ToLower()];
+                            }
 						}
 
 						//rectangle
