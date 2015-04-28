@@ -123,9 +123,16 @@ namespace SwiftSands
                 }
                 else
                 {
+                    Vector2 moveVector = StateManager.TileMousePosition;
                     if (Party.Move(StateManager.TileMousePosition))
                     {
-                        if (Roll(0.25f))
+                        if (map.VillageTile((int)moveVector.X, (int)moveVector.Y))
+                        {
+                            Party.SelectedPlayer.Selected = false;
+                            Party.SelectedPlayer = null;
+                            StateManager.OpenState(StateManager.CurrentState.StateGame.LocalMap);  
+                        }
+                        else if (Roll(0.01f))
                         {
                             Party.SelectedPlayer.Selected = false;
                             Party.SelectedPlayer = null;

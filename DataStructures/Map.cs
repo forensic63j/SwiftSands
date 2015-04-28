@@ -19,7 +19,8 @@ namespace SwiftSands
         int height;
         int tilewidth;
         int tileheight;
-        int tiles;
+        int tilesInWidth;
+        int tilesInHeight;
         string tilesetName;
         int[,] groundLayer;
         int[,] groundLayer2;
@@ -143,7 +144,8 @@ namespace SwiftSands
         public void LoadTileset(Game1 game)
         {
             tileset = game.Content.Load<Texture2D>("Tilesets/"+tilesetName);
-            tiles = tileset.Width / TileWidth;
+            tilesInWidth = tileset.Width / TileWidth;
+            tilesInHeight = tileset.Height / TileHeight;
         }
 
         public void TintTile(Vector2 tilePos, Color col)
@@ -169,19 +171,19 @@ namespace SwiftSands
         {
             for (int r = 0; r < width; r++)
             {
-                for (int c = 0; c < width; c++)
+                for (int c = 0; c < height; c++)
                 {
                     if (groundLayer[r, c] - 1 > 0)
                     {
-                        spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((groundLayer[r, c] - 1) % (tiles) * tilewidth), (((groundLayer[r, c] - 1) / tiles) * tileheight), tilewidth, tileheight), ColorLayer[r,c]);
+                        spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((groundLayer[r, c] - 1) % (tilesInWidth) * tilewidth), (((groundLayer[r, c] - 1) / tilesInWidth) * tileheight), tilewidth, tileheight), ColorLayer[r, c]);
                     }
                     if (groundLayer2[r, c] - 1 > 0)
                     {
-                        spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((groundLayer2[r, c] - 1) % (tiles) * tilewidth), (((groundLayer[r, c] - 1) / tiles) * tileheight), tilewidth, tileheight), ColorLayer[r, c]);
+                        spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((groundLayer2[r, c] - 1) % (tilesInWidth) * tilewidth), (((groundLayer[r, c] - 1) / tilesInWidth) * tileheight), tilewidth, tileheight), ColorLayer[r, c]);
                     }
                     if (colliderLayer[r, c] - 1 > 0)
                     {
-                        spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((colliderLayer[r, c] - 1) % (tiles) * tilewidth), (((colliderLayer[r, c] - 1) / tiles) * tileheight), tilewidth, tileheight), ColorLayer[r, c]);
+                        spriteBatch.Draw(tileset, new Rectangle(r * tilewidth, c * tileheight, tilewidth, tileheight), new Rectangle(((colliderLayer[r, c] - 1) % (tilesInWidth) * tilewidth), (((colliderLayer[r, c] - 1) / tilesInWidth) * tileheight), tilewidth, tileheight), ColorLayer[r, c]);
                     }
                 }
             }
@@ -239,6 +241,19 @@ namespace SwiftSands
             if (InBounds(x, y))
             {
                 if (colliderLayer[x, y] > 0)
+                {
+                    return true;
+                }
+                else return false;
+            }
+            else return false;
+        }
+
+        public bool VillageTile(int x, int y)
+        {
+            if (InBounds(x, y))
+            {
+                if (groundLayer2[x, y] == 75 || groundLayer2[x, y] == 76)
                 {
                     return true;
                 }
