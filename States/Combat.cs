@@ -205,7 +205,7 @@ namespace SwiftSands
                         //Console.Out.WriteLine("Moves Left: " + movesLeft + " Tile Validity: " + validTiles[(int)tileVector.X, (int)tileVector.Y] + " Tile Occupied: " + TileOccupent((int)tileVector.X, (int)tileVector.Y));
                         if (base.Map.InBounds((int)tileVector.X, (int)tileVector.Y))
                         {
-                            if (movesLeft > 1)
+                            if (movesLeft >= 1)
                             {
                                 if (validTiles[(int)tileVector.X, (int)tileVector.Y])
                                 {
