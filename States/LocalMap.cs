@@ -21,7 +21,8 @@ namespace SwiftSands
 		Texture2D buttonSprite;
         bool[,] tintedTiles;
         Random rand = new Random();
-        internal Character selectedCharacter; 
+        internal Character selectedCharacter;
+        string mapName = "desert";
 
 		#region Properties
 		/// <summary>
@@ -65,9 +66,15 @@ namespace SwiftSands
 		{	
 		}
 
+        public LocalMap(string map, Game1 game, Viewport port)
+            : base(game, port)
+        {
+            mapName = map;
+        }
+
         public override void OnEnter()
         {
-            map = LoadManager.LoadMap("desert.txt");
+            map = LoadManager.LoadMap(mapName + ".txt");
             tintedTiles = new bool[map.Width,Map.Height];
             StateCamera.RightCameraBound = map.Width*map.TileWidth;
             StateCamera.BottomCameraBound = map.Height * map.TileHeight;
