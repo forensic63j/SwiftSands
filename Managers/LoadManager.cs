@@ -238,13 +238,14 @@ namespace SwiftSands
 			try
             {
 				//Load textures
-				String[] files = Directory.GetFiles("Content\\PlayerSprites\\" + filename);
+				String[] files = Directory.GetFiles("Content\\PlayerSprites");
 				//Counts how many textures are character sprites
 				int textureCount = 0;
 				for(int i = 0; i < files.Length; i++){
-					String filepath = files[i];
+					String filepath = files[i].Substring(22);
 					int index = -1;
-						if((filepath.Substring(0,6) == "Player") && int.TryParse(filepath.Substring(filepath.Length-1),out index)){
+                    if ((filepath.Substring(0, 6) == "Player") && int.TryParse(filepath.Substring(6, 1), out index))
+                    {
 							textureCount++;
 						}
 				}
@@ -253,10 +254,11 @@ namespace SwiftSands
 				for(int i = 0; i < files.Length; i++)
 				{
 					String filepath = files[i];
+                    String shortpath = filepath.Substring(22);
 					using(Stream imgStream = File.OpenRead(filepath))
 					{
 						int index = -1;
-						if((filepath.Substring(0,6) == "Player") && int.TryParse(filepath.Substring(filepath.Length - 1),out index))
+						if((shortpath.Substring(0,6) == "Player") && int.TryParse(shortpath.Substring(6,1),out index))
 						{
 							sprites[index] = Texture2D.FromStream(game.GraphicsDevice,imgStream);
 						}
@@ -264,7 +266,7 @@ namespace SwiftSands
 				}
 			#endregion
 
-				using(Stream inStream = File.OpenRead("Savefiles\\" + filename))
+				using(Stream inStream = File.OpenRead("Data\\Savefiles\\" + filename))
 				{
 					using(BinaryReader input = new BinaryReader(inStream))
 					{
