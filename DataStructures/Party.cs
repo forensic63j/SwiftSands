@@ -250,6 +250,8 @@ namespace SwiftSands
                         WorldTilePosition = newTile;
                         Console.Out.WriteLine(WorldTilePosition);
                         Console.Out.WriteLine(WorldPosition);
+
+                        p.Interact();
                         return true;
                     }
                 }

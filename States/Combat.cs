@@ -504,7 +504,7 @@ namespace SwiftSands
 
             String turnDetails = "Current turn: " + combatants[currentTurn].Name;
             spriteBatch.DrawString(font, turnDetails, new Vector2(5, 5), Color.Black);
-			infoPanel.Draw(spriteBatch);
+			TextBox.Instance.Draw(spriteBatch);
 				/*spriteBatch.Draw(StateGame.ButtonSprite,new Rectangle(128,port.Height - 74,400,70),Color.White);
 				spriteBatch.DrawString(font,info,new Vector2(140,port.Height-70),Color.Black);
 				info = "Item: (none)    Item type: N/A";
