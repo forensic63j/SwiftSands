@@ -299,7 +299,8 @@ namespace SwiftSands
 
         public void DrawHealthbar(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(StateManager.CurrentState.StateGame.PixTex, new Rectangle(this.Position.X, this.Position.Y - 3, 30 * (health / MaxHealth), 2), Color.Green);
+            spriteBatch.Draw(StateManager.CurrentState.StateGame.PixTex, new Rectangle(this.Position.X, this.Position.Y - 3, 30, 2), Color.Red);
+            spriteBatch.Draw(StateManager.CurrentState.StateGame.PixTex, new Rectangle(this.Position.X, this.Position.Y - 3, (int)(30 * ((float)health / MaxHealth)), 2), Color.Green);
         }
 
 		public void Cast(Item spell, Character target)
