@@ -125,15 +125,12 @@ namespace SwiftSands
 			}
 		}
 		
-		public void LevelUp()
+		public void LevelUp() //Add Text Box stuff here
 		{
 			Random rand = new Random();
 			this.Level++;
 			exp -= expNeeded;
             expNeeded = (int)(10 * Math.Pow(2, Level));
-            TextBox textBox = new TextBox(StateManager.CurrentState.StateGame.ButtonSprite, new Rectangle(0, 384, 800, 96),
-                true, (this.Name + " has leveled up!"), StateManager.CurrentState.StateGame.Font);
-            textBox.Draw(StateManager.CurrentState.StateGame.SpriteBatch);
             String s = "No stats";
             String s1 = "";
             Dictionary<String, int> temp = new Dictionary<string, int>();
@@ -151,9 +148,6 @@ namespace SwiftSands
             stats = temp;
             if (s1 != "")
                 s = s1;
-            TextBox textBox1 = new TextBox(StateManager.CurrentState.StateGame.ButtonSprite, new Rectangle(0, 384, 800, 96),
-                true, (s + "got boosted!"), StateManager.CurrentState.StateGame.Font);
-            textBox1.Draw(StateManager.CurrentState.StateGame.SpriteBatch);
         }
         /// <summary>
         /// Checks for the completion of tasks
@@ -223,13 +217,11 @@ namespace SwiftSands
         {
             Inventory.Items.Add(item);
             item.IsActive = false;
-            TextBox textBox = new TextBox(StateManager.CurrentState.StateGame.ButtonSprite, new Rectangle(0, 384, 800, 96), true, ("You have picked up " + item.Name), StateManager.CurrentState.StateGame.Font);
-            textBox.Draw(StateManager.CurrentState.StateGame.SpriteBatch);
+            //Add Text Box stuff here
         }
         public void Converse(Character character)
         {
-            TextBox textBox = new TextBox(StateManager.CurrentState.StateGame.ButtonSprite, new Rectangle(0, 384, 800, 96), true, character.Conversation, StateManager.CurrentState.StateGame.Font);
-            textBox.Draw(StateManager.CurrentState.StateGame.SpriteBatch);
+            //Add Text Box stuff here
         }
         #endregion
     }

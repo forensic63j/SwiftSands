@@ -68,7 +68,9 @@ namespace SwiftSands
 			rng = new Random();
             movesLeft = combatants[currentTurn].MovementRange;
             combatTime = 0;
-			infoPanel =  new TextBox(StateGame.ButtonSprite,new Rectangle(128,port.Height - 74,600,70),true,"(no information)",font);
+            TextBox.Instance.Position = new Rectangle(128, port.Height - 74, 600, 70);
+            TextBox.Instance.IsActive = true;
+            TextBox.Instance.Text = "(no information)";
 		}
 
         public override void OnEnter()
@@ -445,10 +447,10 @@ namespace SwiftSands
 				{
 					info += " Item-" + cSelected.EquipItem.Name;
 				}
-				infoPanel.Name = info;
+				TextBox.Instance.Text = info;
 			} else
 			{
-				infoPanel.Name = "(no information)";
+				TextBox.Instance.Text = "(no information)";
 			}
 
 			base.Update(time);

@@ -270,6 +270,10 @@ namespace SwiftSands
 			pause.Resume.OnClick = Back;
 			pause.Quit.OnClick = Exit;
 
+            TextBox.Instance.Font = this.font;
+            TextBox.Instance.IsActive = false;
+            TextBox.Instance.Texture = buttonSprite;
+
 			StateManager.OpenState(mainMenu);
             
         }
