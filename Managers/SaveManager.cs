@@ -17,7 +17,7 @@ namespace SwiftSands
 		/// Saves files.
 		/// </summary>
 		/// <param name="filename">A file name.</param>
-		public static void Save(String filename)
+		public static void Save(String filename, State currentState)
 		{
 			try
 			{
@@ -111,6 +111,8 @@ namespace SwiftSands
 							output.Write(task.Target);
 							output.Write(task.ExpReward);
 						}*/
+
+                        output.Write(currentState.ToString());
 					}
 				}
 				

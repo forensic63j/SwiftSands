@@ -76,7 +76,7 @@ namespace SwiftSands
         {
             if ((!CombatentsInclude<Player>() || !CombatentsInclude<Enemy>()))
             {
-                StateManager.CloseState();
+                ExitCombat();
             }
             base.OnEnter();
             for (int i = 0; i < Party.PartyList.Count; i++)
@@ -434,7 +434,7 @@ namespace SwiftSands
 
 			if(casualty && (!CombatentsInclude<Player>() || !CombatentsInclude<Enemy>())){
                 Party.MainCharacter.TilePosition = Party.WorldTilePosition;
-				StateManager.CloseState();
+                ExitCombat();
                 return;
 			}
 
@@ -731,5 +731,26 @@ namespace SwiftSands
 			}
 
 		}
+
+        /// <summary>
+        /// Handles leaving combat.
+        /// </summary>
+        public void ExitCombat()
+        {
+            StateManager.CloseState();
+             if (StateManager.CurrentState != StateGame.MainMenu)
+             {
+                 StateManager.OpenState(StateGame.MainMenu);
+             }
+        }
+
+        /// <summary>
+        /// Returns the states class name.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return "Combat";
+        }
 	}
 }

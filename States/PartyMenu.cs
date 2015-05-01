@@ -224,5 +224,14 @@ namespace SwiftSands
 			selectedPlayer = 5;
 		}
 		#endregion
+
+        /// <summary>
+        /// Returns the states class name.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return "Party";
+        }
 	}
 }

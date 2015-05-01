@@ -30,7 +30,15 @@ namespace SwiftSands
            get{return stateStack;}
         }
         static public State CurrentState{
-           get{return stateStack.Peek();}
+           get{
+               if (StateStack.Count > 0)
+               {
+                   return stateStack.Peek();
+               }
+               else {
+                   return null;
+               }
+           }
         }
         /// <summary>
         /// Gets the current mouse state.

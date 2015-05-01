@@ -158,7 +158,7 @@ namespace SwiftSands
             // TODO: Add your drawing code here  
             map.Draw(time, spriteBatch);
             Party.DrawMainCharacterOnMap(spriteBatch);
-            StateManager.CurrentState.StateGame.ItemList["Ice Spell"].Draw(spriteBatch); //Testing
+            StateManager.CurrentState.StateGame.ItemList["Arrowhead"].Draw(spriteBatch); //Testing
             base.Draw(time, spriteBatch);
         }
 
@@ -186,6 +186,15 @@ namespace SwiftSands
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Returns the states class name.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return "World";
         }
     }
 }

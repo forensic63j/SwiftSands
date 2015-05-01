@@ -97,6 +97,14 @@ namespace SwiftSands
             get { return localMap; }
         }
 
+        /// <summary>
+        /// Gets the combat state.
+        /// </summary>
+        internal Combat Combat
+        {
+            get { return combat; }
+        }
+
 		/// <summary>
 		/// Gets inventory menu.
 		/// </summary>
@@ -356,7 +364,10 @@ namespace SwiftSands
 		/// </summary>
 		private void Save()
 		{
-			SaveManager.Save("Save1.data");
+            StateManager.CloseState();
+            State runningState = StateManager.CurrentState;
+            SaveManager.Save("Save1.data", runningState);
+            StateManager.OpenState(Pause);
 		}
 		#endregion
 	}

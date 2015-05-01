@@ -358,6 +358,21 @@ namespace SwiftSands
 							Inventory.AddItem(tempItem);
 						}
 						#endregion
+
+                        String stateString = input.ReadString();
+                        switch (stateString)
+                        {
+                            case "Main": StateManager.OpenState(game.MainMenu);
+                                break;
+                            case "World": StateManager.OpenState(game.WorldMap);
+                                break;
+                            case "Local": StateManager.OpenState(game.LocalMap);
+                                break;
+                            case "Combat": StateManager.OpenState(game.Combat);
+                                break;
+                            default: StateManager.OpenState(game.MainMenu);
+                                break;
+                        }
 					}
 				}
 			} catch(Exception e)

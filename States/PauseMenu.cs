@@ -155,6 +155,15 @@ namespace SwiftSands
             //spriteBatch.Draw(buttonSprite, new Rectangle((int)mState.X, (int)mState.Y, 5, 5), Color.Black);
 			base.Draw(time,spriteBatch);
 		}
+
+        /// <summary>
+        /// Returns the states class name.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return "Pause";
+        }
 		#endregion
 	}
 }

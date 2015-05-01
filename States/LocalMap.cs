@@ -191,7 +191,14 @@ namespace SwiftSands
             base.DrawScreen(time, spriteBatch);
 		}
 
-		
+        /// <summary>
+        /// Returns the states class name.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return "Local";
+        }
 		#endregion
 	}
 }

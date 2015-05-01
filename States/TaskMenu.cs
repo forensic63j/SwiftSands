@@ -82,5 +82,14 @@ namespace SwiftSands
                 tasks.Add(button);
             }
         }
+
+        /// <summary>
+        /// Returns the states class name.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return "Tasks";
+        }
     }
 }
