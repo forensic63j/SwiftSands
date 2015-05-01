@@ -17,6 +17,7 @@ namespace SwiftSands
 		private SpriteFont font;
 
 		private Button[] partyButtons;
+        private Button unequipButton;
 
 		Texture2D buttonSprite;
 
@@ -68,6 +69,8 @@ namespace SwiftSands
 			partyButtons[3].OnClick = Player3;
 			partyButtons[4].OnClick = Player4;
 			partyButtons[5].OnClick = Player5;
+            unequipButton = new Button("Unequip", font, sprite, new Rectangle(55, 260, buttonWidth, 30), true);
+            unequipButton.OnClick = Unequip;
 		}
 
 		#region Methods
@@ -154,7 +157,7 @@ namespace SwiftSands
 			if(Party.PartyList[selectedPlayer] != null)
 			{
 				Player cPlayer = Party.PartyList[selectedPlayer];
-				String nameString = "Name: " + cPlayer.Name + "   Level: " + cPlayer.Level + " (XP to next level: " + cPlayer.ExpNeeded + ")";
+				String nameString = "Name: " + cPlayer.Name + "   Level: " + cPlayer.Level + " (XP to next level: " + (cPlayer.ExpNeeded - cPlayer.Exp) + ")";
 				spriteBatch.DrawString(font,nameString,new Vector2(buttonWidth+30,42),Color.Black);
 				String healthString = "Health: " + cPlayer.Health + "\\" + cPlayer.MaxHealth + "   Deaths: " + cPlayer.NumDeaths + "   Mana: " + cPlayer.Mana;
 				spriteBatch.DrawString(font,healthString,new Vector2(buttonWidth + 30,64),Color.Black);
@@ -176,6 +179,11 @@ namespace SwiftSands
 		#endregion
 
 		#region buttonMethods
+        public void Unequip()
+        {
+            Party.PartyList[selectedPlayer].EquipItem = null;
+        }
+
 		/// <summary>
 		/// Selects player 0.
 		/// </summary>

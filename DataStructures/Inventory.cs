@@ -38,6 +38,7 @@ namespace SwiftSands
         static public void AddItem(Item item)
         {
             items.Add(item);
+            item.Collected = true;
         }
         static public void RemoveItem(Item item)
         {

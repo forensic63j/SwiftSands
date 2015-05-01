@@ -15,11 +15,13 @@ namespace SwiftSands
 {
     class WorldMap : State
     {
-        Map map;
-        public WorldMap(Game1 game, Viewport port) : base(game, port) { }
+        Map map; 
         bool[,] tintedTiles;
         Random rand = new Random();
-       
+        Character oldMan;
+        public WorldMap(Game1 game, Viewport port) : base(game, port) 
+        {
+        }
 
          public Map Map
          {
@@ -35,6 +37,8 @@ namespace SwiftSands
             StateCamera.BottomCameraBound = map.Height * map.TileHeight;
             StateCamera.LeftCameraBound = 0;
             StateCamera.TopCameraBound = 0;
+            oldMan = this.StateGame.CharacterList["OldMan"];
+            oldMan.TilePosition = new Vector2(3, 3);
             base.OnEnter();
         }
 
@@ -133,7 +137,7 @@ namespace SwiftSands
                             LocalMap town = new LocalMap("town", StateManager.CurrentState.StateGame, ViewPort);
                             StateManager.OpenState(town);  
                         }
-                        else if (Roll(1f))
+                        else if (Roll(0.01f))
                         {
                             Party.SelectedPlayer.Selected = false;
                             Party.SelectedPlayer = null;
@@ -157,6 +161,7 @@ namespace SwiftSands
         {
             // TODO: Add your drawing code here  
             map.Draw(time, spriteBatch);
+            oldMan.Draw(spriteBatch);
             Party.DrawMainCharacterOnMap(spriteBatch);
             StateManager.CurrentState.StateGame.ItemList["Arrowhead"].Draw(spriteBatch); //Testing
 

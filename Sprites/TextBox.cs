@@ -16,6 +16,7 @@ namespace SwiftSands
         private String text;
         private Rectangle position;
         private Texture2D texture;
+        private SpriteBatch spriteBatch;
 
         #region Singleton
         private static TextBox _instance;
@@ -96,6 +97,18 @@ namespace SwiftSands
                 position = value;
             }
         }
+
+        public SpriteBatch SpriteBatch
+        {
+            get
+            {
+                return spriteBatch;
+            }
+            set
+            {
+                spriteBatch = value;
+            }
+        }
         #endregion
 
         public void Update()
@@ -110,12 +123,12 @@ namespace SwiftSands
             }
         }
 
-        public void Draw(SpriteBatch batch)
+        public void Draw()
         {
             if (IsActive)
             {
-                batch.Draw(this.Texture, this.Position, Color.White);
-                batch.DrawString(font, this.Text, new Vector2(this.Position.X + 15, this.Position.Y + 2), Color.Black);
+                spriteBatch.Draw(this.Texture, this.Position, Color.White);
+                spriteBatch.DrawString(font, this.Text, new Vector2(this.Position.X + 15, this.Position.Y + 2), Color.Black);
             }
         }
     }
