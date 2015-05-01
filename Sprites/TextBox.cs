@@ -43,7 +43,7 @@ namespace SwiftSands
             if (IsActive)
             {
                 batch.Draw(this.Texture, this.Position, Color.White);
-                batch.DrawString(font, this.Name, new Vector2(this.Position.X + 5, this.Position.Y + 2), Color.Black);
+                batch.DrawString(font, this.Name, new Vector2(this.Position.X + 15, this.Position.Y + 2), Color.Black);
             }
         }
     }

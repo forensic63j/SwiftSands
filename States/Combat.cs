@@ -68,7 +68,6 @@ namespace SwiftSands
 			rng = new Random();
             movesLeft = combatants[currentTurn].MovementRange;
             combatTime = 0;
-
 			infoPanel =  new TextBox(StateGame.ButtonSprite,new Rectangle(128,port.Height - 74,600,70),true,"(no information)",font);
 		}
 
@@ -472,6 +471,7 @@ namespace SwiftSands
 				{
 					//Console.WriteLine(c.Name);
 					c.Draw(spriteBatch);
+                    c.DrawHealthbar(spriteBatch);
 					cName = c.Name;
 					spriteBatch.DrawString(font,cName,new Vector2(c.Position.X,c.Position.Y+c.Position.Height + 2),Color.Black);
                     if (c.Selected == true)
