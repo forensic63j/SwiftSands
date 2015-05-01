@@ -158,11 +158,8 @@ namespace SwiftSands
             // TODO: Add your drawing code here  
             map.Draw(time, spriteBatch);
             Party.DrawMainCharacterOnMap(spriteBatch);
-<<<<<<< HEAD
             StateManager.CurrentState.StateGame.ItemList["Arrowhead"].Draw(spriteBatch); //Testing
-=======
-            //StateManager.CurrentState.StateGame.ItemList["Ice Spell"].Draw(spriteBatch); //Testing
->>>>>>> 63d9259ad984285bde331d4e987dc11b257a4819
+
             base.Draw(time, spriteBatch);
         }
 
