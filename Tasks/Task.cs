@@ -102,6 +102,7 @@ namespace SwiftSands
             this.completed = true;
             TextBox.Instance.Text = "You have completed a task!";
             TextBox.Instance.IsActive = true;
+            TaskManager.Tasks.Remove(this);
         }
         #endregion
     }

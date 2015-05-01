@@ -69,8 +69,9 @@ namespace SwiftSands
 			set
 			{
 				exp = value;
-				if(exp >= this.ExpNeeded)
-					this.LevelUp();
+                if (exp >= this.ExpNeeded)
+                    while (exp >= this.ExpNeeded)
+                        LevelUp();
 			}
 		}
 		
@@ -130,7 +131,7 @@ namespace SwiftSands
 			Random rand = new Random();
 			this.Level++;
 			exp -= expNeeded;
-            expNeeded = (int)(10 * Math.Pow(2, Level));
+            expNeeded = (int)(10 * Math.Pow(2, Level - 1));
             TextBox.Instance.Text = "Congratulations! You leveled up!";
             TextBox.Instance.IsActive = true;
             String s = "No stats";
@@ -161,7 +162,7 @@ namespace SwiftSands
             {
                 Task task = TaskManager.Tasks[i];
                 TaskType type = task.Type;
-                if (type == TaskType.Hunt)
+                if (sprite is Enemy && type == TaskType.Hunt)
                 {
                     Enemy e = (Enemy)sprite;
                     if (e.Name == task.Target && !e.Alive)
@@ -169,7 +170,7 @@ namespace SwiftSands
                         task.EndTask();
                     }
                 }
-                else if (type == TaskType.CollectItem)
+                else if (sprite is Item && type == TaskType.CollectItem)
                 {
                     Item item = (Item)sprite;
                     if (item.Name == task.Target && item.Collected)
@@ -177,7 +178,7 @@ namespace SwiftSands
                         task.EndTask();
                     }
                 }
-                else if (type == TaskType.Converse)
+                else if (sprite is Character && type == TaskType.Converse)
                 {
                     Character c = (Character)sprite;
                     if (c.Name == task.Target)
@@ -218,7 +219,7 @@ namespace SwiftSands
         }
         public void PickUpItem(Item item)
         {
-            Inventory.Items.Add(item);
+            Inventory.AddItem(item);
             item.IsActive = false;
             TextBox.Instance.Text = "You picked up " + item.Name;
             TextBox.Instance.IsActive = true;
