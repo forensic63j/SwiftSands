@@ -54,6 +54,12 @@ namespace SwiftSands
                     if (tasks[i].Position.Contains(p))
                     {
                         selectedTask = TaskManager.FindTask(tasks[i].Name);
+                        if (selectedTask.Completed)
+                        {
+                            selectedTask.EndTask();
+                            tasks.Remove(tasks[i]);
+                            selectedTask = null;
+                        }
                         break;
                     }
                     selectedTask = null;
