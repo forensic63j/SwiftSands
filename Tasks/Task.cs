@@ -100,9 +100,7 @@ namespace SwiftSands
                 Party.PartyList[i].Exp += this.ExpReward;
             }
             this.completed = true;
-            TextBox textBox = new TextBox(StateManager.CurrentState.StateGame.ButtonSprite, new Rectangle(0, 384, 800, 96), true,
-                ("You have completed the task :" + description + "!"), StateManager.CurrentState.StateGame.Font);
-            textBox.Draw(StateManager.CurrentState.StateGame.SpriteBatch);
+            //Add Text Box stuff here
         }
         #endregion
     }
