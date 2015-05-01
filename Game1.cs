@@ -296,6 +296,8 @@ namespace SwiftSands
         {
 			mState = Mouse.GetState();
 
+            TextBox.Instance.Update();
+
             // TODO: Add your update logic here
 			StateManager.Update(gameTime);
 

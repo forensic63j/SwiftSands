@@ -100,7 +100,8 @@ namespace SwiftSands
                 Party.PartyList[i].Exp += this.ExpReward;
             }
             this.completed = true;
-            //Add Text Box stuff here
+            TextBox.Instance.Text = "You have completed a task!";
+            TextBox.Instance.IsActive = true;
         }
         #endregion
     }

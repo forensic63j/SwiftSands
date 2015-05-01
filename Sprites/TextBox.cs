@@ -36,6 +36,7 @@ namespace SwiftSands
         }
         #endregion
 
+        #region Properties
         public SpriteFont Font
         {
             get
@@ -95,6 +96,7 @@ namespace SwiftSands
                 position = value;
             }
         }
+        #endregion
 
         public void Update()
         {

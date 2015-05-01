@@ -125,12 +125,14 @@ namespace SwiftSands
 			}
 		}
 		
-		public void LevelUp() //Add Text Box stuff here
+		public void LevelUp()
 		{
 			Random rand = new Random();
 			this.Level++;
 			exp -= expNeeded;
             expNeeded = (int)(10 * Math.Pow(2, Level));
+            TextBox.Instance.Text = "Congratulations! You leveled up!";
+            TextBox.Instance.IsActive = true;
             String s = "No stats";
             String s1 = "";
             Dictionary<String, int> temp = new Dictionary<string, int>();
@@ -148,6 +150,7 @@ namespace SwiftSands
             stats = temp;
             if (s1 != "")
                 s = s1;
+            TextBox.Instance.Text = s;
         }
         /// <summary>
         /// Checks for the completion of tasks
@@ -217,11 +220,13 @@ namespace SwiftSands
         {
             Inventory.Items.Add(item);
             item.IsActive = false;
-            //Add Text Box stuff here
+            TextBox.Instance.Text = "You picked up " + item.Name;
+            TextBox.Instance.IsActive = true;
         }
         public void Converse(Character character)
         {
-            //Add Text Box stuff here
+            TextBox.Instance.Text = character.Conversation;
+            TextBox.Instance.IsActive = true;
         }
         #endregion
     }
