@@ -273,6 +273,7 @@ namespace SwiftSands
             TextBox.Instance.Font = this.font;
             TextBox.Instance.IsActive = false;
             TextBox.Instance.Texture = buttonSprite;
+            TextBox.Instance.SpriteBatch = this.spriteBatch;
 
 			StateManager.OpenState(mainMenu);
             
