@@ -17,6 +17,7 @@ namespace SwiftSands
 		private SpriteFont font;
 
 		private Button[] partyButtons;
+        private Button unequipButton;
 
 		Texture2D buttonSprite;
 
@@ -68,6 +69,8 @@ namespace SwiftSands
 			partyButtons[3].OnClick = Player3;
 			partyButtons[4].OnClick = Player4;
 			partyButtons[5].OnClick = Player5;
+            unequipButton = new Button("Unequip", font, sprite, new Rectangle(55, 260, buttonWidth, 30), true);
+            unequipButton.OnClick = Unequip;
 		}
 
 		#region Methods
@@ -176,6 +179,11 @@ namespace SwiftSands
 		#endregion
 
 		#region buttonMethods
+        public void Unequip()
+        {
+            Party.PartyList[selectedPlayer].EquipItem = null;
+        }
+
 		/// <summary>
 		/// Selects player 0.
 		/// </summary>
