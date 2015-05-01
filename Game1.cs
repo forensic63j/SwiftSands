@@ -49,6 +49,8 @@ namespace SwiftSands
 		SpriteFont font;
 		Viewport viewport;
 
+        Texture2D pixTex;
+
 		//State variables
 		MouseState mState;
 
@@ -79,6 +81,11 @@ namespace SwiftSands
         internal OptionsMenu Options
         {
             get { return options; }
+        }
+
+        public Texture2D PixTex
+        {
+            get { return pixTex; }
         }
 
         /// <summary>
@@ -203,6 +210,10 @@ namespace SwiftSands
 			LoadManager.UpdateGame(this);
 
 			LoadManager.LoadContent(ref characterList, ref itemList,ref buttonSprite, ref font);
+
+            pixTex = new Texture2D(GraphicsDevice, 1, 1);
+            pixTex.SetData<Color>(
+            new Color[] { Color.White });
 
             //Testing
 			Party.Add(this.CharacterList["Clayton"].ToPlayer());

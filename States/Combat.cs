@@ -471,6 +471,7 @@ namespace SwiftSands
 				{
 					//Console.WriteLine(c.Name);
 					c.Draw(spriteBatch);
+                    c.DrawHealthbar(spriteBatch);
 					cName = c.Name;
 					spriteBatch.DrawString(font,cName,new Vector2(c.Position.X,c.Position.Y+c.Position.Height + 2),Color.Black);
                     if (c.Selected == true)
