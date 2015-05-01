@@ -232,8 +232,6 @@ namespace SwiftSands
                 LoadManager.LoadSprite("ItemSprites//", "item-sprite.png"), new Rectangle(64, 0, 32, 32), true, true, "Arrowhead"));
             TaskManager.AddTask(new Task(TaskType.CollectItem, "Find and retrieve the Ice Spell", "Arrowhead", 50));
             TaskManager.AddTask(new Task(TaskType.Converse, "Talk to the old man", "Old Man", 5));
-            characterList.Add("Old Man", new Character(false, null, new Rectangle(64, 0, 32, 32), true, "Old Man"));
-            characterList["Old Man"].Conversation = "Well hello there, young man";
 
 			//Menus
             font = this.Content.Load<SpriteFont>("GUI/menuFont");
