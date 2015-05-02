@@ -353,10 +353,9 @@ namespace SwiftSands
 							//Sprite control bools
 							bool collected = input.ReadBoolean();
 							bool active = input.ReadBoolean();
-							bool onScreen = input.ReadBoolean();
 
 							//Add to inventory
-							Item tempItem = new Item(type,healing,damage,range,description,collected,sprite,position,active,onScreen,name);
+							Item tempItem = new Item(type,healing,damage,range,description,collected,sprite,position,active,true,name);
 							Inventory.AddItem(tempItem);
 						}
 						#endregion

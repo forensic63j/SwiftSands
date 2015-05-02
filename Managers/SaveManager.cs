@@ -118,7 +118,7 @@ namespace SwiftSands
 				
 				//player textures
                 String texturePath = "";
-				for(int i = 0; i < Party.Count; i++)
+				/*for(int i = 0; i < Party.Count; i++)
 				{
                     texturePath = "Content\\PlayerSprites\\Player" + i + ".png";
                     using(Stream imgStream = File.OpenWrite(texturePath))
@@ -126,7 +126,7 @@ namespace SwiftSands
 						Texture2D texture = Party.PartyList[i].Texture;
 						texture.SaveAsPng(imgStream,texture.Width,texture.Height);
 					}
-				}
+				}*/
 
 			} catch(Exception e)
 			{
