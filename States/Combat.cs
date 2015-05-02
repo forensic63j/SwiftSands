@@ -342,18 +342,24 @@ namespace SwiftSands
 						{
                             combatants[currentTurn].ValidMovements(ref validTiles, combatants, (int)pVector.X,(int)pVector.Y, movesLeft);
                                                         //Screw it implement A* later
-                            
-							int x = 0;
-							int y = 0;
-							do
+
+							if(!NoValidMoves((int)pVector.X,(int)pVector.Y,validTiles))
 							{
-								x = rng.Next(0,validTiles.GetLength(0));
-								y = rng.Next(0,validTiles.GetLength(1));
-							} while(!validTiles[x,y] && Map.InBounds(x,y) && !Map.TileCollide(x,y));
-							Vector2 moveVector = new Vector2(x,y);
-							int distanceMoved = combatants[currentTurn].Move(moveVector);
-                            movesLeft -= distanceMoved;
-                           
+								int x = 0;
+								int y = 0;
+								do
+								{
+									x = rng.Next(0,validTiles.GetLength(0));
+									y = rng.Next(0,validTiles.GetLength(1));
+								} while(!validTiles[x,y] && Map.InBounds(x,y) && !Map.TileCollide(x,y));
+								Vector2 moveVector = new Vector2(x,y);
+								int distanceMoved = combatants[currentTurn].Move(moveVector);
+								movesLeft -= distanceMoved;
+
+							} else
+							{
+								movesLeft = 0;
+							}
                            // movesLeft = 0;
 							//targeting = true;
 						}
@@ -675,8 +681,40 @@ namespace SwiftSands
             }
             return true;
         }
+
+		/// <summary>
+		/// Calculates if there are no valid moves left.
+		/// </summary>
+		/// <param name="x">Character's current x coodinate.</param>
+		/// <param name="y">Character's current y coodinate.</param>
+		/// <param name="validTiles">Map of valid and invalid moves.</param>
+		/// <returns></returns>
+		public bool NoValidMoves(int x,int y,bool[,] validTiles)
+		{
+			if(x >= 0 && x < validTiles.GetLength(0) && y >= 0 && y < validTiles.GetLength(1))
+			{
+				if(x - 1 >= 0 && validTiles[x - 1,y])
+				{
+					return false;
+				}
+				if( y - 1 >= 0 && validTiles[x,y - 1])
+				{
+					return false;
+				}
+				if(x + 1 < validTiles.GetLength(0) && validTiles[x + 1,y])
+				{
+					return false;
+				}
+				if(y + 1 < validTiles.GetLength(1) && validTiles[x,y + 1])
+				{
+					return false;
+				}
+			}
+			return true;
+		}
 		#endregion
 
+		#region transitions
 		/// <summary>
 		/// Resets combat.
 		/// </summary>
@@ -746,7 +784,9 @@ namespace SwiftSands
              }
         }
 
-        /// <summary>
+		#endregion
+
+		/// <summary>
         /// Returns the states class name.
         /// </summary>
         /// <returns></returns>
