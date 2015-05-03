@@ -96,7 +96,7 @@ namespace SwiftSands
 							#endregion
 						}
 
-						/*output.Write(TaskManager.Count);
+						output.Write(TaskManager.Count);
 						for(int i = 0; i < TaskManager.Count; i++)
 						{
 							Task task = TaskManager.Tasks[i];
@@ -110,7 +110,8 @@ namespace SwiftSands
 							//Details
 							output.Write(task.Target);
 							output.Write(task.ExpReward);
-						}*/
+							output.Write(task.Completed);
+						}
 
                         output.Write(currentState.ToString());
 					}

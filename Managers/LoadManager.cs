@@ -360,7 +360,25 @@ namespace SwiftSands
 						}
 						#endregion
 
-                        String stateString = input.ReadString();
+						#region tasks
+						TaskManager.Clear();
+						int numTasks = input.ReadInt32();
+						for(int i = 0; i < numTasks; i++)
+						{
+							String typeString = input.ReadString();
+							TaskType type = (TaskType)(System.Enum.Parse(typeof(TaskType),typeString,true));
+							String description = input.ReadString();
+							String target = input.ReadString();
+							int reward = input.ReadInt32();
+							bool completed = input.ReadBoolean();
+
+							Task tempTask = new Task(type,description,target,reward);
+							tempTask.Completed = completed;
+							TaskManager.AddTask(tempTask);
+						}
+						#endregion
+
+						String stateString = input.ReadString();
                         switch (stateString)
                         {
                             case "Main": StateManager.OpenState(game.MainMenu);
