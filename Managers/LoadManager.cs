@@ -379,15 +379,63 @@ namespace SwiftSands
 						#endregion
 
 						String stateString = input.ReadString();
+						String map = "";
                         switch (stateString)
                         {
                             case "Main": StateManager.OpenState(game.MainMenu);
                                 break;
                             case "World": StateManager.OpenState(game.WorldMap);
                                 break;
-                            case "Local": StateManager.OpenState(game.LocalMap);
+                            case "Local": 
+								map = input.ReadString();
+								LocalMap localMap = new LocalMap(map,game,game.GraphicsDevice.Viewport);
+								StateManager.OpenState(localMap);
                                 break;
-                            case "Combat": StateManager.OpenState(game.Combat);
+                            case "Combat": 
+								List<Enemy> enemyList = new List<Enemy>();
+								int numEnemies = input.ReadInt32();
+								for(int i = 0; i < numEnemies; i++)
+								{
+									String name = input.ReadString();
+									int maxHealth = input.ReadInt32();
+									int health = input.ReadInt32();
+									int mana = input.ReadInt32();
+									int level = input.ReadInt32();
+
+									int accuracy = input.ReadInt32();
+									int speed = input.ReadInt32();
+									int strength = input.ReadInt32();
+									int movement = input.ReadInt32();
+
+									Texture2D charSprite = game.CharacterList[name].Texture;
+
+									String itemName = input.ReadString();
+									Item charItem = null;
+									if(itemList.ContainsKey(itemName) || itemList.ContainsKey(itemName.ToLower()))
+									{
+										if(itemList[itemName] != null)
+										{
+											charItem = itemList[itemName];
+										} else if(itemList[itemName.ToLower()] != null)
+										{
+											charItem = itemList[itemName.ToLower()];
+										}
+									}
+
+									int x = input.ReadInt32();
+									int y = input.ReadInt32();
+									int width = input.ReadInt32();
+									int height = input.ReadInt32();
+									Rectangle position = new Rectangle(x,y,width,height);
+
+									bool isActive = input.ReadBoolean();
+									int xpAward = input.ReadInt32();
+
+									Enemy tempEnemy = new Enemy(maxHealth,health,mana,speed,strength,accuracy,movement,level,false,xpAward,charSprite,position,isActive,name);
+									enemyList.Add(tempEnemy);
+								}
+								Combat newCombat = new Combat(game,game.GraphicsDevice.Viewport,enemyList);
+								StateManager.OpenState(game.Combat);
                                 break;
                             default: StateManager.OpenState(game.MainMenu);
                                 break;

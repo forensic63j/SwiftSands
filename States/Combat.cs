@@ -79,14 +79,14 @@ namespace SwiftSands
                 ExitCombat();
             }
             base.OnEnter();
-            for (int i = 0; i < Party.PartyList.Count; i++)
-            {
-                Party.PartyList[i].TilePosition = new Vector2(rng.Next(0, base.Map.Width / 3), rng.Next(0, base.Map.Height / 3));
-                while (base.Map.TileCollide(Party.PartyList[i].TilePosition))
-                {
-                    Party.PartyList[i].TilePosition = new Vector2(rng.Next(0, base.Map.Width / 3), rng.Next(0, base.Map.Height / 3));
-                }
-            }
+			for(int i = 0; i < Party.PartyList.Count; i++)
+			{
+				Party.PartyList[i].TilePosition = new Vector2(rng.Next(0,base.Map.Width / 3),rng.Next(0,base.Map.Height / 3));
+				while(base.Map.TileCollide(Party.PartyList[i].TilePosition))
+				{
+					Party.PartyList[i].TilePosition = new Vector2(rng.Next(0,base.Map.Width / 3),rng.Next(0,base.Map.Height / 3));
+				}
+			}
             SelectedCharacter = combatants[currentTurn];
         }
 
@@ -400,7 +400,7 @@ namespace SwiftSands
 			endTurn.Update();
 			if(combatants[currentTurn] is Player)
 			{
-				if(StateManager.KState.IsKeyDown(Keys.Space) && StateManager.KPrevious.IsKeyUp(Keys.Space))
+				if(StateManager.KState.IsKeyDown(Keys.Space) && StateManager.KPrevious.IsKeyUp(Keys.Space) && actionLeft)
 				{
 					Attack();
 				}
@@ -784,6 +784,13 @@ namespace SwiftSands
              }
         }
 
+		/// <summary>
+		/// Randomly positions players.
+		/// </summary>
+		public void RandomizePositions()
+		{
+			
+		}
 		#endregion
 
 		/// <summary>

@@ -114,6 +114,47 @@ namespace SwiftSands
 						}
 
                         output.Write(currentState.ToString());
+						if(currentState is Combat) 
+						{
+							Combat combat = currentState as Combat;
+							output.Write(combat.EnemyList.Count);
+							foreach(Enemy enemy in combat.EnemyList){
+							output.Write(enemy.Name);
+
+							//Health, mana, death data
+							output.Write(enemy.MaxHealth);
+							output.Write(enemy.Health);
+							output.Write(enemy.Mana);
+
+							//Leveling
+							output.Write(enemy.Level);
+
+							//Stats
+							output.Write(enemy.Accuracy);
+							output.Write(enemy.Speed);
+							output.Write(enemy.Strength);
+                            output.Write(enemy.MovementRange);
+
+							//Item
+							output.Write(enemy.EquipItem.Name);
+
+							//Rectangle
+							Rectangle pos = enemy.Position;
+							output.Write(pos.X);
+							output.Write(pos.Y);
+							output.Write(pos.Width);
+							output.Write(pos.Height);
+
+							//Booleans
+							output.Write(enemy.IsActive);
+							output.Write(enemy.ExpAwarded);
+							}
+						}else if(currentState is LocalMap)
+						{
+							LocalMap lMap = currentState as LocalMap;
+							//output.Write(lMap.Map.???)
+							output.Write("town");
+						}
 					}
 				}
 				
