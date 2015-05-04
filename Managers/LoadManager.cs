@@ -464,6 +464,7 @@ namespace SwiftSands
             int[,] groundLayer = new int[width, height];
             int[,] ground2Layer = new int[width, height];
             int[,] colliderLayer = new int[width, height];
+            string path = "Content\\Maps\\" + filename;
             using (StreamReader input = new StreamReader("Content\\Maps\\" + filename))
             {
                 string currentLine;
@@ -475,7 +476,6 @@ namespace SwiftSands
                 bool readingColliderData = false;
                 while ((currentLine = input.ReadLine()) != null)
                 {
-
                     if (currentLine.Contains("width") && !currentLine.Contains("tile"))
                     {
                         width = Convert.ToInt32(currentLine.Substring(currentLine.IndexOf("=") + 1));
@@ -597,7 +597,7 @@ namespace SwiftSands
                     }
                 }
             }     
-            loadingMap = new Map(width, height, tilewidth, tileheight, groundLayer, ground2Layer, colliderLayer, tilesetname);
+            loadingMap = new Map(width, height, tilewidth, tileheight, groundLayer, ground2Layer, colliderLayer, tilesetname, path);
             loadingMap.LoadTileset(game);
             return loadingMap;
         }

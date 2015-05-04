@@ -6,7 +6,7 @@ tileheight=32
 orientation=orthogonal
 
 [tilesets]
-tileset=../Tilesets/desertset.png,32,32,0,0
+tileset=../Tilesets/desertset2.png,32,32,0,0
 
 [layer]
 type=Ground

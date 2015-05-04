@@ -22,6 +22,7 @@ namespace SwiftSands
         int tilesInWidth;
         int tilesInHeight;
         string tilesetName;
+        string mapPath;
         int[,] groundLayer;
         int[,] groundLayer2;
         int[,] colliderLayer;
@@ -67,7 +68,7 @@ namespace SwiftSands
             }
         }
 
-        public Map(int pWidth, int pHeight, int pTileWidth, int pTileHeight, int[,] groundTiles, int[,] ground2Tiles, int[,] colliderTiles, string tilesetname)
+        public Map(int pWidth, int pHeight, int pTileWidth, int pTileHeight, int[,] groundTiles, int[,] ground2Tiles, int[,] colliderTiles, string tilesetname, string path)
         {
             width = pWidth;
             height = pHeight;
@@ -84,6 +85,7 @@ namespace SwiftSands
                     colorLayer[i, c] = Color.White;
                 }
             }
+            this.mapPath = path;
             this.tilesetName = tilesetname;
         }
 
