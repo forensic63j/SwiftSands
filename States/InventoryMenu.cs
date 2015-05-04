@@ -93,6 +93,11 @@ namespace SwiftSands
                 
             }
 
+            if (StateManager.MState.RightButton == ButtonState.Pressed && StateManager.MPrevious.RightButton == ButtonState.Released)
+            {
+                members.Clear();          
+            }
+
             base.Update(time);
         }
 
