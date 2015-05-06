@@ -154,7 +154,7 @@ namespace SwiftSands
 				partyButtons[i].Draw(spriteBatch);
 			}
 			spriteBatch.DrawString(font,"Player stats: ",new Vector2(buttonWidth + 20,20),Color.Black);
-			if(Party.PartyList[selectedPlayer] != null)
+			if(selectedPlayer < Party.Count && Party.PartyList[selectedPlayer] != null)
 			{
 				Player cPlayer = Party.PartyList[selectedPlayer];
 				String nameString = "Name: " + cPlayer.Name + "   Level: " + cPlayer.Level + " (XP to next level: " + (cPlayer.ExpNeeded - cPlayer.Exp) + ")";
