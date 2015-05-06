@@ -391,8 +391,10 @@ namespace SwiftSands
 								LocalMap localMap = new LocalMap(map,game,game.GraphicsDevice.Viewport);
 								StateManager.OpenState(localMap);
                                 break;
-                            case "Combat": 
-								List<Enemy> enemyList = new List<Enemy>();
+                            case "Combat":
+                                map = input.ReadString();
+                                int currentTurn = input.ReadInt32();
+                                List<Enemy> enemyList = new List<Enemy>();
 								int numEnemies = input.ReadInt32();
 								for(int i = 0; i < numEnemies; i++)
 								{
@@ -434,7 +436,7 @@ namespace SwiftSands
 									Enemy tempEnemy = new Enemy(maxHealth,health,mana,speed,strength,accuracy,movement,level,false,xpAward,charSprite,position,isActive,name);
 									enemyList.Add(tempEnemy);
 								}
-								Combat newCombat = new Combat(game,game.GraphicsDevice.Viewport,enemyList);
+								Combat newCombat = new Combat(map,game,game.GraphicsDevice.Viewport,enemyList,currentTurn);
 								StateManager.OpenState(game.Combat);
                                 break;
                             default: StateManager.OpenState(game.MainMenu);

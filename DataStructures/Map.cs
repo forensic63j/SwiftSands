@@ -68,6 +68,23 @@ namespace SwiftSands
             }
         }
 
+        /// <summary>
+        /// Gets mappath
+        /// </summary>
+
+        public String MapPath
+        {
+            get { return mapPath; }
+        }
+
+        /// <summary>
+        /// Gets tileset name
+        /// </summary>
+        public String TilesetName
+        {
+            get { return tilesetName; }
+        }
+
         public Map(int pWidth, int pHeight, int pTileWidth, int pTileHeight, int[,] groundTiles, int[,] ground2Tiles, int[,] colliderTiles, string tilesetname, string path)
         {
             width = pWidth;

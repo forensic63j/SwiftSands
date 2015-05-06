@@ -44,33 +44,52 @@ namespace SwiftSands
             set{enemyList =value;}
         }
 
+        /// <summary>
+        /// Gets the current turn.
+        /// </summary>
+        public int CurrentTurn
+        {
+            get { return currentTurn; }
+        }
+
 		#region main methods
 		/// <summary>
 		/// The main constructor for combat.
 		/// </summary>
-		public Combat(Game1 game, Viewport port,List<Enemy> enemies) : base(game, port) {
-			currentTurn = 0;
-			actionLeft = true;
-			targeting = false;
+        public Combat(Game1 game, Viewport port, List<Enemy> enemies)
+            : this("desert", game, port, enemies, 0)
+        {
+			
+		}
+
+        /// <summary>
+        /// More detailed constructor.
+        /// </summary>
+        public Combat(String mapPath,Game1 game, Viewport port, List<Enemy> enemies, int currentTurn)
+            : base(mapPath,game, port)
+        {
+            this.currentTurn = currentTurn;
+            actionLeft = true;
+            targeting = false;
             EnemyList = enemies;
-			combatants = new List<Character>();
-			ResetCombatents(enemies);
+            combatants = new List<Character>();
+            ResetCombatents(enemies);
 
-			this.font = base.StateGame.Font;
+            this.font = base.StateGame.Font;
             this.buttonSprite = base.StateGame.ButtonSprite;
-			attack = new Button("Attack",font,buttonSprite,new Rectangle(5,port.Height-75,100,30),true);
-			endTurn = new Button("End Turn",font,buttonSprite,new Rectangle(5,port.Height - 35,100,30),true);
+            attack = new Button("Attack", font, buttonSprite, new Rectangle(5, port.Height - 75, 100, 30), true);
+            endTurn = new Button("End Turn", font, buttonSprite, new Rectangle(5, port.Height - 35, 100, 30), true);
 
-			attack.OnClick = Attack;
-			endTurn.OnClick = EndTurn;
+            attack.OnClick = Attack;
+            endTurn.OnClick = EndTurn;
 
-			rng = new Random();
+            rng = new Random();
             movesLeft = combatants[currentTurn].MovementRange;
             combatTime = 0;
             TextBox.Instance.Position = new Rectangle(128, port.Height - 74, 600, 70);
             TextBox.Instance.IsActive = true;
             TextBox.Instance.Text = "(no information)";
-		}
+        }
 
         public override void OnEnter()
         {
