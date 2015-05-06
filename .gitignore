@@ -56,3 +56,10 @@ obj/x86/Debug/SwiftSands.exe
 obj/x86/Debug/SwiftSands.pdb
 SwiftSands.v12.suo
 bin/Windows/Debug/SwiftSands.vshost.exe
+bin/Windows/Debug/Content/Data/Savefiles/Save1.data
+bin/Windows/Debug/Content/PlayerSprites/Player0.png
+bin/Windows/Debug/Content/PlayerSprites/Player1.png
+bin/Windows/Debug/Content/PlayerSprites/Player2.png
+bin/Windows/Debug/Content/PlayerSprites/Player3.png
+bin/Windows/Debug/Content/PlayerSprites/Player4.png
+bin/Windows/Debug/Content/PlayerSprites/Player5.png
