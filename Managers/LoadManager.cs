@@ -437,7 +437,7 @@ namespace SwiftSands
 									enemyList.Add(tempEnemy);
 								}
 								Combat newCombat = new Combat(map,game,game.GraphicsDevice.Viewport,enemyList,currentTurn);
-								StateManager.OpenState(game.Combat);
+								StateManager.OpenState(newCombat);
                                 break;
                             default: StateManager.OpenState(game.MainMenu);
                                 break;
