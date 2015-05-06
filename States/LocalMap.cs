@@ -60,14 +60,6 @@ namespace SwiftSands
 		{
 			get { return map; }
 		}
-
-		/// <summary>
-		/// Gets the name.
-		/// </summary>
-		public String Name
-		{
-			get { return mapName; }
-		}
 		#endregion
 
 		public LocalMap(Game1 game, Viewport port) : base(game, port) 

@@ -45,7 +45,7 @@ namespace SwiftSands
         }
 
         /// <summary>
-        /// Gets and sets the current turn.
+        /// Gets the current turn.
         /// </summary>
         public int CurrentTurn
         {
@@ -68,11 +68,12 @@ namespace SwiftSands
         public Combat(String mapPath,Game1 game, Viewport port, List<Enemy> enemies, int currentTurn)
             : base(mapPath,game, port)
         {
+            this.currentTurn = currentTurn;
             actionLeft = true;
             targeting = false;
             EnemyList = enemies;
             combatants = new List<Character>();
-            ResetCombatents(enemyList);
+            ResetCombatents(enemies);
 
             this.font = base.StateGame.Font;
             this.buttonSprite = base.StateGame.ButtonSprite;
@@ -88,8 +89,6 @@ namespace SwiftSands
             TextBox.Instance.Position = new Rectangle(128, port.Height - 74, 600, 70);
             TextBox.Instance.IsActive = true;
             TextBox.Instance.Text = "(no information)";
-
-			this.currentTurn = currentTurn;
         }
 
         public override void OnEnter()
@@ -99,7 +98,14 @@ namespace SwiftSands
                 ExitCombat();
             }
             base.OnEnter();
-			
+			for(int i = 0; i < Party.PartyList.Count; i++)
+			{
+				Party.PartyList[i].TilePosition = new Vector2(rng.Next(0,base.Map.Width / 3),rng.Next(0,base.Map.Height / 3));
+				while(base.Map.TileCollide(Party.PartyList[i].TilePosition))
+				{
+					Party.PartyList[i].TilePosition = new Vector2(rng.Next(0,base.Map.Width / 3),rng.Next(0,base.Map.Height / 3));
+				}
+			}
             SelectedCharacter = combatants[currentTurn];
         }
 
@@ -761,7 +767,8 @@ namespace SwiftSands
 
 			foreach(Enemy enemy in enemies)
 			{ //Not sure if this is a good way to do this.
-				
+				enemy.Alive = true;
+				enemy.Health = enemy.MaxHealth;
 				if(combatants.Count == 0)
 				{
 					combatants.Add(enemy);
@@ -784,15 +791,6 @@ namespace SwiftSands
 
 		}
 
-		public void ResetEnemies()
-		{
-			foreach(Enemy enemy in enemyList)
-			{
-				enemy.Alive = true;
-				enemy.Health = enemy.MaxHealth;
-			}
-		}
-
         /// <summary>
         /// Handles leaving combat.
         /// </summary>
@@ -810,14 +808,7 @@ namespace SwiftSands
 		/// </summary>
 		public void RandomizePositions()
 		{
-			for(int i = 0; i < Party.PartyList.Count; i++)
-			{
-				Party.PartyList[i].TilePosition = new Vector2(rng.Next(0,base.Map.Width / 3),rng.Next(0,base.Map.Height / 3));
-				while(base.Map.TileCollide(Party.PartyList[i].TilePosition))
-				{
-					Party.PartyList[i].TilePosition = new Vector2(rng.Next(0,base.Map.Width / 3),rng.Next(0,base.Map.Height / 3));
-				}
-			}
+			
 		}
 		#endregion
 
