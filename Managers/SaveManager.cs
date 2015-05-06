@@ -117,7 +117,7 @@ namespace SwiftSands
 						if(currentState is Combat) 
 						{
 							Combat combat = currentState as Combat;
-                            output.Write(combat.Map.TilesetName);
+                            output.Write(combat.Name);
                             output.Write(combat.CurrentTurn);
 							output.Write(combat.EnemyList.Count);
 							foreach(Enemy enemy in combat.EnemyList){
@@ -154,7 +154,7 @@ namespace SwiftSands
 						}else if(currentState is LocalMap)
 						{
 							LocalMap lMap = currentState as LocalMap;
-                            output.Write(lMap.Map.TilesetName);
+                            output.Write(lMap.Name);
 						}
 					}
 				}
