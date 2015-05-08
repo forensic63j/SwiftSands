@@ -33,7 +33,7 @@ namespace SwiftSands
             deathsAllowed = deaths;
             expNeeded = (int)(10 * Math.Pow(2, level - 1));
             stats = new Dictionary<String, int>();
-            stats.Add("Health", Health);
+            stats.Add("Health", MaxHealth);
             stats.Add("Mana", Mana);
             stats.Add("Speed", Speed);
             stats.Add("Strength", Strength);
@@ -50,7 +50,7 @@ namespace SwiftSands
 			deathsAllowed = deaths;
 			expNeeded = (int)(10 * Math.Pow(2, level - 1));
             stats = new Dictionary<String, int>();
-            stats.Add("Health", Health);
+            stats.Add("Health", MaxHealth);
             stats.Add("Mana", Mana);
             stats.Add("Speed", Speed);
             stats.Add("Strength", Strength);
@@ -141,10 +141,39 @@ namespace SwiftSands
 			{
                 String key = stat.Key;
                 int v = stat.Value;
-                if (rand.Next(0, 100) >= 75) //75% chance for each stat to boost
+                if (rand.Next(0, 101) >= 25) //75% chance for each stat to be boosted
                 {
-                    v++;
                     s1 += key + ", ";
+                    if (key == "Health")
+                    {
+                        MaxHealth += 5;
+                        v += 5;
+                    }
+                    else if (key == "Mana")
+                    {
+                        Mana += 5;
+                        v += 5;
+                    }
+                    else if (key == "Speed")
+                    {
+                        Speed += 5;
+                        v += 5;
+                    }
+                    else if (key == "Strength")
+                    {
+                        Strength += 5;
+                        v += 5;
+                    }
+                    else if (key == "Accuracy")
+                    {
+                        Accuracy += 5;
+                        v += 5;
+                    }
+                    else if (key == "Range")
+                    {
+                        MovementRange++;
+                        v++;
+                    }
                 }
                 temp.Add(key, v);
 			}
