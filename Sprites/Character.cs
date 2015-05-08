@@ -15,6 +15,7 @@ namespace SwiftSands
         static protected Item _defaultItem = new Item(ItemType.Melee, 0, 5, 2, "Fists", true, null, new Rectangle(), false, false, "Fist");
 
         private int maxHealth = 0;
+        private int maxMana = 0;
 		private int health = 0;
         private int mana = 0;
         private int speed = 0;
@@ -38,6 +39,7 @@ namespace SwiftSands
             MaxHealth = 1;
             Health = 1;
             Mana = 0;
+            MaxMana = 0;
             Speed = 0;
             Strength = 0;
             Accuracy = 0;
@@ -55,6 +57,7 @@ namespace SwiftSands
         {
             MaxHealth = max;
             Health = health;
+            MaxMana = mana;
             Mana = mana;
             Speed = speed;
             Strength = strength;
@@ -166,6 +169,17 @@ namespace SwiftSands
                 }
 			}
 		}
+        public int MaxMana
+        {
+            get
+            {
+                return maxMana;
+            }
+            set
+            {
+                maxMana = value;
+            }
+        }
 		public int Mana
 		{
 			get
@@ -174,7 +188,12 @@ namespace SwiftSands
 			}
 			set
 			{
-				mana = value;
+                if (value > MaxMana)
+                    mana = MaxMana;
+                else
+                    mana = value;
+                if (mana < 0)
+                    mana = 0;
 			}
 		}
 		public int Strength
@@ -307,13 +326,20 @@ namespace SwiftSands
 
 		public void Cast(Item spell, Character target)
 		{
-			if(spell.Type == ItemType.HealingSpell)
+			if(spell.Type == ItemType.HealingSpell && this.Mana >= spell.Healing)
 			{
 				target.Heal(spell.Healing);
+                this.Mana -= spell.Healing;
 			}
-			if(spell.Type == ItemType.AttackSpell)
+            if (spell.Type == ItemType.ManaRecovery && this.Mana >= spell.Healing)
+            {
+                target.Recovery(spell.Healing);
+                this.Mana -= spell.Healing;
+            }
+			if(spell.Type == ItemType.AttackSpell && this.Mana >= spell.Damage)
 			{
 				target.TakeDamage(spell.Damage);
+                this.Mana -= spell.Damage;
 			}
 		}
 		public virtual void TakeDamage(int damage)
@@ -328,6 +354,10 @@ namespace SwiftSands
 		{
 			this.Health += addHealth;
 		}
+        public void Recovery(int addMana)
+        {
+            this.Mana += addMana;
+        }
         public Player ToPlayer()
         {
             Player player = new Player(MaxHealth, Health, Mana, Speed, Strength, Accuracy, 4, Level, CanJoin, 0, Texture, Position, active, Name, conversation);
