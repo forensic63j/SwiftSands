@@ -137,7 +137,7 @@ namespace SwiftSands
                             LocalMap town = new LocalMap("town", StateManager.CurrentState.StateGame, ViewPort);
                             StateManager.OpenState(town);  
                         }
-                        else if (Roll(0.01f))
+                        else if (Roll(1f))
                         {
                             Party.SelectedPlayer.Selected = false;
                             Party.SelectedPlayer = null;
