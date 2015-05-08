@@ -88,10 +88,10 @@ namespace SwiftSands
             TextBox.Instance.Position = new Rectangle(128, port.Height - 74, 600, 70);
             TextBox.Instance.IsActive = true;
             TextBox.Instance.Text = "(no information)";
-            if (StateManager.CurrentState != null)
+           /* if (StateManager.CurrentState != null)
             {
                 RandomizePositions(mapPath);
-            }
+            }*/
 			this.currentTurn = currentTurn;
         }
 
@@ -814,7 +814,7 @@ namespace SwiftSands
         /// </summary>
         public void RandomizePositions()
         {
-            Map map = Map;
+            Map map = this.Map;
             for (int i = 0; i < Party.PartyList.Count; i++)
             {
                 Party.PartyList[i].TilePosition = new Vector2(rng.Next(0, map.Width / 3), rng.Next(0, map.Height / 3));

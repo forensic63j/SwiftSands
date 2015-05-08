@@ -362,7 +362,7 @@ namespace SwiftSands
         }
         public Player ToPlayer()
         {
-            Player player = new Player(MaxHealth, Health, Mana, Speed, Strength, Accuracy, 4, Level, CanJoin, 0, Texture, Position, active, Name, conversation);
+            Player player = new Player(MaxHealth, Health, Mana, Speed, Strength, Accuracy, MovementRange, Level, CanJoin, 0, Texture, Position, active, Name, conversation);
 			player.EquipItem = equipItem;
 			return player;
         }

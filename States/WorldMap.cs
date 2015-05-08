@@ -145,9 +145,9 @@ namespace SwiftSands
                             enList.Add(base.StateGame.CharacterList["enemy"] as Enemy);
                             Combat newCombat = new Combat(base.StateGame, base.ViewPort, enList);
 							newCombat.ResetEnemies();
-                            //newCombat.RandomizePositions();
-                            StateManager.OpenState(newCombat);
-                        }
+							StateManager.OpenState(newCombat);
+							newCombat.RandomizePositions();
+                            }
                     }
                 }
             }
