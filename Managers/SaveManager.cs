@@ -17,7 +17,7 @@ namespace SwiftSands
 		/// Saves files.
 		/// </summary>
 		/// <param name="filename">A file name.</param>
-		public static void Save(String filename, State currentState)
+		public static bool Save(String filename, State currentState)
 		{
 			try
 			{
@@ -177,7 +177,9 @@ namespace SwiftSands
 			} catch(Exception e)
 			{
 				Console.WriteLine(e.Message);
+                return false;
 			}
+            return true;
 		}
 		#endregion
 	}
