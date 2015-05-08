@@ -177,7 +177,13 @@ namespace SwiftSands
                 }
                 else
                 {
-                    SelectedCharacter.Move(StateManager.TileMousePosition);
+                    Vector2 startTile = SelectedCharacter.TilePosition;
+                    float distance = Math.Abs(startTile.X - StateManager.TileMousePosition.X) + Math.Abs(startTile.Y - StateManager.TileMousePosition.Y);
+                    int intDistance = (int)distance;
+                    if (intDistance <= 1)
+                    {
+                        selectedCharacter.Move(StateManager.TileMousePosition);
+                    }
                 }
 			}
 
