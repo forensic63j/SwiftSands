@@ -834,7 +834,7 @@ namespace SwiftSands
 			for(int i = 0; i < Party.PartyList.Count; i++)
 			{
                 Party.PartyList[i].TilePosition = new Vector2(rng.Next(0, map.Width / 3), rng.Next(0, map.Height / 3));
-				while(base.Map.TileCollide(Party.PartyList[i].TilePosition))
+				while(map.TileCollide(Party.PartyList[i].TilePosition))
 				{
                     Party.PartyList[i].TilePosition = new Vector2(rng.Next(0, map.Width / 3), rng.Next(0, map.Height / 3));
 				}
