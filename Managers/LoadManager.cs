@@ -64,7 +64,7 @@ namespace SwiftSands
         {
 			try
 			{
-                Map newMap = LoadMap("desert.txt");
+                Map newMap = LoadMap("desert");
 				//GUI
 				font = game.Content.Load<SpriteFont>("GUI\\menuFont");
 
@@ -223,6 +223,7 @@ namespace SwiftSands
 
 			} catch(Exception e)
 			{
+                throw e;
 				Console.WriteLine("\n\n\t" + e.Message + "\n\n");
 			}
         }
@@ -471,8 +472,8 @@ namespace SwiftSands
             int[,] groundLayer = new int[width, height];
             int[,] ground2Layer = new int[width, height];
             int[,] colliderLayer = new int[width, height];
-            string path = "Content\\Maps\\" + filename;
-            using (StreamReader input = new StreamReader("Content\\Maps\\" + filename))
+            string path = "Content\\Maps\\" + filename + ".txt";
+            using (StreamReader input = new StreamReader(path))
             {
                 string currentLine;
                 int lineIndex = 0;
