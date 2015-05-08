@@ -382,8 +382,10 @@ namespace SwiftSands
 		{
             StateManager.CloseState();
             State runningState = StateManager.CurrentState;
-            SaveManager.Save("Save1.data", runningState);
-            StateManager.OpenState(Pause);
+            if (!SaveManager.Save("Save1.data", runningState))
+            {
+                StateManager.OpenState(Pause);
+            }
 		}
 		#endregion
 	}
