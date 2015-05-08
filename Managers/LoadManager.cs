@@ -212,7 +212,7 @@ namespace SwiftSands
 						String[] taskStats = tasks[i].Split(',');
 
 						TaskType type = (TaskType)(System.Enum.Parse(typeof(TaskType),taskStats[0],true));
-						String description = taskStats[i];
+						String description = taskStats[1];
 						String target = taskStats[2];
 						int reward = int.Parse(taskStats[3]);
 
