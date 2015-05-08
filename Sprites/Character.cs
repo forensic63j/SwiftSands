@@ -51,13 +51,13 @@ namespace SwiftSands
             equipItem = _defaultItem;
         }
 
-        public Character(int max, int health, int mana, int speed, int strength, int accuracy, int moverange, int level, bool canJoin,
+        public Character(int max, int health, int maxMana,int mana, int speed, int strength, int accuracy, int moverange, int level, bool canJoin,
             Texture2D texture, Rectangle pos, bool active, String name)
             : base(texture, pos, active, name)
         {
             MaxHealth = max;
             Health = health;
-            MaxMana = mana;
+            MaxMana = maxMana;
             Mana = mana;
             Speed = speed;
             Strength = strength;

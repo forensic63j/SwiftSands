@@ -188,13 +188,13 @@ namespace SwiftSands
 						{
 							int xpAwarded = int.Parse(characterStats[18]);
 							//create enemy
-							Enemy tempEnemy = new Enemy(maxHealth,health,mana,speed,strength,accuracy,movementRange,level,recruitable,xpAwarded,sprite,position,active,name);
+							Enemy tempEnemy = new Enemy(maxHealth,health,mana,mana,speed,strength,accuracy,movementRange,level,recruitable,xpAwarded,sprite,position,active,name);
 							tempEnemy.EquipItem = charItem;
 							characterList.Add(name,tempEnemy);
 						} else
 						{
 							//Builds character
-                            Character tempCharacter = new Character(maxHealth, health, mana, speed, strength, accuracy, movementRange, level, recruitable, sprite, position, active, name);
+                            Character tempCharacter = new Character(maxHealth, health, mana,mana, speed, strength, accuracy, movementRange, level, recruitable, sprite, position, active, name);
 							tempCharacter.EquipItem = charItem;
 							characterList.Add(name,tempCharacter);
 						}
@@ -284,6 +284,7 @@ namespace SwiftSands
 							//Health, mana, death data
 							int maxHealth = input.ReadInt32();
 							int health = input.ReadInt32();
+                            int maxMana = input.ReadInt32();
 							int mana = input.ReadInt32();
 							int numDeaths = input.ReadInt32();
 							int deathsAllowed = input.ReadInt32();
@@ -318,7 +319,7 @@ namespace SwiftSands
 							bool active = input.ReadBoolean();
 
 							//instantiate player
-							Player tempPlayer = new Player(maxHealth,health,mana,speed,strength,accuracy, moverange,level,true,deathsAllowed,sprites[i],position,active,name);
+							Player tempPlayer = new Player(maxHealth,health,maxMana,mana,speed,strength,accuracy, moverange,level,true,deathsAllowed,sprites[i],position,active,name);
 							tempPlayer.NumDeaths = numDeaths;
 							tempPlayer.EquipItem = charItem;
 							Party.Add(tempPlayer);
@@ -408,6 +409,7 @@ namespace SwiftSands
 									String name = input.ReadString();
 									int maxHealth = input.ReadInt32();
 									int health = input.ReadInt32();
+                                    int maxMana = input.ReadInt32();
 									int mana = input.ReadInt32();
 									int level = input.ReadInt32();
 
@@ -440,7 +442,7 @@ namespace SwiftSands
 									bool isActive = input.ReadBoolean();
 									int xpAward = input.ReadInt32();
 
-									Enemy tempEnemy = new Enemy(maxHealth,health,mana,speed,strength,accuracy,movement,level,false,xpAward,charSprite,position,isActive,name);
+									Enemy tempEnemy = new Enemy(maxHealth,health,maxMana,mana,speed,strength,accuracy,movement,level,false,xpAward,charSprite,position,isActive,name);
 									enemyList.Add(tempEnemy);
 								}
 								Combat newCombat = new Combat(map,game,game.GraphicsDevice.Viewport,enemyList,currentTurn);

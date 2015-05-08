@@ -37,6 +37,7 @@ namespace SwiftSands
 							//Health, mana, death data
 							output.Write(player.MaxHealth);
 							output.Write(player.Health);
+                            output.Write(player.MaxMana);
 							output.Write(player.Mana);
 							output.Write(player.DeathsAllowed);
 							output.Write(player.NumDeaths);
@@ -129,6 +130,7 @@ namespace SwiftSands
 							//Health, mana, death data
 							output.Write(enemy.MaxHealth);
 							output.Write(enemy.Health);
+                            output.Write(enemy.MaxMana);
 							output.Write(enemy.Mana);
 
 							//Leveling

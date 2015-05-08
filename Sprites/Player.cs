@@ -24,9 +24,9 @@ namespace SwiftSands
 		Dictionary<String, int> stats;
         #endregion
 
-        public Player(int maxHealth, int health, int mana, int speed, int strength, int accuracy, int moverange, int level, bool canJoin, int deaths, Texture2D texture,
+        public Player(int maxHealth, int health, int maxMana,int mana, int speed, int strength, int accuracy, int moverange, int level, bool canJoin, int deaths, Texture2D texture,
             Rectangle pos, bool active, String name)
-            : base(maxHealth, health, mana, speed, strength, accuracy, moverange, level, canJoin, texture, pos, active, name)
+            : base(maxHealth, health, maxMana,mana, speed, strength, accuracy, moverange, level, canJoin, texture, pos, active, name)
         {
             numDeaths = 0;
             exp = 0;
