@@ -77,7 +77,6 @@ namespace SwiftSands
         {
             MaxHealth = 1;
             Health = 1;
-			MaxMana = 0;
             Mana = 0;
             Speed = 0;
             Strength = 0;
@@ -96,7 +95,6 @@ namespace SwiftSands
 		{
             MaxHealth = max;
 			Health = health;
-			MaxMana = mana;
 			Mana = mana;
 			Speed = speed;
 			Strength = strength;
