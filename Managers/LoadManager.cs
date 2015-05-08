@@ -378,7 +378,12 @@ namespace SwiftSands
 						}
 						#endregion
 
-						String stateString = input.ReadString();
+                        float worldX = input.ReadSingle();
+                        float worldY = input.ReadSingle();
+                        Party.WorldTilePosition = new Vector2(worldX, worldY);
+
+                        
+                        String stateString = input.ReadString();
 						String map = "";
                         switch (stateString)
                         {

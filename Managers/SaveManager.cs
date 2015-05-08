@@ -113,6 +113,9 @@ namespace SwiftSands
 							output.Write(task.Completed);
 						}
 
+                        output.Write(Party.WorldTilePosition.X);
+                        output.Write(Party.WorldTilePosition.Y);
+
                         output.Write(currentState.ToString());
 						if(currentState is Combat) 
 						{
