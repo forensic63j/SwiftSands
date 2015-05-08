@@ -88,7 +88,10 @@ namespace SwiftSands
             TextBox.Instance.Position = new Rectangle(128, port.Height - 74, 600, 70);
             TextBox.Instance.IsActive = true;
             TextBox.Instance.Text = "(no information)";
-            RandomizePositions(mapPath);
+            if (StateManager.CurrentState != null)
+            {
+                RandomizePositions(mapPath);
+            }
 			this.currentTurn = currentTurn;
         }
 
@@ -805,12 +808,29 @@ namespace SwiftSands
              }
         }
 
+
+        /// <summary>
+        /// Randomly positions players.
+        /// </summary>
+        public void RandomizePositions()
+        {
+            Map map = Map;
+            for (int i = 0; i < Party.PartyList.Count; i++)
+            {
+                Party.PartyList[i].TilePosition = new Vector2(rng.Next(0, map.Width / 3), rng.Next(0, map.Height / 3));
+                while (base.Map.TileCollide(Party.PartyList[i].TilePosition))
+                {
+                    Party.PartyList[i].TilePosition = new Vector2(rng.Next(0, map.Width / 3), rng.Next(0, map.Height / 3));
+                }
+            }
+        }
+
 		/// <summary>
 		/// Randomly positions players.
 		/// </summary>
 		public void RandomizePositions(string mapPath)
 		{
-            Map map = LoadManager.LoadMap(mapPath);
+            Map map = LoadManager.LoadMap(mapPath + ".txt");
 			for(int i = 0; i < Party.PartyList.Count; i++)
 			{
                 Party.PartyList[i].TilePosition = new Vector2(rng.Next(0, map.Width / 3), rng.Next(0, map.Height / 3));
