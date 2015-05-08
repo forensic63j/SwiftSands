@@ -1,1 +1,1 @@
-CollectItem,"Find and retrieve the Arrowhead","Arrowhead",50;Converse,"Talk to the old man","Old Man",5
+CollectItem,Find and retrieve the Arrowhead,Arrowhead,50;Converse,Talk to the old man,Old Man,5
