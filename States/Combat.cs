@@ -463,7 +463,7 @@ namespace SwiftSands
 			if(this.SelectedCharacter != null)
 			{
 				Character cSelected = this.SelectedCharacter;
-				String info = cSelected.Name + ": Health-" + cSelected.Health + "\\" + cSelected.MaxHealth + " Mana-" + cSelected.Mana;
+				String info = cSelected.Name + ": Health-" + cSelected.Health + "\\" + cSelected.MaxHealth + " Mana-" + cSelected.Mana + "\\" + cSelected.MaxMana;
 				if(cSelected.EquipItem != null)
 				{
 					info += " Item-" + cSelected.EquipItem.Name;
