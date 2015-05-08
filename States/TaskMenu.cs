@@ -77,8 +77,6 @@ namespace SwiftSands
                 Task t = TaskManager.Tasks[i];
                 Button button = new Button(t.Description, font, texture, new Rectangle(0, 75 * (i + 1) - 30, 800, 75), true);
                 Color color = Color.White;
-                if (t.Completed)
-                    color = Color.LightGreen;
                 if (selectedTask != null && t == selectedTask)
                     color = Color.Bisque;
                 spriteBatch.Draw(texture, button.Position, color);

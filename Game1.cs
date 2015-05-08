@@ -272,6 +272,7 @@ namespace SwiftSands
             TextBox.Instance.IsActive = false;
             TextBox.Instance.Texture = buttonSprite;
             TextBox.Instance.SpriteBatch = this.spriteBatch;
+            TextBox.Instance.Position = new Rectangle();
 
 			StateManager.OpenState(mainMenu);
             

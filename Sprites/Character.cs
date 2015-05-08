@@ -196,6 +196,8 @@ namespace SwiftSands
 			}
 			set
 			{
+                if (value >= 100)
+                    accuracy = 100;
 				accuracy = value;
 			}
 		}
