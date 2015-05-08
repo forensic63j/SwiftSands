@@ -34,7 +34,7 @@ namespace SwiftSands
             expNeeded = (int)(10 * Math.Pow(2, level - 1));
             stats = new Dictionary<String, int>();
             stats.Add("Health", MaxHealth);
-            stats.Add("Mana", Mana);
+            stats.Add("Mana", MaxMana);
             stats.Add("Speed", Speed);
             stats.Add("Strength", Strength);
             stats.Add("Accuracy", Accuracy);
@@ -51,7 +51,7 @@ namespace SwiftSands
 			expNeeded = (int)(10 * Math.Pow(2, level - 1));
             stats = new Dictionary<String, int>();
             stats.Add("Health", MaxHealth);
-            stats.Add("Mana", Mana);
+            stats.Add("Mana", MaxMana);
             stats.Add("Speed", Speed);
             stats.Add("Strength", Strength);
             stats.Add("Accuracy", Accuracy);
@@ -151,7 +151,7 @@ namespace SwiftSands
                     }
                     else if (key == "Mana")
                     {
-                        Mana += 5;
+                        MaxMana += 5;
                         v += 5;
                     }
                     else if (key == "Speed")

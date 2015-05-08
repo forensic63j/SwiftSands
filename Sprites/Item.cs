@@ -14,6 +14,7 @@ namespace SwiftSands
 		Melee,
 		Gun,
 		HealingSpell,
+        ManaRecovery,
 		AttackSpell,
 		Evidence
 	}
