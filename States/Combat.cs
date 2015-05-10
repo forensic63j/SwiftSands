@@ -27,6 +27,9 @@ namespace SwiftSands
         bool[,] targetingRange;
         List<Enemy> enemyList;
 
+		//Recognises if anything has changed in the program.
+		private bool changed;
+
 		//GUI
 		SpriteFont font;
         Texture2D buttonSprite;
@@ -93,6 +96,10 @@ namespace SwiftSands
                 RandomizePositions(mapPath);
             }*/
 			this.currentTurn = currentTurn;
+
+			changed = true;
+
+
         }
 
         public override void OnEnter()
@@ -139,11 +146,13 @@ namespace SwiftSands
 			Rectangle cLocalPosition = base.Map.ConvertPosition(combatants[currentTurn].Position,StateCamera);
 			Vector2 pVector = base.Map.ConvertPosition(Vector2.Transform(new Vector2(cWorldPosition.X,cWorldPosition.Y),StateCamera.Transform),StateCamera);
 
-            validTiles = new bool[Map.ColliderLayer.GetLength(0), Map.ColliderLayer.GetLength(1)];
-            targetingRange = new bool[Map.ColliderLayer.GetLength(0), Map.ColliderLayer.GetLength(1)];
-            
-            validTiles.Initialize();
-            targetingRange.Initialize();
+			if(validTiles == null || targetingRange == null || changed){	
+				validTiles = new bool[Map.ColliderLayer.GetLength(0),Map.ColliderLayer.GetLength(1)];
+				targetingRange = new bool[Map.ColliderLayer.GetLength(0),Map.ColliderLayer.GetLength(1)];
+
+				validTiles.Initialize();
+				targetingRange.Initialize();
+			}
 
 			if(combatants[currentTurn] is Player)
 			{
@@ -157,7 +166,12 @@ namespace SwiftSands
 					//cPlayer.Selected = false;
                     Map.RemoveTints();
 					attack.Clickable = true;
-					ValidTargets(ref validTiles, ref targetingRange, (int)pVector.X,(int)pVector.Y, cPlayer.EquipItem.Range);
+					if(changed)
+					{
+						ValidTargets(ref validTiles,ref targetingRange,(int)pVector.X,(int)pVector.Y,cPlayer.EquipItem.Range);
+						changed = false;
+					}
+					
                     /* OBSOLETE (i think)
                     for (int j = 0; j < validTiles.GetLength(0); j++)
                     {
@@ -204,7 +218,12 @@ namespace SwiftSands
                 else //If players turn and not targeting 
 				{
 					attack.Clickable = actionLeft;
-					combatants[currentTurn].ValidMovements(ref validTiles, combatants,(int)pVector.X,(int)pVector.Y, movesLeft);
+					if(changed)
+					{
+						combatants[currentTurn].ValidMovements(ref validTiles,combatants,(int)pVector.X,(int)pVector.Y,movesLeft);
+						changed = false;
+					}
+
 					if(StateManager.MState.LeftButton == ButtonState.Pressed && StateManager.MPrevious.LeftButton == ButtonState.Released)
 					{
 						Vector2 tileVector = StateManager.TileMousePosition;
@@ -230,7 +249,8 @@ namespace SwiftSands
                                         int distanceMoved = combatants[currentTurn].Move(StateManager.TileMousePosition);
                                         if (distanceMoved > 0)
                                         {
-                                            movesLeft = movesLeft - distanceMoved;
+											movesLeft = movesLeft - distanceMoved;
+											changed = true;
                                         }
                                     }
                                 }
@@ -299,8 +319,11 @@ namespace SwiftSands
 					{
 						if(actionLeft)
 						{
-                            ValidTargets(ref validTiles, ref targetingRange, (int)pVector.X,(int)pVector.Y, 2);
-
+							if(changed)
+							{
+								ValidTargets(ref validTiles,ref targetingRange,(int)pVector.X,(int)pVector.Y,2);
+								changed = false;
+							}
                             Item enemyItem = cEnemy.EquipItem;
 
                             
@@ -356,7 +379,11 @@ namespace SwiftSands
 					{
 						if(movesLeft > 0)
 						{
-                            combatants[currentTurn].ValidMovements(ref validTiles, combatants, (int)pVector.X,(int)pVector.Y, movesLeft);
+							if(changed)
+							{
+								combatants[currentTurn].ValidMovements(ref validTiles,combatants,(int)pVector.X,(int)pVector.Y,movesLeft);
+								changed = false;
+							}
                                                         //Screw it implement A* later
 
 							if(!NoValidMoves((int)pVector.X,(int)pVector.Y,validTiles))
@@ -371,6 +398,7 @@ namespace SwiftSands
 								Vector2 moveVector = new Vector2(x,y);
 								int distanceMoved = combatants[currentTurn].Move(moveVector);
 								movesLeft -= distanceMoved;
+								changed = true;
 
 							} else
 							{
@@ -411,7 +439,7 @@ namespace SwiftSands
                 }
                 #endregion
             }
-			
+
 			attack.Update();
 			endTurn.Update();
 			if(combatants[currentTurn] is Player)
@@ -447,6 +475,7 @@ namespace SwiftSands
                     if (currentTurn > i)
                     {
                         currentTurn--;
+						changed = true;
                     }
 				} else
 				{
@@ -581,12 +610,14 @@ namespace SwiftSands
 			{
 				targeting = true;
 			}
+			changed = true;
 		}
 
         public void StopAttack()
         {
             attack.Name = "Attack";
             targeting = false;
+			changed = true;
             Map.RemoveTints();
         }
 
@@ -611,6 +642,7 @@ namespace SwiftSands
             actionLeft = true;
             SelectedCharacter = combatants[currentTurn];
             movesLeft = combatants[currentTurn].MovementRange;
+			changed = true;
             //this.StateCamera.Position = new Vector2(-combatants[currentTurn].Position.X, -combatants[currentTurn].Position.Y);
 		}
 		#endregion
