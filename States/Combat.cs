@@ -468,7 +468,7 @@ namespace SwiftSands
 					} else
 					{
 						Enemy cEnemy = combatants[i] as Enemy;
-						(combatants[currentTurn] as Player).Exp += cEnemy.ExpAwarded;
+						//(combatants[currentTurn] as Player).Exp += cEnemy.ExpAwarded;
 					}
 
 					combatants.RemoveAt(i);
