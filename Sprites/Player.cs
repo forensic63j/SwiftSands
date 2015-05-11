@@ -22,7 +22,6 @@ namespace SwiftSands
 		private int deathsAllowed;
 		private int expNeeded;
 		Dictionary<String, int> stats;
-        Random rand = new Random();
         #endregion
 
         public Player(int maxHealth, int health, int maxMana,int mana, int speed, int strength, int accuracy, int moverange, int level, bool canJoin, int deaths, Texture2D texture,
@@ -141,7 +140,7 @@ namespace SwiftSands
 			{
                 String key = stat.Key;
                 int v = stat.Value;
-                if (rand.Next(0, 101) >= 25) //75% chance for each stat to be boosted
+                if (StateManager.CurrentState.StateGame.Rand.Next(0, 101) >= 25) //75% chance for each stat to be boosted
                 {
                     s1 += key + ", ";
                     if (key == "Health")

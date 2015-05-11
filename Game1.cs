@@ -54,6 +54,8 @@ namespace SwiftSands
 		//State variables
 		MouseState mState;
 
+        Random rand = new Random();
+
 		#endregion
 
 
@@ -168,6 +170,11 @@ namespace SwiftSands
         public SpriteBatch SpriteBatch
         {
             get { return spriteBatch; }
+        }
+
+        public Random Rand
+        {
+            get { return rand; }
         }
         #endregion
 
