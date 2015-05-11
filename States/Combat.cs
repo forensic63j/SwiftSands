@@ -35,6 +35,7 @@ namespace SwiftSands
         Texture2D buttonSprite;
 		Button attack;
 		Button endTurn;
+        Button flee;
 
 		//RNG
 		Random rng;
@@ -79,11 +80,13 @@ namespace SwiftSands
 
             this.font = base.StateGame.Font;
             this.buttonSprite = base.StateGame.ButtonSprite;
-            attack = new Button("Attack", font, buttonSprite, new Rectangle(5, port.Height - 75, 100, 30), true);
-            endTurn = new Button("End Turn", font, buttonSprite, new Rectangle(5, port.Height - 35, 100, 30), true);
+            attack = new Button("Attack", font, buttonSprite, new Rectangle(5, port.Height - 115, 100, 30), true);
+            endTurn = new Button("End Turn", font, buttonSprite, new Rectangle(5, port.Height - 75, 100, 30), true);
+            flee = new Button("Flee", font, buttonSprite, new Rectangle(5, port.Height - 35, 100, 30), true);
 
             attack.OnClick = Attack;
             endTurn.OnClick = EndTurn;
+            flee.OnClick = Flee;
 
             rng = new Random();
             movesLeft = combatants[currentTurn].MovementRange;
@@ -442,6 +445,7 @@ namespace SwiftSands
 
 			attack.Update();
 			endTurn.Update();
+            flee.Update();
 			if(combatants[currentTurn] is Player)
 			{
 				if(StateManager.KState.IsKeyDown(Keys.Space) && StateManager.KPrevious.IsKeyUp(Keys.Space) && actionLeft)
@@ -572,6 +576,7 @@ namespace SwiftSands
             {
                 attack.Draw(spriteBatch);
                 endTurn.Draw(spriteBatch);
+                flee.Draw(spriteBatch);
             }
             //spriteBatch.Draw(buttonSprite, new Rectangle((int)mouse.X, (int)mouse.Y, 5, 5), Color.Black);
             base.DrawScreen(time, spriteBatch);
@@ -645,6 +650,21 @@ namespace SwiftSands
 			changed = true;
             //this.StateCamera.Position = new Vector2(-combatants[currentTurn].Position.X, -combatants[currentTurn].Position.Y);
 		}
+
+        /// <summary>
+        /// Has a chance to escape combat, ends turn if it fails
+        /// </summary>
+        public void Flee()
+        {
+            Random rand = new Random();
+            if (rand.Next(0, 101) >= 25)
+            {
+                SelectedCharacter = combatants[0];
+                ExitCombat();
+            }
+            else
+                EndTurn();
+        }
 		#endregion
 
 		#region movement/targeting

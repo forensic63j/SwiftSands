@@ -22,6 +22,7 @@ namespace SwiftSands
 		private int deathsAllowed;
 		private int expNeeded;
 		Dictionary<String, int> stats;
+        Random rand = new Random();
         #endregion
 
         public Player(int maxHealth, int health, int maxMana,int mana, int speed, int strength, int accuracy, int moverange, int level, bool canJoin, int deaths, Texture2D texture,
@@ -128,7 +129,6 @@ namespace SwiftSands
 		
 		public void LevelUp()
 		{
-			Random rand = new Random();
 			this.Level++;
 			exp -= expNeeded;
             expNeeded = (int)(10 * Math.Pow(2, Level - 1));
@@ -177,6 +177,8 @@ namespace SwiftSands
                 }
                 temp.Add(key, v);
 			}
+            this.Health = this.MaxHealth;
+            this.Mana = this.MaxMana;
             stats = temp;
             if (s1 != "")
                 s = s1;
