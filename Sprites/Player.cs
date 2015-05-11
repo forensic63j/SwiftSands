@@ -130,7 +130,7 @@ namespace SwiftSands
 		{
 			this.Level++;
 			exp -= expNeeded;
-            expNeeded = (int)(10 * Math.Pow(2, Level - 1));
+            expNeeded = (int)(.5 * Math.Pow(2, Level - 1));
             TextBox.Instance.Text = "Congratulations! You leveled up!";
             TextBox.Instance.IsActive = true;
             String s = "No stats";

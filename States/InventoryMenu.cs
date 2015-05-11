@@ -113,6 +113,8 @@ namespace SwiftSands
                 String damOrHeal = "";
                 if (temp.Type == ItemType.HealingSpell)
                     damOrHeal = "Heal: " + temp.Healing;
+                else if (temp.Type == ItemType.ManaRecovery)
+                    damOrHeal = "Mana: " + temp.Healing;
                 else if (temp.Type != ItemType.Evidence)
                     damOrHeal = "Damage: " + temp.Damage;
                 spriteBatch.DrawString(font, button.Name + " " + damOrHeal + ", Range: " + temp.Range + ", Equipped: " + s, 
