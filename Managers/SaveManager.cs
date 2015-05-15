@@ -111,6 +111,7 @@ namespace SwiftSands
 							//Details
 							output.Write(task.Target);
 							output.Write(task.ExpReward);
+                            output.Write(task.Redo);
 							output.Write(task.Completed);
 						}
 
