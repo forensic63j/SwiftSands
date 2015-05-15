@@ -81,7 +81,7 @@ namespace SwiftSands
                     color = Color.Bisque;
                 spriteBatch.Draw(texture, button.Position, color);
                 spriteBatch.DrawString(font, t.Description + ", Type: " + t.Type + "\nTarget: " + t.Target + ", Exp Reward: "
-                    + t.ExpReward + "\nCompleted: " + t.Completed,
+                    + t.ExpReward + "\nCompleted: " + t.Completed + ", Redoable: " + t.Redo,
                     new Vector2(200.0f, (float)button.Position.Y), Color.Black);
                 tasks.Add(button);
             }

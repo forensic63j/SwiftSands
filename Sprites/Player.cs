@@ -130,7 +130,7 @@ namespace SwiftSands
 		{
 			this.Level++;
 			exp -= expNeeded;
-            expNeeded = (int)(.5 * Math.Pow(2, Level - 1));
+            expNeeded = (int)(5 * Math.Pow(2, Level - 1));
             TextBox.Instance.Text = "Congratulations! You leveled up!";
             TextBox.Instance.IsActive = true;
             String s = "No stats";
@@ -140,38 +140,31 @@ namespace SwiftSands
 			{
                 String key = stat.Key;
                 int v = stat.Value;
-                if (StateManager.CurrentState.StateGame.Rand.Next(0, 101) >= 25) //75% chance for each stat to be boosted
+                if (key == "Health" || key == "Mana" || key == "Speed" || key == "Strength" || key == "Accuracy")
                 {
-                    s1 += key + ", ";
-                    if (key == "Health")
+                    if (StateManager.CurrentState.StateGame.Rand.Next(0, 101) <= 75)
                     {
-                        MaxHealth += 5;
+                        s1 += key + ", ";
                         v += 5;
+                        if (key == "Health")
+                            this.MaxHealth += 5;
+                        else if (key == "Mana")
+                            this.MaxMana += 5;
+                        else if (key == "Speed")
+                            this.Speed += 5;
+                        else if (key == "Strength")
+                            this.Strength += 5;
+                        else
+                            this.Accuracy += 5;
                     }
-                    else if (key == "Mana")
+                }
+                else
+                {
+                    if(StateManager.CurrentState.StateGame.Rand.Next(0, 101) <= 25)
                     {
-                        MaxMana += 5;
-                        v += 5;
-                    }
-                    else if (key == "Speed")
-                    {
-                        Speed += 5;
-                        v += 5;
-                    }
-                    else if (key == "Strength")
-                    {
-                        Strength += 5;
-                        v += 5;
-                    }
-                    else if (key == "Accuracy")
-                    {
-                        Accuracy += 5;
-                        v += 5;
-                    }
-                    else if (key == "Range")
-                    {
-                        MovementRange++;
+                        s1 += key;
                         v++;
+                        this.MovementRange++;
                     }
                 }
                 temp.Add(key, v);
@@ -197,7 +190,9 @@ namespace SwiftSands
                     Enemy e = (Enemy)sprite;
                     if (e.Name == task.Target && !e.Alive)
                     {
-                        task.EndTask();
+                        task.Counter--;
+                        if (task.Counter == 0)
+                            task.EndTask();
                     }
                 }
                 else if (sprite is Item && type == TaskType.CollectItem)

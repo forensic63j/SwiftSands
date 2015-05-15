@@ -27,15 +27,19 @@ namespace SwiftSands
         private String target; //Name of item, person to talk to, or enemy to kill
         private int expReward;
         private bool completed;
+        private bool redo;
+        private int counter;
         #endregion
 
-        public Task(TaskType type, String desc, String target, int reward)
+        public Task(TaskType type, String desc, String target, int reward, bool redo)
         {
             this.type = type;
             this.description = desc;
             this.target = target;
             this.expReward = reward;
+            this.redo = redo;
             completed = false;
+            counter = 0;
         }
 
         #region Properties
@@ -90,6 +94,29 @@ namespace SwiftSands
                 completed = value;
             }
         }
+        public bool Redo
+        {
+            get 
+            {
+                return redo;
+            }
+            set
+            {
+                redo = value;
+            }
+        }
+        public int Counter
+        {
+            get
+            {
+                return counter;
+            }
+            set
+            {
+                if(value >= 0)
+                    counter = value;
+            }
+        }
         #endregion
 
         #region Methods
@@ -102,7 +129,11 @@ namespace SwiftSands
             this.completed = true;
             TextBox.Instance.Text = "You have completed a task!";
             TextBox.Instance.IsActive = true;
-            TaskManager.Tasks.Remove(this);
+            TaskManager.RemoveTask(this);
+            if(this.Redo)
+            {
+                TaskManager.AddTask(this);
+            }
         }
         #endregion
     }

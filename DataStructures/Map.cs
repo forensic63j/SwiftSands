@@ -171,7 +171,8 @@ namespace SwiftSands
             }
         }
 
-        public void Draw(GameTime time, SpriteBatch spriteBatch)
+        public void Draw(GameTime time, 
+            SpriteBatch spriteBatch)
         {
             for (int r = 0; r < width; r++)
             {

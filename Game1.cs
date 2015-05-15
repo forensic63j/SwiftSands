@@ -237,8 +237,6 @@ namespace SwiftSands
            // Inventory.AddItem(new Item(ItemType.AttackSpell, 0, 15, 2, "A basic fire spell", true, null, new Rectangle(), false, false, "Fire Spell"));
             itemList.Add("Arrowhead", new Item(ItemType.AttackSpell, 0, 17, 2, "Although no longer attached to an arrow, it can still kill.", false,
                 LoadManager.LoadSprite("ItemSprites//", "item-sprite.png"), new Rectangle(64, 0, 32, 32), true, true, "Arrowhead"));
-            TaskManager.AddTask(new Task(TaskType.CollectItem, "Find and retrieve the Arrowhead", "Arrowhead", 50));
-            TaskManager.AddTask(new Task(TaskType.Converse, "Talk to the old man", "Old Man", 5));
 
 			//Menus
             font = this.Content.Load<SpriteFont>("GUI/menuFont");
@@ -279,7 +277,7 @@ namespace SwiftSands
             TextBox.Instance.IsActive = false;
             TextBox.Instance.Texture = buttonSprite;
             TextBox.Instance.SpriteBatch = this.spriteBatch;
-            TextBox.Instance.Position = new Rectangle();
+            TextBox.Instance.Position = new Rectangle(128, this.viewport.Height - 74, 600, 70);
 
 			StateManager.OpenState(mainMenu);
             

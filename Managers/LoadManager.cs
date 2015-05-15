@@ -215,8 +215,18 @@ namespace SwiftSands
 						String description = taskStats[1];
 						String target = taskStats[2];
 						int reward = int.Parse(taskStats[3]);
+                        bool redo = bool.Parse(taskStats[4]);
 
-						Task tempTask = new Task(type,description,target,reward);
+                        int counter = 0;
+
+                        if(type == TaskType.Hunt)
+                        {
+                            String[] desc = description.Split(' ');
+                            counter = int.Parse(desc[1]);
+                        }
+
+						Task tempTask = new Task(type,description,target,reward,redo);
+                        tempTask.Counter = counter;
 						TaskManager.AddTask(tempTask);
 					}
 				}
@@ -373,9 +383,10 @@ namespace SwiftSands
 							String description = input.ReadString();
 							String target = input.ReadString();
 							int reward = input.ReadInt32();
+                            bool redo = input.ReadBoolean();
 							bool completed = input.ReadBoolean();
 
-							Task tempTask = new Task(type,description,target,reward);
+							Task tempTask = new Task(type,description,target,reward,redo);
 							tempTask.Completed = completed;
 							TaskManager.AddTask(tempTask);
 						}
